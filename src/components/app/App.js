@@ -46,7 +46,7 @@ class App extends Component {
                   config={config}                 
                 />                 
               }/> 
-              <Route exact path="/admin/sign-up" render={ ()  => <SignUp 
+              <Route exact path="/admin/signup" render={ ()  => <SignUp 
                   config={config}                 
                 />                 
               }/>              

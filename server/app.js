@@ -38,8 +38,7 @@ app.use(bodyParser.json());
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(session({ 
-  secret: 'temptemptemp',
-  cookie: { secure: false }
+  secret: 'temptemptemp'
  })); // session secret
 
 app.use(passport.initialize());

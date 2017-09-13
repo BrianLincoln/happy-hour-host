@@ -18,7 +18,7 @@ export class Login extends Component {
   render() {
     return (
       <div className="login">
-          <form className="space-top-sm space-bottom-sm row" action={config.apiPath + "/login"} method="post">
+          <form className="space-top-sm space-bottom-sm row" onSubmit={this.handleSubmit} method="post">
             <div className="card col-xs-12 col-sm-6 col-sm-offset-3">
               <div className="card-heading">Login</div>
               <div className="form-element">
