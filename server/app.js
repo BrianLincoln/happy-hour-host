@@ -1,12 +1,17 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const _ = require('lodash');
-var City = require('./models/city.js');
-var Location = require('./models/location.js');
+const passport = require('passport');
+const passportConfig = require('./passport/passport-config');
+const City = require('./models/city.js');
+const Location = require('./models/location.js');
+const User = require('./models/user.js');
+const secretConfig = require('./secret-config.js');
 const app = express();
 
 mongoose.connect("mongodb://localhost:27017/happy", { useMongoClient: true });
@@ -32,11 +37,48 @@ app.use(bodyParser.json());
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
+app.use(session({ 
+  secret: 'temptemptemp',
+  cookie: { secure: false }
+ })); // session secret
 
-app.get('/cities', (req, res) => {
-  City.find({}, function(err, cities) {
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.post('/login', 
+  passport.authenticate('local-login', 
+    {
+      failureRedirect: '/admin/login'
+    }),
+    function(req, res) {
+      res.redirect('/admin');
+    }
+);
+
+app.post('/sign-up', (req, res) => {
+  let user = new User();
+  user.username = req.body.username;
+  user.password = user.generateHash(req.body.password);
+
+  if (req.body.username && req.body.password && req.body.secretCode === secretConfig.signUpSecretCode) {
+    user.save(function(err) {
+      if (err)
+        res.send(err);
+  
+      res.json({ message: 'User added to DB', data: user });
+    });
+  } else {
+    res.status(401);
+    res.json({ message: 'You don\'t know the secret code' });
+  }
+  
+});
+
+
+app.get('/cities', isLoggedIn, (req, res) => {
+    City.find({}, function(err, cities) {
       res.json(cities);
-    });  
+    }); 
 });
 
 app.post('/city', (req, res) => {
@@ -160,5 +202,15 @@ app.delete('/location/:locationId/special/:specialId', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
+
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on 
+    if (process.env.NODE_ENV.trim() === "development" || req.isAuthenticated()) {      
+      return next();
+    } else {
+      res.json({ loggedIn: false });
+    }
+
+}
 
 module.exports = app;

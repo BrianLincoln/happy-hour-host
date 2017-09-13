@@ -4,9 +4,12 @@ import config from './../config';
 const cityApi = {
    getCities: function() {
     return fetch(config.apiPath + '/cities').then((response) => response.json())
-    .then((cities) => {
-        // do stuff with responseJSON here...
-       return cities;
+    .then((response) => {
+        if (response.loggedIn === false) {
+            //window.location.href = "/admin/login";
+        } else {
+            return response;
+        }
     });
    },
    postCity: function(name) {
@@ -41,7 +44,6 @@ const cityApi = {
    getNeighborhoods: function(cityId) {
     return fetch(config.apiPath + '/city/' + cityId + '/neighborhood',).then((response) => response.json())
     .then((neighborhoods) => {
-        console.log("fetched result: ", neighborhoods);
         // do stuff with responseJSON here...
        return neighborhoods;
     });

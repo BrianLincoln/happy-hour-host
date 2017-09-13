@@ -23,6 +23,9 @@ export class Admin extends Component {
   handleManageNavViewChange(view) {
     this.setState({managerView: view});
   }
+  getUserLoginStatus() {
+    console.log("getUserLoginStatus");
+  }
   render() {
     let view = null;
 

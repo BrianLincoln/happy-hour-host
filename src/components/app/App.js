@@ -4,13 +4,15 @@ import './App.scss';
 import Homepage from './../homepage';
 import City from './../city';
 import Admin from './../admin';
+import Login from './../admin/Login';
+import SignUp from './../admin/SignUp';
 import config from './../../config';
 import logo from './../../img/logo-redover-fulltext.svg';
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Switch,
+  Redirect
 } from 'react-router-dom';
 
 class App extends Component {
@@ -35,10 +37,18 @@ class App extends Component {
                   city={meta.match.params.city}
                   area={meta.match.params.area}
                 /> 
-              }/>
-              <Route exact path="/admin" render={ ()  => <Admin 
+              }/>         
+              <Route exact path="/admin" render={ () => <Admin 
+                  config={config} 
+                />
+              }/>  
+              <Route exact path="/admin/login" render={ ()  => <Login 
                   config={config}                 
-                /> 
+                />                 
+              }/> 
+              <Route exact path="/admin/sign-up" render={ ()  => <SignUp 
+                  config={config}                 
+                />                 
               }/>              
             </Switch>
           </div>
