@@ -24,7 +24,7 @@ const loginApi = {
 
     postSignUp: function(username, password, secretCode) {
         console.log("x: ", username.value, " - ", password.value, " - ", secretCode.value);
-        return fetch(config.apiPath + '/sign-up', {      
+        return fetch(config.apiPath + '/signup', {      
             method: 'post',
             body: JSON.stringify({
                 username: username.value,

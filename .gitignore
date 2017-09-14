@@ -3,6 +3,7 @@
 /src/config.js
 /server/passport
 /server/secret-config.js
+/sslcert
 
 
 TODO
