@@ -15,38 +15,42 @@ export class Admin extends Component {
     }
   }    
   getCities() {
-    cityApi.getCities().then((results) => {
-      this.setState({cities: results});
+    cityApi.getCities().then((result) => {
+      if (result.success) {
+        this.setState({cities: result.cities});
+      }
     });
   }  
 
   handleManageNavViewChange(view) {
     this.setState({managerView: view});
   }
-  getUserLoginStatus() {
-    console.log("getUserLoginStatus");
-  }
   render() {
-    let view = null;
-
-    switch(this.state.managerView) {
-      default:
-      case "locations":
-        view = <Locations cities={this.state.cities} />
-        break;
-      case "cities":
-        view = <Cities cities={this.state.cities} getCities={this.getCities} />
-        break;
+    if (!this.state.cities) {
+      return <h1>Fetching cities...</h1>
+    } else  {
+      let view = null;
+      
+          switch(this.state.managerView) {
+            default:
+            case "locations":
+              view = <Locations cities={this.state.cities} />
+              break;
+            case "cities":
+              view = <Cities cities={this.state.cities} getCities={this.getCities} />
+              break;
+          }
+          return (
+            <div className="container">
+              <div className="button-group space-top-md space-bottom-md">
+                <button onClick={() => this.handleManageNavViewChange("cities")} className="button button_dark">Manage Cities/Neighborhoods</button>
+                <button onClick={() => this.handleManageNavViewChange("locations")} className="button button_dark">Manage Locations/Specials</button>
+                <a href="/admin/signout" className="button button_white">sign out</a>
+              </div>
+              {view}
+            </div>
+          )
     }
-    return (
-      <div className="container">
-        <div className="button-group space-top-md space-bottom-md">
-          <button onClick={() => this.handleManageNavViewChange("cities")} className="button button_dark">Manage Cities/Neighborhoods</button>
-          <button onClick={() => this.handleManageNavViewChange("locations")} className="button button_dark">Manage Locations/Specials</button>
-        </div>
-        {view}
-      </div>
-    )
   }
 }
 

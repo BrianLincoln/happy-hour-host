@@ -4,7 +4,7 @@
 
 const app = require('./app');
 const https = require('https');
-var secretConfig = require('./secret-config');
+var secretConfig = require('./secret-config.js');
 
 const PORT = 80;
 

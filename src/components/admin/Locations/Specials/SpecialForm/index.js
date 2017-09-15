@@ -38,11 +38,8 @@ export class AddSpecial extends Component {
       start: start,
       end: end
     }
-    let newTimes = this.state.times.slice();    
-    console.log("1: ", newTimes);
+    let newTimes = this.state.times.slice();  
     newTimes.push(newTime);   
-    console.log("2: ", newTimes);
-    console.log(newTime, this.state.times, newTimes);
     this.setState({times: newTimes});
   }    
   deleteTime(index) {
@@ -55,7 +52,6 @@ export class AddSpecial extends Component {
   }
 
   render() {
-    console.log("~~~", this.props.times, this.state.times);
     return (
       <div>
         <form className="special-form-wrapper space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>  

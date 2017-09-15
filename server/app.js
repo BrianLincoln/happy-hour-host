@@ -8,8 +8,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const path = require('path');
-const app = express();
+var app = module.exports = express();
+const secretConfig = require('./secret-config');
 app.use(require('helmet')());
+app.set('secretCode', secretConfig.secretCode); // secret variable
 
 mongoose.connect("mongodb://localhost:27017/happy", { useMongoClient: true });
 
@@ -64,8 +66,3 @@ var isAuthenticated = function (req, res, next) {
     return next();
   res.redirect('/');
 }
-
-
-
-
-module.exports = app;

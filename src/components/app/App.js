@@ -6,6 +6,7 @@ import City from './../city';
 import Admin from './../admin';
 import Login from './../admin/Login';
 import SignUp from './../admin/SignUp';
+import SignOut from './../admin/SignOut';
 import config from './../../config';
 import logo from './../../img/logo-redover-fulltext.svg';
 import {
@@ -49,7 +50,11 @@ class App extends Component {
               <Route exact path="/admin/signup" render={ ()  => <SignUp 
                   config={config}                 
                 />                 
-              }/>              
+              }/> 
+              <Route exact path="/admin/signout" render={ ()  => <SignOut 
+                  config={config}                 
+                />                 
+              }/>                            
             </Switch>
           </div>
         </Router>

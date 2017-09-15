@@ -12,24 +12,25 @@ export class Login extends Component {
   }    
   handleSubmit(event) {
     event.preventDefault();
-    //loginApi.postLogin(this.username, this.password);
+    loginApi.postLogin(this.username, this.password);
   }
 
   render() {
     return (
-      <div className="login">
-        <form action="/login" method="post">
-          <div className="form-group">
-            <label>Username</label>
-            <input type="text" className="form-control" name="username" />
+      <form  className="space-top-sm space-bottom-sm row" onSubmit={this.handleSubmit}>
+        <div className="card col-xs-12 col-sm-6 col-sm-offset-3">
+          <div className="card-heading">Log In</div>
+          <div className="form-element">
+            <label htmlFor="username">Username:</label>
+            <input id="username" type="text" ref={(username) => this.username = username} />
           </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" className="form-control" name="password" />
-          </div>
-          <button type="submit" className="btn btn-warning btn-lg">Log In</button>
-        </form>           
-      </div>
+          <div className="form-element">
+            <label htmlFor="password">Password:</label>
+            <input id="password" type="password" ref={(password) => this.password = password} />         
+          </div>          
+          <button type="submit" className="button_sm button_scooter">Log In</button> or <a href="/admin/signup" className="color-scooter"> Sign Up</a>     
+        </div>
+      </form>   
     )
   }
 }

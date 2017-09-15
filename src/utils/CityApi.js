@@ -3,14 +3,18 @@ import config from './../config';
 
 const cityApi = {
    getCities: function() {
-    return fetch(config.apiPath + '/cities').then((response) => response.json())
-    .then((response) => {
-        if (response.loggedIn === false) {
-            //window.location.href = "/admin/login";
+        if (localStorage.authToken) {
+            return fetch(config.apiPath + '/cities', {
+                headers: {
+                    'x-access-token': localStorage.authToken
+                }
+            }).then((response) => response.json())
+            .then((response) => {
+               return response;
+            });        
         } else {
-            return response;
+            window.location = "/admin/login";
         }
-    });
    },
    postCity: function(name) {
     return fetch(config.apiPath + '/city', {      

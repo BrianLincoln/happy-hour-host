@@ -3,8 +3,7 @@ import config from './../config';
 
 const loginApi = {
     postLogin: function(username, password) {
-        console.log("x: ", username.value, " - ", password.value);
-        return fetch(config.apiPath + '/login', {      
+        return fetch(config.apiPath + '/authenticate', {      
             method: 'post',
             body: JSON.stringify({
                 username: username.value,
@@ -16,14 +15,18 @@ const loginApi = {
             }        
         })
         .then((res) => { 
-            console.log(res);
-            return res.status 
+            return res.json()
+        })
+        .then((res) => { 
+            if (res.success) {
+                localStorage.setItem('authToken', res.token);
+                window.location = "/admin";
+            }
         })
         .catch(function(res){ console.log(res) })
     },
 
     postSignUp: function(username, password, secretCode) {
-        console.log("x: ", username.value, " - ", password.value, " - ", secretCode.value);
         return fetch(config.apiPath + '/signup', {      
             method: 'post',
             body: JSON.stringify({
@@ -38,6 +41,11 @@ const loginApi = {
         })
         .then((res) => { return res.status })
         .catch(function(res){ console.log(res) })
+    },
+
+    signOut: function() {
+        localStorage.removeItem('authToken');
+        window.location = "/";
     }
        
 }
