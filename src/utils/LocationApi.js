@@ -111,7 +111,30 @@ const locationApi = {
         .then(function(res){ console.log(res) })
         .catch(function(res){ console.log(res) })
     },
-
+    updateLocation: function(location) {
+        return fetch(config.apiPath + '/location/'+ location._id, {      
+            method: 'PUT',
+            body: JSON.stringify({
+                name: location.name,
+                address: {
+                    streetAddress: location.addressStreet,
+                    city: location.addressCity,
+                    state: location.addressState,
+                    zip: location.addressZip
+                },
+                position: {
+                    latitude: location.positionLatitude,                
+                    longitude: location.positionLongitude
+                }
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }        
+        })
+        .then(function(res){ console.log(res) })
+        .catch(function(res){ console.log(res) })
+    },
     deleteLocation: function(locationId) {
         console.log("delete: ", locationId);
         return fetch(config.apiPath + '/location/' + locationId, {      

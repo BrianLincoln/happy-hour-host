@@ -12,11 +12,11 @@ export class Locations extends Component {
         this.handleCitySelect = this.handleCitySelect.bind(this);
         this.handleSubmitNewLocation = this.handleSubmitNewLocation.bind(this);
         this.toggleAddLocationForm = this.toggleAddLocationForm.bind(this);
-        this.getLocationsByCity = this.getLocationsByCity.bind(this);
-        this.updateLocations = this.updateLocations.bind(this);
+        this.fetchLocations = this.fetchLocations.bind(this);
         this.handleLocationClick = this.handleLocationClick.bind(this);
         this.unselectLocation = this.unselectLocation.bind(this);
         this.deleteLocation = this.deleteLocation.bind(this);
+        this.handleSubmitUpdateLocation = this.handleSubmitUpdateLocation.bind(this);
 
         this.state = {
             cityId: null,
@@ -26,30 +26,32 @@ export class Locations extends Component {
         };
     }    
     handleCitySelect(cityId) {
-        this.setState({cityId: cityId});
-        this.getLocationsByCity(cityId);
+        this.setState({cityId: cityId}, () => {
+            this.fetchLocations();            
+        });  
     }
-    handleSubmitNewLocation(location, cityId) {
-        locationApi.postLocation(location, cityId).then((results) => {
-            this.getLocationsByCity(cityId);
+    handleSubmitNewLocation(location) {
+        locationApi.postLocation(location, this.state.cityId).then((results) => {
+            this.fetchLocations();
             this.toggleAddLocationForm();
         });        
+    }
+    handleSubmitUpdateLocation(location) {
+        locationApi.updateLocation(location).then((results) => {
+            this.fetchLocations();
+        });      
     }
     toggleAddLocationForm() {
         this.setState({showAddLocationForm: !this.state.showAddLocationForm});
     }
-    getLocationsByCity(cityId) {
-        if (cityId) {
-            locationApi.getLocationsByCity(cityId).then((locations) => {
-                this.setState({locations: locations});
+    fetchLocations() {
+        console.log("featch locations: ", this.state);
+        if (this.state.cityId) {
+            locationApi.getLocationsByCity(this.state.cityId).then((locations) => {
+                this.setState({locations: locations, selectedLocation: null});
             });
         } else {
             this.setState({locations: []});
-        }
-    }
-    updateLocations() {
-        if (this.state.cityId) {
-            this.getLocationsByCity(this.state.cityId);
         }
     }
     handleLocationClick(location) {
@@ -60,20 +62,22 @@ export class Locations extends Component {
     }
     deleteLocation(location) {
         locationApi.deleteLocation(location).then(() => {
-            this.getLocationsByCity(this.state.scityId);
+            this.fetchLocations();
         }).then(() => {
             this.setState({selectedLocation: null});  
         });           
     }
     render() {
+        console.log("locations props: ", this.props);
+
         const locations = !this.state.locations ? null : this.state.locations.map((location) => {
-            return (<Location handleLocationClick={this.handleLocationClick} key={location._id} location={location} updateLocations={this.updateLocations} /> );
+            return (<Location handleLocationClick={this.handleLocationClick} key={location._id} location={location} fetchLocations={this.fetchLocations} /> );
         });
 
         if (this.state.cityId) {
             if (this.state.selectedLocation) {
                 return (
-                    <LocationDetails deleteLocation={this.deleteLocation} unselectLocation={this.unselectLocation} updateLocations={this.updateLocations} {...this.state.selectedLocation} />
+                    <LocationDetails location={this.state.selectedLocation} deleteLocation={this.deleteLocation} unselectLocation={this.unselectLocation} updateLocation={this.handleSubmitUpdateLocation} fetchLocations={this.fetchLocations} />
                 )
             } else {
                 return (
@@ -81,7 +85,7 @@ export class Locations extends Component {
                         <h1>Locations</h1>
                         <SelectCity {...this.props} handleCitySelect={this.handleCitySelect} />
                         {this.state.showAddLocationForm 
-                            ? <LocationForm {...this.props} mode="new" cityId={this.state.cityId} handleCancel={this.toggleAddLocationForm} handleSubmitNewLocation={this.handleSubmitNewLocation} /> 
+                            ? <LocationForm mode="new" handleCancel={this.toggleAddLocationForm} handleSubmitNewLocation={this.handleSubmitNewLocation} /> 
                             : <button onClick={this.toggleAddLocationForm}>Add Location</button>}
                         <div className="list-group admin-location-list">
                             {locations}

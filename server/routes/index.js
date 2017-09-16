@@ -121,6 +121,15 @@ module.exports = function(passport) {
 	  });  
 	});
 
+	router.put('/location/:locationId', (req, res) => {
+		Location.update({_id: req.params.locationId}, req.body, function(err, location) {			
+			if (err) {
+				res.send(err);
+			}
+			res.json({ success: true, message: "Updated Location: " + req.body.name });	
+		});
+	});
+
 	router.delete('/location/:locationId', (req, res) => {
 		Location.findByIdAndRemove(req.params.locationId, function (err, location) {
 			if (err)

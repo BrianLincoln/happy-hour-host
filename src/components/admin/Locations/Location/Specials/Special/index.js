@@ -26,7 +26,7 @@ export class Special extends Component {
   
   handleSubmitEditSpecialForm(special) {
     locationApi.updateSpecial(special, this.props.locationId, this.props._id).then((locations) => {
-      this.props.updateLocations();      
+      this.props.fetchLocations();      
       this.setState({showEditSpecialForm: !this.state.showEditSpecialForm});
     });    
   }

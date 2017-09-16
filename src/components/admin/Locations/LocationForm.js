@@ -9,16 +9,32 @@ export class LocationForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
 
-    this.state =  {
-      name: this.props.name ? this.props.name : '',
-      positionLatitude: this.props.positionLatitude ? this.props.positionLatitude : '',
-      positionLongitude: this.props.positionLongitude ? this.props.positionLongitude : '',
-      addressStreet: this.props.addressStreet ? this.props.addressStreet : '',
-      addressCity: this.props.addressCity ? this.props.addressCity : '',
-      addressState: this.props.addressState ? this.props.addressState : '',
-      addressZip: this.props.addressZip ? this.props.addressZip : '',
-      neighborhoods: this.props.neighborhoods ? this.props.neighborhoods : []
+      console.log(this.props);
+    if (this.props.mode === "update") {
+      this.state =  {
+        _id: this.props.location._id,
+        name: this.props.location.name ? this.props.location.name : '',
+        positionLatitude: this.props.location.position.latitude ? this.props.location.position.latitude : '',
+        positionLongitude: this.props.location.position.longitude ? this.props.location.position.longitude : '',
+        addressStreet: this.props.location.address.streetAddress ? this.props.location.address.streetAddress : '',
+        addressCity: this.props.location.address.city ? this.props.location.address.city : '',
+        addressState: this.props.location.address.state ? this.props.location.address.state : '',
+        addressZip: this.props.location.address.zip ? this.props.location.address.zip : '',
+        neighborhoods: this.props.location.neighborhoods ? this.props.location.neighborhoods : []
+      }
+    } else {
+      this.state = {
+        name: '',
+        positionLatitude: '',
+        positionLongitude: '',
+        addressStreet: '',
+        addressCity: '',
+        addressState: '',
+        addressZip: '',
+        neighborhoods: []
+      }
     }
+
   } 
   handleFieldChange(event) {
     switch (event.target.id) {
@@ -48,9 +64,9 @@ export class LocationForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.props.mode === "new") {
-      this.props.handleSubmitNewLocation(this.state, this.props.cityId);
+      this.props.handleSubmitNewLocation(this.state);
     } else if (this.props.mode === "update") {
-      this.props.handleSubmitUpdateLocation(this.state, this.props.cityId);
+      this.props.handleSubmitUpdateLocation(this.state);
     }
   }
   handleCancelButtonClick(event) {

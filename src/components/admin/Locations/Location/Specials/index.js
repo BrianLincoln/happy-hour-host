@@ -18,13 +18,13 @@ export class Specials extends Component {
 
   handleSubmitNewSpecial(special) {
     locationApi.postSpecial(special, this.props.locationId).then((locations) => {
-      this.props.updateLocations();
+      this.props.fetchLocations();
     });
   }
 
   deleteSpecial(specialId) {
     locationApi.deleteSpecial(this.props.locationId, specialId).then((locations) => {
-      this.props.updateLocations();
+      this.props.fetchLocations();
     });
   }
   toggleAddSpecialForm() {
@@ -37,7 +37,7 @@ export class Specials extends Component {
 
     const specials = this.props.specials.map((special, index) => {
       return (
-        <Special key={special._id} {...special} locationId={this.props.locationId} deleteSpecial={this.deleteSpecial} updateLocations={this.props.updateLocations} />
+        <Special key={special._id} {...special} locationId={this.props.locationId} deleteSpecial={this.deleteSpecial} fetchLocations={this.props.fetchLocations} />
       );
     });    
     return (
