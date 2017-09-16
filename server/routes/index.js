@@ -120,6 +120,15 @@ module.exports = function(passport) {
 		res.json({ message: 'location added to DB', data: location });
 	  });  
 	});
+
+	router.delete('/location/:locationId', (req, res) => {
+		Location.findByIdAndRemove(req.params.locationId, function (err, location) {
+			if (err)
+					throw err;
+			
+			res.json({ success: true, message: "Deleted" });			
+		});
+	});
 	
 	router.post('/location/:locationId/special', (req, res) => {
 	  Location.findById(req.params.locationId, function(err, location) {

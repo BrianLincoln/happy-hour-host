@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SpecialForm from './SpecialForm';
-import locationApi from './../../../../utils/LocationApi';
+import locationApi from './../../../../../../utils/LocationApi';
 
 export class Special extends Component {
   constructor(props) {

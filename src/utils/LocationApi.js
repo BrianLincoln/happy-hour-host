@@ -112,6 +112,19 @@ const locationApi = {
         .catch(function(res){ console.log(res) })
     },
 
+    deleteLocation: function(locationId) {
+        console.log("delete: ", locationId);
+        return fetch(config.apiPath + '/location/' + locationId, {      
+            method: 'delete',            
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }        
+        })
+        .then(function(res){ console.log(res) })
+        .catch(function(res){ console.log(res) })
+    },
+
     postSpecial: function(special, locationId) {
     return fetch(config.apiPath + '/location/' + locationId + '/special', {      
         method: 'post',

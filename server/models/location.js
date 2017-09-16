@@ -1,6 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var Offering = new Schema({
+  description: {
+        type: String,
+        required: true
+    }
+});
+
 var Time = new Schema({
   start: {
         type: String,
@@ -27,6 +34,10 @@ var Special = new Schema({
     }, 
     times: {
       type: [Time],
+      required: true
+    },
+    offerings: {
+      type: [Offering],
       required: true
     }
 });

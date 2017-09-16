@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cityApi from './../../utils/CityApi';
 import Cities from './Cities/Cities';
-import Locations from './Locations/Locations';
+import Locations from './Locations';
 
 export class Admin extends Component {
   constructor(props) {
