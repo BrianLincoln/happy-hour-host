@@ -31,7 +31,8 @@ export class LocationForm extends Component {
         addressCity: '',
         addressState: '',
         addressZip: '',
-        neighborhoods: []
+        neighborhoods: [],
+        specials: []
       }
     }
 

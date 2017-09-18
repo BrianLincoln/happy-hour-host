@@ -15,8 +15,7 @@ export class Time extends Component {
   render() {
     return (
       <div>
-        {this.props.time.start} - {this.props.time.end} 
-        <button onClick={this.handleDeleteTimeClick}>x</button>
+        {this.props.time.start} - {this.props.time.end} <a className="color-valencia" onClick={this.handleDeleteTimeClick}>delete</a>
       </div>
     );
   }

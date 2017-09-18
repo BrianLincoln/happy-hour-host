@@ -3,7 +3,7 @@ import Days from './Days';
 import Times from './Times';
 import './SpecialForm.scss';
 
-export class AddSpecial extends Component {
+export class SpecialForm extends Component {
   constructor(props) {
     super(props);
 
@@ -12,12 +12,24 @@ export class AddSpecial extends Component {
     this.deleteTime = this.deleteTime.bind(this);
     this.handleSubmitNewTime = this.handleSubmitNewTime.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
 
-    this.state =  {
-      headline: this.props.headline ? this.props.headline : '',
-      description: this.props.description ? this.props.description : '',
-      days: this.props.days ? this.props.days : [],
-      times: this.props.times ? this.props.times : [],
+    if (this.props.special) {
+      this.state =  {
+        headline: this.props.special.headline ? this.props.special.headline : '',
+        description: this.props.special.description ? this.props.special.description : '',
+        days: this.props.special.days ? this.props.special.days : [],
+        times: this.props.special.times ? this.props.special.times : [],
+        offerings: this.props.special.offerings ? this.props.special.offerings : []
+      }
+    } else {
+      this.state =  {
+        headline: '',
+        description: '',
+        days: [],
+        times: [],
+        offerings: []
+      }
     }
   }   
   handleFieldChange(event) {
@@ -43,19 +55,26 @@ export class AddSpecial extends Component {
     this.setState({times: newTimes});
   }    
   deleteTime(index) {
-    const newTimes = this.state.times.splice(index, 1);
+    console.log("delete time: ", index);
+    console.log("state times beforee: ", this.state.times);
+    const newTimes = this.state.times;
+    newTimes.splice(index, 1);
+    console.log("state times: ", this.state.times, "\n -> \nnew times: ", newTimes);
     this.setState({times: newTimes});
   }     
   handleSubmit(event) {
     event.preventDefault();
     this.props.handleSubmitSpecialForm(this.state);
+  }  
+  handleCancelButtonClick(event) {
+    event.preventDefault();
+    this.props.handleCancelSpecialForm();
   }
 
   render() {
     return (
       <div>
-        <form className="special-form-wrapper space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>  
-          <h2>New Special:</h2>
+        <form className="special-form-wrapper space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>          
           <div className="form-element">
             <label className="font-title-sm form-label" htmlFor="headline">headline: </label>
             <input required type="text" id="headline" value={this.state.headline} onChange={this.handleFieldChange} />
@@ -67,10 +86,11 @@ export class AddSpecial extends Component {
           <Days handleDayChange={this.handleDayChange} days={this.state.days}/>   
           <Times handleSubmitNewTime={this.handleSubmitNewTime} deleteTime={this.deleteTime} times={this.state.times} />      
           <input className="button_sm button_scooter" type="submit" value="Submit" />
+          <button className="button_sm button_valencia" onClick={this.handleCancelButtonClick}>cancel</button>
         </form>        
       </div>
     );
   }
 }
 
-export default AddSpecial;
+export default SpecialForm;

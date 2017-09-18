@@ -1,0 +1,10 @@
+@import "./../../../../../sprak-styles/sprak-variables.scss";
+
+.specials-list {
+    background: $color-light;
+    margin: $space-md 0;
+    padding: $space-md;
+}
+.specials-list-item { 
+    cursor: pointer;
+}

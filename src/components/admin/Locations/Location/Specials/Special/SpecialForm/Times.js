@@ -19,7 +19,7 @@ export class Times extends Component {
             <AddTime handleSubmitNewTime={this.props.handleSubmitNewTime} />
           </div>
         </div>         
-        {times}
+        {times.length > 0  ? times : "All Day"}
       </div>           
     )
     

@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var Offering = new Schema({
   description: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
@@ -33,12 +32,10 @@ var Special = new Schema({
       required: true
     }, 
     times: {
-      type: [Time],
-      required: true
+      type: [Time]
     },
     offerings: {
-      type: [Offering],
-      required: true
+      type: [Offering]
     }
 });
 

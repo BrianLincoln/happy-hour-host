@@ -103,14 +103,14 @@ module.exports = function(passport) {
 	  location.name = req.body.name;
 	  location.cityId = req.body.cityId;
 	  location.position = {
-		latitude: req.body.position.latitude,
-		longitude: req.body.position.longitude
+			latitude: req.body.position.latitude,
+			longitude: req.body.position.longitude
 	  };
 	  location.address = {
-		streetAddress: req.body.address.streetAddress,
-		city: req.body.address.city,
-		state: req.body.address.state,
-		zip: req.body.address.zip
+			streetAddress: req.body.address.streetAddress,
+			city: req.body.address.city,
+			state: req.body.address.state,
+			zip: req.body.address.zip
 	  }
 	
 	  location.save(function(err) {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import './Specials.scss';
 import AddSpecial from './Special/SpecialForm';
 import Special from './Special';
+import SpecialDetails from './Special/SpecialDetails';
 import locationApi from './../../../../../utils/LocationApi';
 
 export class Specials extends Component {
@@ -8,20 +10,35 @@ export class Specials extends Component {
     super(props);
 
     this.state = {      
-      showAddSpecialForm: false
+      showAddSpecialForm: false,
+      selectedSpecial: null
     }
 
+    this.handleSelectSpecial = this.handleSelectSpecial.bind(this);
+    this.handleDeselectSpecial = this.handleDeselectSpecial.bind(this);
     this.handleSubmitNewSpecial = this.handleSubmitNewSpecial.bind(this);
     this.deleteSpecial = this.deleteSpecial.bind(this);
+    this.handleSubmitEditSpecialForm = this.handleSubmitEditSpecialForm.bind(this);
     this.toggleAddSpecialForm = this.toggleAddSpecialForm.bind(this);
+    this.cancelEditSpecial = this.cancelEditSpecial.bind(this);
   }  
 
+  handleSelectSpecial(special) {
+    this.setState({selectedSpecial: special});
+  }
+  handleDeselectSpecial() {
+    this.setState({selectedSpecial: null}, this.props.fetchLocations());
+  }
   handleSubmitNewSpecial(special) {
     locationApi.postSpecial(special, this.props.locationId).then((locations) => {
       this.props.fetchLocations();
     });
   }
-
+  handleSubmitEditSpecialForm(special, specialId) {
+    locationApi.updateSpecial(special, this.props.locationId, specialId).then((locations) => {      
+      this.setState({showEditSpecialForm: false}, this.props.fetchLocations());
+    });    
+  }  
   deleteSpecial(specialId) {
     locationApi.deleteSpecial(this.props.locationId, specialId).then((locations) => {
       this.props.fetchLocations();
@@ -30,27 +47,31 @@ export class Specials extends Component {
   toggleAddSpecialForm() {
     this.setState({showAddSpecialForm: !this.state.showAddSpecialForm});
   }  
+  cancelEditSpecial() {
+    this.props.fetchLocations();
+  }
   render() {
-    const toggleAddSpecial = this.state.showAddSpecialForm 
-      ? <button onClick={this.toggleAddSpecialForm} className="button_sm button_dark admin-add-location-action">x hide</button>
-      : <button onClick={this.toggleAddSpecialForm} className="button_sm button_dark admin-add-location-action">+ add special</button>;
-
-    const specials = this.props.specials.map((special, index) => {
+    if (this.state.showAddSpecialForm) {
+      return (<AddSpecial handleSubmitSpecialForm={this.handleSubmitNewSpecial} handleCancelSpecialForm={this.toggleAddSpecialForm} />);
+    } else if (this.state.selectedSpecial) {
+      return (<SpecialDetails special={this.state.selectedSpecial} deselectSpecial={this.handleDeselectSpecial} deleteSpecial={this.deleteSpecial} handleSubmitEditSpecialForm={this.handleSubmitEditSpecialForm} cancelEditSpecial={this.cancelEditSpecial} />);
+    } else {
+      const specials = this.props.specials.map((special, index) => {
+        return (
+          <Special key={special._id} special={special} selectSpecial={this.handleSelectSpecial} />
+        );
+      });    
       return (
-        <Special key={special._id} {...special} locationId={this.props.locationId} deleteSpecial={this.deleteSpecial} fetchLocations={this.props.fetchLocations} />
+        <div>
+          <div className="specials-list list-group">
+          <div className="list-item specials-list-item" onClick={this.handleClick}>
+            <button onClick={this.toggleAddSpecialForm} className="button_sm button_dark admin-add-location-action">+ add special</button>
+          </div>
+            {specials}
+          </div>
+        </div>
       );
-    });    
-    return (
-      <div className="row">
-        <div className="col-xs-12 col-md-6">
-          {specials}
-        </div>
-        <div className="col-xs-12 col-md-6">
-          {toggleAddSpecial}
-          {this.state.showAddSpecialForm ? <AddSpecial handleSubmitSpecialForm={this.handleSubmitNewSpecial} /> : null}
-        </div>
-      </div>
-    );
+    }
   }
 }
 
