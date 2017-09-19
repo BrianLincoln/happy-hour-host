@@ -11,3 +11,16 @@
 .text-result-name {
     margin-bottom: $space-sm;
 }
+
+a.text-result-link, a.text-result-link:visited {
+    align-items: center;
+    color: $color-scooter;
+    display: flex;
+    margin: 0 0 $space-xs 0;
+}
+
+.text-result-link-icon {
+    margin: 0 $space-sm 0 0;
+    min-width: $space-sm;
+    text-align: center;
+}

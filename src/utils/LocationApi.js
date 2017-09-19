@@ -101,6 +101,8 @@ const locationApi = {
                     latitude: location.positionLatitude,                
                     longitude: location.positionLongitude
                 },
+                website: location.website,
+                googleMapLink: location.googleMapLink,
                 cityId: cityId
             }),
             headers: {
@@ -125,7 +127,9 @@ const locationApi = {
                 position: {
                     latitude: location.positionLatitude,                
                     longitude: location.positionLongitude
-                }
+                },
+                website: location.website,
+                googleMapLink: location.googleMapLink
             }),
             headers: {
                 'Accept': 'application/json',

@@ -80,7 +80,9 @@ var Location = new Schema({
     address: {
       type: Address,
       required: true
-    }
+    },
+    website: String,
+    googleMapLink: String
 });
 
 

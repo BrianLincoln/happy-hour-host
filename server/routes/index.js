@@ -111,7 +111,9 @@ module.exports = function(passport) {
 			city: req.body.address.city,
 			state: req.body.address.state,
 			zip: req.body.address.zip
-	  }
+		};
+		location.website = req.body.website;
+		location.googleMapLink = req.body.googleMapLink
 	
 	  location.save(function(err) {
 		if (err) {

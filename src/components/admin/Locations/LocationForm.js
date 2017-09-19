@@ -20,7 +20,9 @@ export class LocationForm extends Component {
         addressCity: this.props.location.address.city ? this.props.location.address.city : '',
         addressState: this.props.location.address.state ? this.props.location.address.state : '',
         addressZip: this.props.location.address.zip ? this.props.location.address.zip : '',
-        neighborhoods: this.props.location.neighborhoods ? this.props.location.neighborhoods : []
+        neighborhoods: this.props.location.neighborhoods ? this.props.location.neighborhoods : [],
+        website: this.props.location.website ? this.props.location.website : '',
+        googleMapLink: this.props.location.googleMapLink ? this.props.location.googleMapLink : ''
       }
     } else {
       this.state = {
@@ -32,7 +34,9 @@ export class LocationForm extends Component {
         addressState: '',
         addressZip: '',
         neighborhoods: [],
-        specials: []
+        specials: [],
+        website: '',
+        googleMapLink: ''
       }
     }
 
@@ -60,10 +64,17 @@ export class LocationForm extends Component {
       case "address-zip":
         this.setState({addressZip: event.target.value});
         break;
+      case "website":
+        this.setState({website: event.target.value});
+        break;
+      case "googleMapLink":
+        this.setState({googleMapLink: event.target.value});
+        break;  
     }
   }
   handleSubmit(event) {
     event.preventDefault();
+    console.log("state at submit: ", this.state);
     if (this.props.mode === "new") {
       this.props.handleSubmitNewLocation(this.state);
     } else if (this.props.mode === "update") {
@@ -106,6 +117,14 @@ export class LocationForm extends Component {
           <div className="form-element">              
             <label className="font-title-sm form-label" htmlFor="address-zip">zip: </label>
             <input required type="text" id="address-zip" value={this.state.addressZip} onChange={this.handleFieldChange} />
+          </div>  
+          <div className="form-element">              
+            <label className="font-title-sm form-label" htmlFor="website">website: </label>
+            <input required type="text" id="website" value={this.state.website} onChange={this.handleFieldChange} />
+          </div>  
+          <div className="form-element">              
+            <label className="font-title-sm form-label" htmlFor="googleMapLink">googleMapLink: </label>
+            <input required type="text" id="googleMapLink" value={this.state.googleMapLink} onChange={this.handleFieldChange} />
           </div>                                                                       
 
           <div className="button-group">

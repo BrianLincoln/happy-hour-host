@@ -38,6 +38,8 @@ export class LocationDetails extends Component {
             <div>{this.props.location.address.city}, {this.props.location.address.state} {this.props.location.address.zip}</div>
           </div>
           <div>{this.props.location.position.latitude}, {this.props.location.position.longitude}</div>
+          <div><a href={this.props.location.website}>{this.props.location.website}</a></div>
+          <div><a href={this.props.location.googleMapLink}>google map</a></div>
           <div>
             <button onClick={this.handleEditButtonClick} className="button_sm button_valencia">edit</button>
             <button onClick={this.props.unselectLocation} className="button_sm button_scooter">back</button>
