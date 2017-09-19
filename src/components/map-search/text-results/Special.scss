@@ -12,8 +12,23 @@
     margin-bottom: $space-xs;
 }
 
-.special-description {
+.special-offerings {
     margin-bottom: $space-sm;
+}
+
+.special-days-wrapper {
+    margin-bottom: $space-sm;
+}
+
+.special-days-wrapper,
+.special-times-wrapper {
+    align-items: center;
+    display: flex;
+
+    > i {
+        font-size: .8em;
+        opacity: .8;
+    }
 }
 
 .special-day-header {
@@ -22,6 +37,7 @@
     min-width: 0px;
     padding: $space-xs;
     user-select: none;
+    text-transform: uppercase;
 }
 
 .special-icon {

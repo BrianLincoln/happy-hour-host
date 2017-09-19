@@ -4,20 +4,16 @@ export class AddTime extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleAddTimeForm = this.toggleAddTimeForm.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state =  {
-      showAddTimeForm: false,
-      time: {
-        start: null,
-        end: null
-      }
+      offering: ""
     }
   }    
-  toggleAddTimeForm() {
-    this.setState({showAddTimeForm: !this.state.showAddTimeForm});
+  handleFieldChange(event) {
+    this.setState({offering: event.target.value});
   }
   handleTimeChange(event) {
     let newTime = this.state.time

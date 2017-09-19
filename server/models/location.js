@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var Offering = new Schema({
   description: {
-        type: String
+        type: String,
+        required: true
     }
 });
 
@@ -22,11 +23,7 @@ var Special = new Schema({
     headline: {
         type: String,
         required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },      
+    },     
     days: {
       type: Array,
       required: true

@@ -54,18 +54,23 @@ export class SpecialDetails extends Component {
             return <div className="font-base-alt" key={time._id}>{startTime} - {endTime}</div>;
           }) 
         : "All Day"; 
-      const offerings = "Offerings";
 
+      const offerings = this.props.special.offerings && this.props.special.offerings.length > 0 
+      ? this.props.special.offerings.map((offering) => {
+          return <div className="font-base-alt" key={offering._id}>{offering.description}</div>;
+        }) 
+      : "No Offerings"; 
+      
       return (
         <div className="card">
           <div className="list-group">
             <div className="list-item">
-              <div className="font-title-sm">{this.props.special.headline}</div>
-              <p>{this.props.special.description}</p>
+              <span className="font-title-sm">{this.props.special.headline}</span>
             </div>
+            
+            <div className="list-item">{offerings}</div>
             <div className="list-item">{days}</div>
             <div className="list-item">{times}</div>
-            <div className="list-item">{offerings}</div>
             
             <div className="list-item">
               <button onClick={this.toggleEditSpecial} className="button_sm button_valencia">+ edit</button>            
