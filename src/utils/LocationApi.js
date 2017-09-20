@@ -91,12 +91,6 @@ const locationApi = {
             method: 'post',
             body: JSON.stringify({
                 name: location.name,
-                address: {
-                    streetAddress: location.addressStreet,
-                    city: location.addressCity,
-                    state: location.addressState,
-                    zip: location.addressZip
-                },
                 position: {
                     latitude: location.positionLatitude,                
                     longitude: location.positionLongitude
@@ -118,12 +112,6 @@ const locationApi = {
             method: 'PUT',
             body: JSON.stringify({
                 name: location.name,
-                address: {
-                    streetAddress: location.addressStreet,
-                    city: location.addressCity,
-                    state: location.addressState,
-                    zip: location.addressZip
-                },
                 position: {
                     latitude: location.positionLatitude,                
                     longitude: location.positionLongitude

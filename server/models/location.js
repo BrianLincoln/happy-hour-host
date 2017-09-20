@@ -47,25 +47,6 @@ var Position = new Schema({
   }
 });
 
-var Address = new Schema({
-  streetAddress: {
-    type: String,
-    required: true
-  },
-  city: {
-    type: String,
-    required: true
-  },
-  state: {
-    type: String,
-    required: true
-  },
-  zip: {
-    type: String,
-    required: true
-  }    
-});
-
 var Location = new Schema({
     name: {
       type: String,
@@ -75,10 +56,6 @@ var Location = new Schema({
     specials: [Special],
     position: {
       type: Position,
-      required: true
-    },
-    address: {
-      type: Address,
       required: true
     },
     website: String,

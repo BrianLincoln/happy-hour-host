@@ -16,10 +16,6 @@ export class LocationForm extends Component {
         name: this.props.location.name ? this.props.location.name : '',
         positionLatitude: this.props.location.position.latitude ? this.props.location.position.latitude : '',
         positionLongitude: this.props.location.position.longitude ? this.props.location.position.longitude : '',
-        addressStreet: this.props.location.address.streetAddress ? this.props.location.address.streetAddress : '',
-        addressCity: this.props.location.address.city ? this.props.location.address.city : '',
-        addressState: this.props.location.address.state ? this.props.location.address.state : '',
-        addressZip: this.props.location.address.zip ? this.props.location.address.zip : '',
         neighborhoods: this.props.location.neighborhoods ? this.props.location.neighborhoods : [],
         website: this.props.location.website ? this.props.location.website : '',
         googleMapLink: this.props.location.googleMapLink ? this.props.location.googleMapLink : ''
@@ -29,10 +25,6 @@ export class LocationForm extends Component {
         name: '',
         positionLatitude: '',
         positionLongitude: '',
-        addressStreet: '',
-        addressCity: '',
-        addressState: '',
-        addressZip: '',
         neighborhoods: [],
         specials: [],
         website: '',
@@ -51,18 +43,6 @@ export class LocationForm extends Component {
         break;
       case "longitude":
         this.setState({positionLongitude: event.target.value});
-        break;
-      case "street-address":
-        this.setState({addressStreet: event.target.value});
-        break;
-      case "address-city":
-        this.setState({addressCity: event.target.value});
-        break;
-      case "address-state":
-        this.setState({addressState: event.target.value});
-        break;
-      case "address-zip":
-        this.setState({addressZip: event.target.value});
         break;
       case "website":
         this.setState({website: event.target.value});
@@ -102,22 +82,6 @@ export class LocationForm extends Component {
             <label className="font-title-sm form-label" htmlFor="longitude">longitude: </label>
             <input required type="text" id="longitude" value={this.state.positionLongitude} onChange={this.handleFieldChange} />
           </div>
-          <div className="form-element">            
-            <label className="font-title-sm form-label" htmlFor="street-address">street address: </label>
-            <input required type="text" id="street-address" value={this.state.addressStreet} onChange={this.handleFieldChange} />
-          </div>
-          <div className="form-element">
-            <label className="font-title-sm form-label" htmlFor="address-city">city: </label>
-            <input required type="text" id="address-city" value={this.state.addressCity} onChange={this.handleFieldChange} />
-          </div>
-          <div className="form-element">
-            <label className="font-title-sm form-label" htmlFor="address-state">state: </label>
-            <input required type="text" id="address-state" value={this.state.addressState} onChange={this.handleFieldChange} />
-          </div>
-          <div className="form-element">              
-            <label className="font-title-sm form-label" htmlFor="address-zip">zip: </label>
-            <input required type="text" id="address-zip" value={this.state.addressZip} onChange={this.handleFieldChange} />
-          </div>  
           <div className="form-element">              
             <label className="font-title-sm form-label" htmlFor="website">website: </label>
             <input required type="text" id="website" value={this.state.website} onChange={this.handleFieldChange} />

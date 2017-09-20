@@ -33,10 +33,6 @@ export class LocationDetails extends Component {
       return (
         <div>
           <h1>{this.props.location.name}</h1>
-          <div className="location-details-address">
-            <div>{this.props.location.address.streetAddress}</div>
-            <div>{this.props.location.address.city}, {this.props.location.address.state} {this.props.location.address.zip}</div>
-          </div>
           <div>{this.props.location.position.latitude}, {this.props.location.position.longitude}</div>
           <div><a href={this.props.location.website}>{this.props.location.website}</a></div>
           <div><a href={this.props.location.googleMapLink}>google map</a></div>

@@ -106,12 +106,6 @@ module.exports = function(passport) {
 			latitude: req.body.position.latitude,
 			longitude: req.body.position.longitude
 	  };
-	  location.address = {
-			streetAddress: req.body.address.streetAddress,
-			city: req.body.address.city,
-			state: req.body.address.state,
-			zip: req.body.address.zip
-		};
 		location.website = req.body.website;
 		location.googleMapLink = req.body.googleMapLink
 	
