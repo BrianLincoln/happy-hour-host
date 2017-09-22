@@ -17,6 +17,7 @@ export class Locations extends Component {
         this.unselectLocation = this.unselectLocation.bind(this);
         this.deleteLocation = this.deleteLocation.bind(this);
         this.handleSubmitUpdateLocation = this.handleSubmitUpdateLocation.bind(this);
+        this.getLocationById = this.getLocationById.bind(this);
 
         this.state = {
             cityId: null,
@@ -44,11 +45,12 @@ export class Locations extends Component {
     toggleAddLocationForm() {
         this.setState({showAddLocationForm: !this.state.showAddLocationForm});
     }
-    fetchLocations() {
-        console.log("featch locations: ", this.state);
+    fetchLocations(selectedLocationId) {
+        const selectedLocation = selectedLocationId ? this.getLocationById(selectedLocationId) : null;
+
         if (this.state.cityId) {
             locationApi.getLocationsByCity(this.state.cityId).then((locations) => {
-                this.setState({locations: locations, selectedLocation: null});
+                this.setState({locations: locations, selectedLocation: selectedLocation ? selectedLocation : null});
             });
         } else {
             this.setState({locations: []});
@@ -67,9 +69,13 @@ export class Locations extends Component {
             this.setState({selectedLocation: null});  
         });           
     }
+    getLocationById(locationId) {
+        const result = this.state.locations.filter(function( location ) {
+            return location._id === locationId;
+        });
+        return result.length > 0 ? result[0] : null;
+    }
     render() {
-        console.log("locations props: ", this.props);
-
         const locations = !this.state.locations ? null : this.state.locations.map((location) => {
             return (<Location handleLocationClick={this.handleLocationClick} key={location._id} location={location} fetchLocations={this.fetchLocations} /> );
         });

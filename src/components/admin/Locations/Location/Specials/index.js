@@ -27,7 +27,13 @@ export class Specials extends Component {
     this.setState({selectedSpecial: special});
   }
   handleDeselectSpecial() {
-    this.setState({selectedSpecial: null}, this.props.fetchLocations());
+    this.setState({selectedSpecial: null});
+  }
+  cancelEditSpecial() {
+    const selectSpecial = this.state.selectedSpecial;
+    
+    this.props.fetchLocations(this.props.locationId);
+    this.setState({selectedSpecial: selectSpecial});
   }
   handleSubmitNewSpecial(special) {
     locationApi.postSpecial(special, this.props.locationId).then((locations) => {
@@ -47,9 +53,6 @@ export class Specials extends Component {
   toggleAddSpecialForm() {
     this.setState({showAddSpecialForm: !this.state.showAddSpecialForm});
   }  
-  cancelEditSpecial() {
-    this.props.fetchLocations();
-  }
   render() {
     if (this.state.showAddSpecialForm) {
       return (<AddSpecial handleSubmitSpecialForm={this.handleSubmitNewSpecial} handleCancelSpecialForm={this.toggleAddSpecialForm} />);
