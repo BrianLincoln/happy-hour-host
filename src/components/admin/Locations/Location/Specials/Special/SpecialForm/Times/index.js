@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import AddTime from './AddTime';
 import Time from './Time';
 
 export class Times extends Component {
+
   render() {
     let times = this.props.times.map((time, index) => {
       return (
@@ -16,13 +16,12 @@ export class Times extends Component {
             <label className="font-title-sm">Times:</label>
           </div>
           <div className="col-xs-12 col-sm-6">
-            <AddTime handleSubmitNewTime={this.props.handleSubmitNewTime} />
+            <button onClick={this.props.handleShowTimeFormClick} className="button_sm button_dark">+ add time</button>
           </div>
         </div>         
         {times.length > 0  ? times : "All Day"}
       </div>           
     )
-    
   }
 }
 

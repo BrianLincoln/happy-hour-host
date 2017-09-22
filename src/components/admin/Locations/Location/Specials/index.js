@@ -37,17 +37,20 @@ export class Specials extends Component {
   }
   handleSubmitNewSpecial(special) {
     locationApi.postSpecial(special, this.props.locationId).then((locations) => {
-      this.props.fetchLocations();
+      this.props.fetchLocations(this.props.locationId);
+      this.setState({showAddSpecialForm: false, selectedSpecial: null});
     });
   }
   handleSubmitEditSpecialForm(special, specialId) {
+    this.setState({showEditSpecialForm: false, selectedSpecial: null});
+
     locationApi.updateSpecial(special, this.props.locationId, specialId).then((locations) => {      
-      this.setState({showEditSpecialForm: false}, this.props.fetchLocations());
+      this.props.fetchLocations(this.props.locationId);
     });    
   }  
   deleteSpecial(specialId) {
     locationApi.deleteSpecial(this.props.locationId, specialId).then((locations) => {
-      this.props.fetchLocations();
+      this.props.fetchLocations(this.props.locationId);
     });
   }
   toggleAddSpecialForm() {

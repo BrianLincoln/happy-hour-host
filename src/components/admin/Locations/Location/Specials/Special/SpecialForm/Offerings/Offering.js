@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Offering.scss';
 
 export class Offerings extends Component {
   constructor(props) {
@@ -14,8 +15,10 @@ export class Offerings extends Component {
   }  
   render() {
     return (
-      <div>
-        {this.props.offering.description} <a className="color-valencia" onClick={this.handleDeleteClick}>delete</a>
+      <div className="row admin-offering">
+        <div className="col-xs-6">{this.props.offering.description} </div>
+        <div className="col-xs-3">{this.props.offering.pending ? <div className="font-sm">*pending save</div> : null}</div>
+        <div className="col-xs-3"><a className="button_sm button_valencia" onClick={this.handleDeleteClick}>x</a></div>        
       </div>
     );
   }

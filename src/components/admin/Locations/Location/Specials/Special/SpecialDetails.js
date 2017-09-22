@@ -18,7 +18,7 @@ export class SpecialDetails extends Component {
     this.handleCancelSpecialForm = this.handleCancelSpecialForm.bind(this);
   }  
 
-  toggleEditSpecial(event) {
+  toggleEditSpecial() {
     this.setState({showEditSpecialForm: !this.state.showEditSpecialForm});
   }
   deleteSpecial(event) {
@@ -30,6 +30,7 @@ export class SpecialDetails extends Component {
     this.props.deselectSpecial();
   }
   handleSubmitEditSpecialForm(special) {
+    this.toggleEditSpecial();
     this.props.handleSubmitEditSpecialForm(special, this.props.special._id);
   }
   handleCancelSpecialForm() {
