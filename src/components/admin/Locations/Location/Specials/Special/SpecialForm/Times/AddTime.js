@@ -46,7 +46,6 @@ export class AddTime extends Component {
   }
 
   render() {
-    console.log("add time state: ",  this.state);
     return (
       <div>
         <h2>Add Time</h2>
