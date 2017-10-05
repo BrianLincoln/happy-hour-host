@@ -9,12 +9,20 @@ import SignUp from './../admin/SignUp';
 import SignOut from './../admin/SignOut';
 import config from './../../config';
 import logo from './../../img/logo-redover-fulltext.svg';
+import ReactGA from 'react-ga';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
 } from 'react-router-dom';
+
+ReactGA.initialize('UA-000000-01');
+
+function logPageView() {
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 class App extends Component {
   render() {
@@ -31,6 +39,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={ ()  => <Homepage 
                   config={config}
+                  onUpdate={logPageView}
                 /> 
               }/>
               <Route exact path="/c/:city/:area?" render={ (meta)  => <City 
@@ -58,10 +67,6 @@ class App extends Component {
             </Switch>
           </div>
         </Router>
-
-
-
-
       </div>
     );
   }
