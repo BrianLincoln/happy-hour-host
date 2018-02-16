@@ -6,9 +6,10 @@ const minneapolisCityId = "598392e1f69ccd390c5983c8";
 
 const locationApi = {
    getLocations: function(bounds, filters) {
-    return fetch(config.apiPath + '/city/' + minneapolisCityId + '/locations').then(function(response) {
+    return fetch(config.apiPath + '/city/' + minneapolisCityId + '/locations').then(function(response) { 
         return response.json();
     }).then(function(response) {
+        //filter by map bounds
         let results = [];
         if (bounds) {
             results = _.remove(response, function(n) {
@@ -82,10 +83,15 @@ const locationApi = {
         return fetch(config.apiPath + '/city/' + cityId + '/locations').then((response) => response.json())
         .then((cities) => {
             // do stuff with responseJSON here...
-        return cities;
+            return cities;
         });
    },   
-
+   getLocation: function(locationId) {
+        return fetch(config.apiPath + '/location/' + locationId).then((response) => response.json())
+        .then((response) => {
+            return response.location;
+        });
+   },
     postLocation: function(location, cityId) {
         return fetch(config.apiPath + '/location', {      
             method: 'post',

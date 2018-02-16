@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Offerings from './Offerings';
-import AddOffering from './Offerings/AddOffering';
 import Days from './Days';
 import Times from './Times';
 import AddTime from './Times/AddTime';
@@ -19,12 +17,6 @@ export class SpecialForm extends Component {
     this.handleCancelTimeForm = this.handleCancelTimeForm.bind(this);
     this.deleteTime = this.deleteTime.bind(this);
 
-    //offerings
-    this.handleShowOfferingFormClick = this.handleShowOfferingFormClick.bind(this);
-    this.handleSubmitNewOffering = this.handleSubmitNewOffering.bind(this);
-    this.handleCancelOfferingForm = this.handleCancelOfferingForm.bind(this);
-    this.deleteOffering = this.deleteOffering.bind(this);
-
     this.handleCancelSpecialFormButtonClick = this.handleCancelSpecialFormButtonClick.bind(this);
     this.handleSubmitSpecialForm = this.handleSubmitSpecialForm.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -34,14 +26,14 @@ export class SpecialForm extends Component {
         headline: this.props.special.headline ? this.props.special.headline : '',
         days: this.props.special.days ? this.props.special.days : [],
         times: this.props.special.times ? this.props.special.times : [],
-        offerings: this.props.special.offerings ? this.props.special.offerings : []
+        details: this.props.special.details ? this.props.special.details : ''
       }
     } else {
       this.state =  {
         headline: '',
         days: [],
         times: [],
-        offerings: []
+        details: ''
       }
     }
   }   
@@ -49,6 +41,9 @@ export class SpecialForm extends Component {
     switch (event.target.id) {
       case "headline":
         this.setState({headline: event.target.value});
+        break;
+      case "details":
+        this.setState({details: event.target.value});
         break;
     }
   }
@@ -81,32 +76,6 @@ export class SpecialForm extends Component {
     this.setState({times: newTimes});
   }     
 
-
-
-
-  //Offerings
-  handleShowOfferingFormClick(event) {
-    event.preventDefault();
-    this.setState({showOfferingForm: true});    
-  }
-  handleSubmitNewOffering(offering) {    
-    let newOfferings = this.state.offerings.slice();  
-    newOfferings.push(offering);   
-
-    this.setState({showOfferingForm: false, offerings: newOfferings});
-  }
-  handleCancelOfferingForm(event) {
-    event.preventDefault();
-    this.setState({showOfferingForm: false});
-  }
-  deleteOffering(index) {
-    const newOfferings = this.state.offerings;
-    newOfferings.splice(index, 1);
-    this.setState({offerings: newOfferings});
-  }
-
-
-
   handleCancelSpecialFormButtonClick(event) {
     event.preventDefault();
     this.props.handleCancelSpecialForm();
@@ -134,9 +103,7 @@ export class SpecialForm extends Component {
   render() {
     let formView = null;
 
-    if (this.state.showOfferingForm ) {
-      formView = <AddOffering handleCancelOfferingForm={this.handleCancelOfferingForm} handleSubmitNewOffering={this.handleSubmitNewOffering} />;
-    } else if (this.state.showAddTimeForm) {
+    if (this.state.showAddTimeForm) {
       formView = <AddTime handleSubmitNewTime={this.handleSubmitNewTime} handleCancelTimeForm={this.handleCancelTimeForm} />
     } else {
       formView = (
@@ -145,7 +112,10 @@ export class SpecialForm extends Component {
             <label className="font-title-sm form-label" htmlFor="headline">headline: </label>
             <input required type="text" id="headline" value={this.state.headline} onChange={this.handleFieldChange} />
           </div>      
-          <Offerings handleShowOfferingFormClick={this.handleShowOfferingFormClick} handleSubmitNewOffering={this.handleSubmitNewOffering} deleteOffering={this.deleteOffering} offerings={this.state.offerings} />
+          <div className="form-element">
+            <label className="font-title-sm form-label" htmlFor="details">details: </label>
+            <input required type="text" id="details" value={this.state.details} onChange={this.handleFieldChange} />
+          </div>   
           <Days handleDayChange={this.handleDayChange} days={this.state.days}/>   
           <Times handleShowTimeFormClick={this.handleShowTimeFormClick} deleteTime={this.deleteTime} times={this.state.times} />  
           {this.state.validationText ? <div className="validation-text">{this.state.validationText}</div> : null}

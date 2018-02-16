@@ -1,13 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Offering = new Schema({
-  description: {
-        type: String,
-        required: true
-    }
-});
-
 var Time = new Schema({
   start: {
         type: String,
@@ -24,15 +17,15 @@ var Special = new Schema({
         type: String,
         required: true
     },     
+    details: {
+      type: String
+    },
     days: {
       type: Array,
       required: true
     }, 
     times: {
       type: [Time]
-    },
-    offerings: {
-      type: [Offering]
     }
 });
 

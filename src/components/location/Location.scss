@@ -1,0 +1,22 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+.location {
+    padding: $space-sm;
+}
+
+.location-name {
+    margin-bottom: $space-sm;
+}
+
+a.location-meta-link, a.location-meta-link:visited {
+    align-items: center;
+    color: $color-scooter;
+    display: flex;
+    margin: 0 0 $space-xs 0;
+}
+
+.location-meta-link-icon {
+    margin: 0 $space-sm 0 0;
+    min-width: $space-sm;
+    text-align: center;
+}

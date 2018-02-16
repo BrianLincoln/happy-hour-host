@@ -1,3 +1,12 @@
+new:
+-re-work map results to make you click in to a given location to see full details (better list, better analytics)
+-accept html for specials
+-add drink and food booleans to specials
+-make food and drink filters
+-spinner on initial load
+
+
+
 -add GA
 -meta data for locations: google map link, website
 -page for each location with redundant text/lists for days of the week, etc.

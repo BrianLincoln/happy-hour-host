@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
 import './Special.scss';
-import dayLabels from './../../../utils/DayLabels';
-import timeConverter from './../../../utils/TimeConverter';
+import dayLabels from './../../utils/DayLabels';
+import timeConverter from './../../utils/TimeConverter';
 
 class Special extends Component {
   render() { 
-
-    let offerings = this.props.offerings.map((offering, index) => {
-      return <li className="font-base-alt" key={offering._id}>{offering.description}</li>;
-    });
-    if (offerings.length > 0) {
-      offerings = (
-        <ul className="special-offerings">
-          {offerings}
-        </ul>
-      )
-    } else {
-      offerings = null;
-    }
 
     let days = this.props.days.map((day, index) => {      
       const isLast = index + 1 === this.props.days.length;
@@ -36,7 +23,7 @@ class Special extends Component {
     return (        
         <li className="special">
           <div className="special-headline">{this.props.headline}</div>
-          {offerings}
+          <div className="special-details">{this.props.details}</div>
           <div className="special-days-wrapper">
             <i className="fa fa-calendar special-icon" aria-hidden="true"></i> 
             <div className="special-days">

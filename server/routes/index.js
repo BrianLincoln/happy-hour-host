@@ -98,6 +98,15 @@ module.exports = function(passport) {
 		});  
 	});
 	
+	
+	router.get('/location/:locationId', (req, res) => {
+		Location.findOne({"_id": req.params.locationId}, function(err, location) {
+		  res.json({
+			success: true,
+			location: location
+		  });
+		}); 
+	});
 	router.post('/location', (req, res) => {
 	  let location = new Location();
 	  location.name = req.body.name;
@@ -151,6 +160,7 @@ module.exports = function(passport) {
 	});
 	
 	router.post('/location/:locationId/special/:specialId', (req, res) => {
+		console.log("~~~~", req.body.special);
 	  Location.findById(req.params.locationId, function(err, location) {
 		const special = location.specials.id(req.params.specialId);
 		special.set(req.body.special);

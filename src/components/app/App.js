@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './../../sprak-styles/sprak.css';
 import './App.scss';
 import Homepage from './../homepage';
+import Location from './../location';
 import City from './../city';
 import Admin from './../admin';
 import Login from './../admin/Login';
@@ -33,6 +34,11 @@ class App extends Component {
                   config={config}
                 /> 
               }/>
+              <Route exact path="/location/:locationId/" render={ (meta)  => <Location 
+                  config={config}
+                  locationId={meta.match.params.locationId}
+                /> 
+              }/>   
               <Route exact path="/c/:city/:area?" render={ (meta)  => <City 
                   config={config}
                   city={meta.match.params.city}
