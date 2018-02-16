@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './../../sprak-styles/sprak.css';
 import './App.scss';
-import Homepage from './../homepage';
-import Location from './../location';
-import City from './../city';
-import Admin from './../admin';
-import Login from './../admin/Login';
-import SignUp from './../admin/SignUp';
-import SignOut from './../admin/SignOut';
+import Homepage from './../Homepage/Homepage';
+import Location from './../Location/Location';
+import Admin from './../Admin/Admin';
+import Login from './../Admin/Login';
+import SignUp from './../Admin//SignUp';
+import SignOut from './../Admin/SignOut';
 import config from './../../config';
 import logo from './../../img/logo-redover-fulltext.svg';
 import {
@@ -38,13 +37,7 @@ class App extends Component {
                   config={config}
                   locationId={meta.match.params.locationId}
                 /> 
-              }/>   
-              <Route exact path="/c/:city/:area?" render={ (meta)  => <City 
-                  config={config}
-                  city={meta.match.params.city}
-                  area={meta.match.params.area}
-                /> 
-              }/>         
+              }/>           
               <Route exact path="/admin" render={ () => <Admin 
                   config={config} 
                 />

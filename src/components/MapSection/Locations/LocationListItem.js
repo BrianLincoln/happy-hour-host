@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Special from './../../special';
-import './Result.scss';
+import './LocationListItem.scss';
 
-class Result extends Component {
+class LocationListItem extends Component {
   render() { 
     return (        
-        <li className="text-result">          
-          <h3 className="text-result-name">{this.props.name}</h3>
+        <li className="location-list-item">          
+          <h3 className="location-list-item-name">{this.props.name}</h3>
           <Link to={
               {pathname: `/location/${this.props._id}`,
               state: {...this.props}}
@@ -17,4 +16,4 @@ class Result extends Component {
   }
 }
 
-export default Result;
+export default LocationListItem;

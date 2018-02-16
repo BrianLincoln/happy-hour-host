@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import locationApi from './../../utils/LocationApi';
-import Special from './../special';
+import Special from './../../components/Special/Special';
 import './Location.scss';
 
 class Location extends Component {

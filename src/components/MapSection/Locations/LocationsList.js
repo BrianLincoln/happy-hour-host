@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Result from './Result';
-import Filter from './../filter/Filter';
+import LocationListItem from './LocationListItem';
 import './LocationsList.scss';
 
 class LocationsList extends Component {
@@ -13,10 +12,10 @@ class LocationsList extends Component {
     );  
 
     if (this.props.selectedLocation) {
-      locations = <Result key={this.props.selectedLocation._id} {...this.props.selectedLocation} /> 
+      locations = <LocationListItem key={this.props.selectedLocation._id} {...this.props.selectedLocation} /> 
     } else if (this.props.locations.length > 0) {
       locations = this.props.locations.map((location) => {
-        return <Result key={location._id} {...location} /> 
+        return <LocationListItem key={location._id} {...location} /> 
       });  
     }
    

@@ -1,26 +1,20 @@
 @import "./../../../sprak-styles/sprak-variables.scss";
 
-.text-result {
+.location-list-item {
     padding: $space-sm;
 }
 
-.text-result:last-child {
+.location-list-item:last-child {
     border-bottom: none;
 }
 
-.text-result-name {
+.location-list-item-name {
     margin-bottom: $space-sm;
 }
 
-a.text-result-link, a.text-result-link:visited {
+a.location-list-item, a.location-list-item:visited {
     align-items: center;
     color: $color-scooter;
     display: flex;
     margin: 0 0 $space-xs 0;
-}
-
-.text-result-link-icon {
-    margin: 0 $space-sm 0 0;
-    min-width: $space-sm;
-    text-align: center;
 }

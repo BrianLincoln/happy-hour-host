@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Filter from './filter/Filter';
-import MapContainer from './map/MapContainer';
-import LocationsList from './text-results/LocationsList';
+import Filter from './Filter/Filter';
+import MapContainer from './Map/MapContainer';
+import LocationsList from './Locations/LocationsList';
 import locationApi from './../../utils/LocationApi';
 import timeValues from './../../utils/TimeValues';
-import './MapSearch.scss';
+import './MapSection.scss';
 import _ from 'lodash';
 
-export class MapSearchContainer extends Component {
+export class MapSection extends Component {
   constructor(props) {
     super(props);
     this.setLocations = this.setLocations.bind(this);
@@ -120,4 +120,4 @@ export class MapSearchContainer extends Component {
   }
 }
 
-export default MapSearchContainer;
+export default MapSection;
