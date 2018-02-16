@@ -31,18 +31,23 @@ export class LocationDetails extends Component {
       return <LocationForm mode="update" {...this.props} handleCancel={this.handleCancelEditLocation} handleSubmitUpdateLocation={this.handleSaveEditLocationForm} />
     } else  {
       return (
-        <div>
-          <h1>{this.props.location.name}</h1>
-          <div>{this.props.location.position.latitude}, {this.props.location.position.longitude}</div>
-          <div><a href={this.props.location.website}>{this.props.location.website}</a></div>
-          <div><a href={this.props.location.googleMapLink}>google map</a></div>
-          <div>
-            <button onClick={this.handleEditButtonClick} className="button_sm button_valencia">edit</button>
-            <button onClick={this.props.unselectLocation} className="button_sm button_scooter">back</button>
+        <div className="row">
+          <div className="col-xs-12 col-md-6">
+            <h1>{this.props.location.name}</h1>
+            <div>{this.props.location.position.latitude}, {this.props.location.position.longitude}</div>
+            <div><a href={this.props.location.website}>{this.props.location.website}</a></div>
+            <div><a href={this.props.location.googleMapLink}>google map</a></div>
+            <div>
+              <button onClick={this.handleEditButtonClick} className="button_sm button_valencia">edit</button>
+              <button onClick={this.props.unselectLocation} className="button_sm button_scooter">back</button>
+            </div>
+          </div>          
+          <div className="col-xs-12 col-md-6">
+            <Specials locationId={this.props.location._id} specials={this.props.location.specials} fetchLocations={this.props.fetchLocations} />
           </div>
-
-          <Specials locationId={this.props.location._id} specials={this.props.location.specials} fetchLocations={this.props.fetchLocations} />
-          <button onClick={this.handleDeleteButtonClick} className="button_sm button_scooter">delete location</button>
+          <div className="col-xs-12">
+            <button onClick={this.handleDeleteButtonClick} className="button_sm button_valencia">delete location</button>
+          </div>
         </div>
       )
     }
