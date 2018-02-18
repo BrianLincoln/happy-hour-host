@@ -159,8 +159,7 @@ module.exports = function(passport) {
 	  });
 	});
 	
-	router.post('/location/:locationId/special/:specialId', (req, res) => {
-		console.log("~~~~", req.body.special);
+	router.post('/location/:locationId/special/:specialId', (req, res) => {		
 	  Location.findById(req.params.locationId, function(err, location) {
 		const special = location.specials.id(req.params.specialId);
 		special.set(req.body.special);

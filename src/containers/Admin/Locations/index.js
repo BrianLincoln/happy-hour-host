@@ -46,11 +46,8 @@ export class Locations extends Component {
         this.setState({showAddLocationForm: !this.state.showAddLocationForm});
     }
     fetchLocations(selectedLocationId) {
-        console.log("fetchLocations: ", selectedLocationId);
-        console.log("old location: ", this.getLocationById(selectedLocationId));
         if (this.state.cityId) {
             locationApi.getLocationsByCity(this.state.cityId).then((locations) => {
-                console.log("updated location: ", this.getLocationById(selectedLocationId, locations));
                 const selectedLocation = selectedLocationId ? this.getLocationById(selectedLocationId, locations) : null;
                 this.setState({locations: locations, selectedLocation: selectedLocation ? selectedLocation : null});
             });
@@ -85,7 +82,6 @@ export class Locations extends Component {
 
         if (this.state.cityId) {
             if (this.state.selectedLocation) {
-                console.log("~~selectedLocation: ", this.state.selectedLocation);
                 return (
                     <LocationDetails location={this.state.selectedLocation} deleteLocation={this.deleteLocation} unselectLocation={this.unselectLocation} updateLocation={this.handleSubmitUpdateLocation} fetchLocations={this.fetchLocations} />
                 )

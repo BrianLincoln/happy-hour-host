@@ -40,14 +40,12 @@ export class SpecialDetails extends Component {
     if (this.state.showEditSpecialForm) {
       return <SpecialForm handleSubmitSpecialForm={this.handleSubmitEditSpecialForm} handleCancelSpecialForm={this.handleCancelSpecialForm} special={this.props.special} />;
     } else {
-      console.log(this.props.special);
       const specialTypes = (
         <div>
           <div>drink specials: <input type="checkbox" checked={this.props.special.hasDrinkSpecial} disabled  /></div> 
           <div>food specials: <input type="checkbox" checked={this.props.special.hasFoodSpecial} disabled  /></div>
         </div>
       );
-
 
       const days = this.props.special.days ? this.props.special.days.map((day, index) => {      
         const isLast = index + 1 === this.props.special.days.length;
