@@ -47,7 +47,6 @@ export class Days extends Component {
   render() {
     return (
       <div className="form-element">
-        <label className="font-title-sm form-label" htmlFor="description">days: </label>
         <table>
           <tbody>
             <tr>

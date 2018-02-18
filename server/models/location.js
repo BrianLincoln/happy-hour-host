@@ -26,7 +26,9 @@ var Special = new Schema({
     }, 
     times: {
       type: [Time]
-    }
+    },
+    hasDrinkSpecial: Boolean,
+    hasFoodSpecial: Boolean
 });
 
 var Position = new Schema({

@@ -26,14 +26,18 @@ export class SpecialForm extends Component {
         headline: this.props.special.headline ? this.props.special.headline : '',
         days: this.props.special.days ? this.props.special.days : [],
         times: this.props.special.times ? this.props.special.times : [],
-        details: this.props.special.details ? this.props.special.details : ''
+        details: this.props.special.details ? this.props.special.details : '',
+        hasDrinkSpecial: this.props.special.hasDrinkSpecial ? this.props.special.hasDrinkSpecial : false,
+        hasFoodSpecial: this.props.special.hasFoodSpecial ? this.props.special.hasFoodSpecial : false
       }
     } else {
       this.state =  {
         headline: '',
         days: [],
         times: [],
-        details: ''
+        details: '',
+        hasDrinkSpecial: false,
+        hasFoodSpecial: false
       }
     }
   }   
@@ -45,8 +49,15 @@ export class SpecialForm extends Component {
       case "details":
         this.setState({details: event.target.value});
         break;
+      case "hasDrinkSpecial":
+        this.setState({hasDrinkSpecial: !this.state.hasDrinkSpecial});        
+        break;
+      case "hasFoodSpecial":
+        this.setState({hasFoodSpecial: !this.state.hasFoodSpecial});
+        break;
     }
   }
+
   handleDayChange(newDays) {
     this.setState({days: newDays});
   }
@@ -109,13 +120,21 @@ export class SpecialForm extends Component {
       formView = (
         <div>
           <div className="form-element">
-            <label className="font-title-sm form-label" htmlFor="headline">headline: </label>
+            <label className="form-label" htmlFor="headline">headline: </label>
             <input required type="text" id="headline" value={this.state.headline} onChange={this.handleFieldChange} />
           </div>      
           <div className="form-element">
-            <label className="font-title-sm form-label" htmlFor="details">details: </label>
+            <label className="form-label" htmlFor="details">details: </label>
             <input required type="text" id="details" value={this.state.details} onChange={this.handleFieldChange} />
-          </div>   
+          </div> 
+          <div className="form-element">
+            <label className="form-label" htmlFor="hasDrinkSpecial">drink special: </label>
+            <input type="checkbox" id="hasDrinkSpecial" checked={this.state.hasDrinkSpecial} onChange={this.handleFieldChange} />
+          </div>     
+          <div className="form-element">
+            <label className="form-label" htmlFor="hasFoodSpecial">food special: </label>
+            <input type="checkbox" id="hasFoodSpecial" checked={this.state.hasFoodSpecial} onChange={this.handleFieldChange} />
+          </div>             
           <Days handleDayChange={this.handleDayChange} days={this.state.days}/>   
           <Times handleShowTimeFormClick={this.handleShowTimeFormClick} deleteTime={this.deleteTime} times={this.state.times} />  
           {this.state.validationText ? <div className="validation-text">{this.state.validationText}</div> : null}
@@ -125,7 +144,7 @@ export class SpecialForm extends Component {
       )
     }
     return (
-      <form className="special-form-wrapper space-top-sm space-bottom-sm" onSubmit={this.handleSubmitSpecialForm}>          
+      <form className="special-form-wrapper form-group space-top-sm space-bottom-sm" onSubmit={this.handleSubmitSpecialForm}>          
         {formView}
       </form>
     );          
