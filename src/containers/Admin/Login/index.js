@@ -28,7 +28,7 @@ export class Login extends Component {
             <label htmlFor="password">Password:</label>
             <input id="password" type="password" ref={(password) => this.password = password} />         
           </div>          
-          <button type="submit" className="button_sm button_scooter">Log In</button> or <a href="/admin/signup" className="color-scooter"> Sign Up</a>     
+          <button type="submit" className="button_sm button_scooter">Log In</button> or <a href="/admin/signup" className="color-curious"> Sign Up</a>     
         </div>
       </form>   
     )

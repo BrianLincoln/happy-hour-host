@@ -6,9 +6,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -28,7 +28,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -57,9 +57,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -79,7 +79,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -103,8 +103,8 @@
 .bg-dark {
   background-color: #484847; }
 
-.bg-scooter {
-  background-color: #22B8DD; }
+.bg-curious {
+  background-color: #218ACC; }
 
 .bg-valencia {
   background-color: #d73838; }
@@ -121,8 +121,8 @@
 .color-dark {
   color: #484847; }
 
-.color-scooter {
-  color: #22B8DD; }
+.color-curious {
+  color: #218ACC; }
 
 .color-valencia {
   color: #d73838; }
@@ -135,9 +135,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -157,7 +157,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -177,9 +177,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -199,7 +199,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -249,9 +249,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -271,7 +271,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -327,9 +327,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -349,7 +349,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -376,9 +376,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -398,7 +398,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1041,9 +1041,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1063,7 +1063,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1075,7 +1075,7 @@
     font-size: 53px;
     line-height: 64px; } }
 
-.button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited {
+.button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited {
   border-radius: 6px;
   border-width: 0px;
   cursor: pointer;
@@ -1083,7 +1083,7 @@
   padding: 15px 30px;
   min-width: 60px;
   text-align: center; }
-  .button:hover, .button_md:hover, .button_sm:hover, .button_scooter:hover, a.button_scooter:hover:visited, .button_valencia:hover, a.button_valencia:hover:visited {
+  .button:hover, .button_md:hover, .button_sm:hover, .button_curious:hover, a.button_curious:hover:visited, .button_valencia:hover, a.button_valencia:hover:visited {
     opacity: .8; }
 
 .button_sm {
@@ -1105,8 +1105,8 @@
   background-color: #484847;
   color: #FFFFFF; }
 
-.button_scooter, a.button_scooter:visited {
-  background-color: #22B8DD;
+.button_curious, a.button_curious:visited {
+  background-color: #218ACC;
   color: #FFFFFF; }
 
 .button_valencia, a.button_valencia:visited {
@@ -1115,7 +1115,7 @@
 
 .button_transparent, a.button_transparent:visited {
   background-color: transparent;
-  color: #22B8DD; }
+  color: #218ACC; }
   .button_transparent:hover, a.button_transparent:visited:hover {
     text-decoration: underline; }
 
@@ -1127,9 +1127,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1149,7 +1149,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1216,9 +1216,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1238,7 +1238,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1269,9 +1269,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1291,7 +1291,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1322,9 +1322,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1344,7 +1344,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -1376,9 +1376,9 @@
 
 .font-title-md, .card-heading, h2 {
   font-family: arial, sans-serif;
-  font-size: 28px;
-  font-weight: normal;
-  line-height: 35px; }
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px; }
 
 .font-title-sm, h3 {
   font-family: Georgia, serif;
@@ -1398,7 +1398,7 @@
   font-weight: normal;
   line-height: 22px; }
 
-.font-sm, .button, .button_md, .button_sm, .button_scooter, a.button_scooter:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
+.font-sm, .button, .button_md, .button_sm, .button_curious, a.button_curious:visited, .button_valencia, a.button_valencia:visited, .list-item-label, .list-item-value {
   font-family: arial, sans-serif;
   font-size: 11px;
   font-weight: bold;

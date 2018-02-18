@@ -11,6 +11,10 @@ class LocationsList extends Component {
       </div>
     );  
 
+    if (this.props.fetchingLocations) {
+      locations = <div className="spinner"></div>;
+    }
+
     if (this.props.selectedLocation) {
       locations = <LocationListItem key={this.props.selectedLocation._id} {...this.props.selectedLocation} /> 
     } else if (this.props.locations.length > 0) {

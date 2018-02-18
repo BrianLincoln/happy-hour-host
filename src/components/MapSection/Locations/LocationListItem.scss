@@ -1,7 +1,13 @@
 @import "./../../../sprak-styles/sprak-variables.scss";
 
 .location-list-item {
+    border-bottom: solid 1px $color-medium;
+    display: block;
     padding: $space-sm;
+
+    &:hover {
+        background: $color-light;
+    }
 }
 
 .location-list-item:last-child {
@@ -12,9 +18,23 @@
     margin-bottom: $space-sm;
 }
 
-a.location-list-item, a.location-list-item:visited {
+.location-list-item-special {
     align-items: center;
-    color: $color-scooter;
+    border-left: solid $space-xs $color-light;
     display: flex;
-    margin: 0 0 $space-xs 0;
+    margin: $space-md 0;
+}
+
+.special-types {
+    color: $color-valencia;
+    display: flex;
+    justify-content: space-between;
+
+    > * {
+        margin-bottom: $space-sm;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
 }

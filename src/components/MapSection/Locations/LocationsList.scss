@@ -1,8 +1,10 @@
 @import "./../../../sprak-styles/sprak-variables.scss";
 
 .location-list-wrapper {        
-    background: $color-light;
+    background: $color-white;
+    min-height: 200px;
     overflow: hidden;
+    position: relative;
 }
 
 .text-location {
@@ -17,7 +19,6 @@
         height: 100%;
         flex: 1;
         flex-direction: column;
-        padding-top: $space-sm;
         z-index: 3;        
     }
     .location-list {   

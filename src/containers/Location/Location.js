@@ -49,7 +49,7 @@ class Location extends Component {
     let googleMapLink = this.state.googleMapLink ? (
       <a className="location-meta-link" href={this.state.googleMapLink}>      
         <i className="location-meta-link-icon fa fa-map-marker" aria-hidden="true"></i>  
-        <span className="font-sm">google maps</span>      
+        <span className="font-sm">directions</span>      
       </a>
     ) : null;
 

@@ -33,6 +33,7 @@ export class MapSection extends Component {
 
     this.state = {
       locations: [],
+      fetchingLocations: true,
       selectedLocation: null,
       updateCount: 0,
       filters: {
@@ -48,7 +49,7 @@ export class MapSection extends Component {
   }  
   setLocations() {
     locationApi.getLocations(this.state.bounds, this.state.filters).then((locations) => {
-      this.setState({locations: locations, updateCount: this.state.updateCount + 1});    
+      this.setState({locations: locations, fetchingLocations: false, updateCount: this.state.updateCount + 1});    
     });    
   } 
   handleLocationSelect(locationId) {
@@ -112,6 +113,7 @@ export class MapSection extends Component {
               updateActiveDays={this.updateActiveDays} 
               updateActiveTime={this.updateActiveTime} 
               locations={this.state.locations} 
+              fetchingLocations={this.state.fetchingLocations}
               handleLocationDeselect = {this.handleLocationDeselect}
               selectedLocation = {this.state.selectedLocation} />  
             </div>                           
