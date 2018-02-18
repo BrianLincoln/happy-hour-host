@@ -4,9 +4,8 @@ import timeConverter from './../../../utils/TimeConverter';
 import './LocationListItem.scss';
 
 class LocationListItem extends Component {
-  format
-  render() { 
-
+  
+  render() {
     let specials = this.props.specials.map((special) => {
       let times = special.times.map((time) => {
         const startTime = timeConverter(time.start);
@@ -14,7 +13,7 @@ class LocationListItem extends Component {
   
         return <div className="font-sm" key={time._id}>{startTime} - {endTime}</div>;
       });   
-
+      
       return (
         <li className="location-list-item-special row" key={special._id}>
           <div className="col-xs-9">
@@ -22,8 +21,8 @@ class LocationListItem extends Component {
             {times}
           </div>
           <div className="col-xs-3 special-types">
-            <i className="special-type-icon fas fa-utensils" aria-hidden="true"></i> 
-            <i className="special-type-icon fas fa-beer" aria-hidden="true"></i>  
+            {special.hasDrinkSpecial ? <i className="special-type-icon fas fa-beer" aria-hidden="true"></i> : null}
+            {special.hasFoodSpecial ? <i className="special-type-icon fas fa-utensils" aria-hidden="true"></i> : null}            
           </div>
         </li>
       );
