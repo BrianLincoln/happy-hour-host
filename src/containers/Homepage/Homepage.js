@@ -22,7 +22,6 @@ export class Homepage extends Component {
     });    
   }   
   render() {
-    console.log("homepage locations: ", this.state.locations);
     return (
       <div>
         <MapSection locations={this.state.locations} fetchingLocations={this.state.fetchingLocations} google={this.props.config.googleMapsApiKey} />
