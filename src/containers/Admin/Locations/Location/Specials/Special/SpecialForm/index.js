@@ -47,6 +47,7 @@ export class SpecialForm extends Component {
         this.setState({headline: event.target.value});
         break;
       case "details":
+        console.log(event.target.value);
         this.setState({details: event.target.value});
         break;
       case "hasDrinkSpecial":
@@ -125,7 +126,7 @@ export class SpecialForm extends Component {
           </div>      
           <div className="form-element">
             <label className="form-label" htmlFor="details">details: </label>
-            <input required type="text" id="details" value={this.state.details} onChange={this.handleFieldChange} />
+            <textarea required id="details" value={this.state.details} onChange={this.handleFieldChange} />
           </div> 
           <div className="form-element">
             <label className="form-label" htmlFor="hasDrinkSpecial">drink special: </label>

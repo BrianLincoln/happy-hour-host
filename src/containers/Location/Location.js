@@ -53,13 +53,19 @@ class Location extends Component {
       </a>
     ) : null;
 
-    return (        
-        <div className="location">
-          <h1 className="location-name">{this.state.name}</h1>
-          {websiteLink}
-          {googleMapLink}
-          <ul className="special-list">{specials}</ul>
+    return (     
+      <div className="container">   
+        <div className="location row">
+          <div className="col-xs-12 col-md-6 col-xl-8">
+            <h1 className="location-name">{this.state.name}</h1>
+            {websiteLink}
+            {googleMapLink}
+          </div>
+          <div className="col-xs-12 col-md-6 col-xl-4">
+            <ul className="special-list">{specials}</ul>
+          </div>
         </div>
+      </div>
     );
   }
 }

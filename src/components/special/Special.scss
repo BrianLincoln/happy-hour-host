@@ -1,45 +1,35 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
 .special {
-    background: $color-white;
     border-bottom: solid 1px $color-medium;
-    padding: $space-sm;
-    margin-bottom: $space-sm;
-}
+    padding: $space-md 0;
 
-.special-headline {
-    font-weight: bold;
-    margin-bottom: $space-xs;
-}
-
-.special-details {
-    margin-bottom: $space-sm;
-}
-
-.special-days-wrapper {
-    margin-bottom: $space-sm;
-}
-
-.special-days-wrapper,
-.special-times-wrapper {
-    align-items: center;
-    display: flex;
-
-    > i {
-        font-size: .8em;
-        opacity: .8;
+    &:last-child {
+        border-bottom: 0px;
     }
 }
 
-.special-day-header {
-    display: inline-block;
-    margin-right: $space-xs;
-    min-width: 0px;
-    padding: $space-xs;
-    user-select: none;
-    text-transform: uppercase;
+.special-preview {
+    border-left: solid $space-xs $color-light;
+    margin: $space-md 0;
+    padding: 0 $space-md;
 }
 
-.special-icon {
-    margin-right: $space-sm
+.special-types {
+    color: $color-valencia;
+    display: flex;
+    justify-content: flex-end;
+
+    > * {
+        margin: 0 $space-md $space-sm $space-md;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.special-details {
+    margin-top: $space-sm;
+    white-space: pre-wrap;
 }

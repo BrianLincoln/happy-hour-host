@@ -11,7 +11,7 @@ class Filter extends Component {
   }
   render() { 
     let classes = this.props.isActive ? "button_valencia" : "button_light";
-    classes += " button_sm special-day-header";
+    classes += " button_sm day-filter";
 
     return (
       <label onClick={this.handleClick} className={classes} >{this.props.text}</label>

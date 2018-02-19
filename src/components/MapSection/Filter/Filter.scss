@@ -10,11 +10,13 @@
     justify-content: space-around;
     margin-bottom: $space-sm;
 }
+.day-filter {
+    min-width: 0px; //override inherited button min-width
+}
 .time-filter-wrapper select {
     padding: $space-sm;
     width: 100%;
 }
-
 
 @media (min-width: $breakpoint-md) {
     .filters-wrapper {

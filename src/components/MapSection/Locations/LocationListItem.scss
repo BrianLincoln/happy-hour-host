@@ -18,23 +18,3 @@
     margin-bottom: $space-sm;
 }
 
-.location-list-item-special {
-    align-items: center;
-    border-left: solid $space-xs $color-light;
-    display: flex;
-    margin: $space-md 0;
-}
-
-.special-types {
-    color: $color-valencia;
-    display: flex;
-    justify-content: space-between;
-
-    > * {
-        margin-bottom: $space-sm;
-
-        &:last-child {
-            margin-bottom: 0px;
-        }
-    }
-}

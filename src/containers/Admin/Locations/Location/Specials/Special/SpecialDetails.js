@@ -70,7 +70,7 @@ export class SpecialDetails extends Component {
               <span className="font-title-sm">{this.props.special.headline}</span>
             </div>
             
-            <div className="list-item">{this.props.special.details}</div>
+            <div className="list-item admin-special-details">{this.props.special.details}</div>
             <div className="list-item">{specialTypes}</div>
             <div className="list-item">{days}</div>
             <div className="list-item">{times}</div>

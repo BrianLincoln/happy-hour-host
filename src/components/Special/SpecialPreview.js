@@ -3,7 +3,7 @@ import './Special.scss';
 import dayLabels from './../../utils/DayLabels';
 import timeConverter from './../../utils/TimeConverter';
 
-class Special extends Component {
+class SpecialPreview extends Component {
   render() { 
 
     let days = this.props.days.map((day, index) => {      
@@ -21,19 +21,20 @@ class Special extends Component {
     });    
 
     return (      
-      <li className="special row" key={this.props._id}>
-        <div className="col-xs-9">
-          <h3 className="space-bottom-xs">{this.props.headline}</h3>  
-          {times}
+      <li className="special-preview" key={this.props._id}>
+        <div className="row">
+          <div className="col-xs-9">
+            <div className="space-bottom-xs">{this.props.headline}</div>  
+            {times}
+          </div>
+          <div className="col-xs-3 special-types">
+            {this.props.hasDrinkSpecial ? <i className="special-type-icon fas fa-beer" aria-hidden="true"></i> : null}
+            {this.props.hasFoodSpecial ? <i className="special-type-icon fas fa-utensils" aria-hidden="true"></i> : null}            
+          </div>
         </div>
-        <div className="col-xs-3 special-types">
-          {this.props.hasDrinkSpecial ? <i className="fas fa-beer" aria-hidden="true"></i> : null}
-          {this.props.hasFoodSpecial ? <i className="fas fa-utensils" aria-hidden="true"></i> : null}            
-        </div>
-        <div className="col-xs-12 font-base-alt special-details">{this.props.details}</div>
       </li>
     );
   }
 }
 
-export default Special;
+export default SpecialPreview;
