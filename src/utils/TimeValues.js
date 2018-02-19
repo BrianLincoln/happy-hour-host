@@ -1,4 +1,4 @@
-let timeValues = [
+const timeValues = [
     {
         label: "Morning (5am - Noon)",
         value: "morning",

@@ -36,6 +36,7 @@ export class MapContainer extends Component {
     if (!this.props.loaded) {
       return <div className="spinner"></div>   
     }
+    
     const markers = this.props.locations.map((location) => {
       const pos = {lat: location.position.latitude, lng: location.position.longitude}
       const isActive = this.props.selectedLocation && (location._id === this.props.selectedLocation._id);

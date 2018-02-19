@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Filter from './Filter/Filter';
 import MapContainer from './Map/MapContainer';
 import LocationsList from './Locations/LocationsList';
-import locationApi from './../../utils/LocationApi';
 import timeValues from './../../utils/TimeValues';
+import locationFilter from './../../utils/LocationFilter';
 import './MapSection.scss';
 import _ from 'lodash';
 
@@ -33,7 +33,6 @@ export class MapSection extends Component {
 
     this.state = {
       locations: [],
-      fetchingLocations: true,
       selectedLocation: null,
       updateCount: 0,
       filters: {
@@ -48,9 +47,10 @@ export class MapSection extends Component {
     }
   }  
   setLocations() {
-    locationApi.getLocations(this.state.bounds, this.state.filters).then((locations) => {
-      this.setState({locations: locations, fetchingLocations: false, updateCount: this.state.updateCount + 1});    
-    });    
+    if (!this.props.fetchingLocations && this.props.locations.length > 0) {  
+      let filteredLocations = locationFilter.filter(this.props.locations, this.state.bounds, this.state.filters);          
+      this.setState({locations: filteredLocations});
+    }
   } 
   handleLocationSelect(locationId) {
     this.setState({selectedLocation: locationId || null});
@@ -86,8 +86,8 @@ export class MapSection extends Component {
 
   render() {
     return (
-        <div className="map-search-container">
-          <MapContainer 
+      <div className="map-search-container">
+        <MapContainer 
             locations={this.state.locations} 
             onMapUpdate={this.onMapUpdate} 
             google={this.props.googleMapsApiKey} 
@@ -96,7 +96,7 @@ export class MapSection extends Component {
             handleLocationDeselect = {this.handleLocationDeselect}
             selectedLocation = {this.state.selectedLocation} />
 
-          <div className="map-results-wrapper">
+        <div className="map-results-wrapper">
             {this.state.selectedLocation 
               ? <button onClick={this.handleLocationDeselect} className="map-results-back font-sm" >{"back to results"}</button> 
               : <Filter 
@@ -113,7 +113,7 @@ export class MapSection extends Component {
               updateActiveDays={this.updateActiveDays} 
               updateActiveTime={this.updateActiveTime} 
               locations={this.state.locations} 
-              fetchingLocations={this.state.fetchingLocations}
+              fetchingLocations={this.props.fetchingLocations}
               handleLocationDeselect = {this.handleLocationDeselect}
               selectedLocation = {this.state.selectedLocation} />  
             </div>                           
