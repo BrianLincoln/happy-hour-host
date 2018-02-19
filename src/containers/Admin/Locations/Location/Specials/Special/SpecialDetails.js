@@ -75,11 +75,11 @@ export class SpecialDetails extends Component {
             <div className="list-item">{days}</div>
             <div className="list-item">{times}</div>
             
-            <div className="list-item">
-              <button onClick={this.toggleEditSpecial} className="button_sm button_valencia">+ edit</button>            
+            <div className="space-top-md button-group button-group_left">
+              <button onClick={this.toggleEditSpecial} className="button_sm button_curious">+ edit</button>            
               <button onClick={this.deselectSpecial} className="button_sm button_dark">back</button>
             </div> 
-            <div className="list-item"><button onClick={this.deleteSpecial}>delete special</button></div>            
+            <div className="list-item"><button className="button_sm button_valencia" onClick={this.deleteSpecial}>delete special</button></div>            
           </div>
         </div>
       );

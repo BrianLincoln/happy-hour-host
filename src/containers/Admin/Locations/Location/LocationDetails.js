@@ -35,11 +35,11 @@ export class LocationDetails extends Component {
           <div className="col-xs-12 col-md-6">
             <h1>{this.props.location.name}</h1>
             <div>{this.props.location.position.latitude}, {this.props.location.position.longitude}</div>
-            <div><a href={this.props.location.website}>{this.props.location.website}</a></div>
-            <div><a href={this.props.location.googleMapLink}>google map</a></div>
-            <div>
-              <button onClick={this.handleEditButtonClick} className="button_sm button_valencia">edit</button>
-              <button onClick={this.props.unselectLocation} className="button_sm button_scooter">back</button>
+            {this.props.location.website ? <div><a href={this.props.location.website}>{this.props.location.website}</a></div> : null}
+            {this.props.location.googleMapLink ? <div><a href={this.props.location.googleMapLink}>google map</a></div> : null}
+            <div className="button-group button-group_left">
+              <button onClick={this.handleEditButtonClick} className="button_sm button_curious">edit</button>
+              <button onClick={this.props.unselectLocation} className="button_sm button_light">back</button>
             </div>
           </div>          
           <div className="col-xs-12 col-md-6">

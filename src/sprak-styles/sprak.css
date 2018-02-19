@@ -1307,8 +1307,10 @@
   margin-bottom: 10px; }
   .form-group label {
     display: block; }
-  .form-group input,
+  .form-group input[type=text],
+  .form-group textarea,
   .form-group select {
+    box-shadow: inset 0px 0px 55px #f4f4f4, 1px 1px 1px #ccc;
     border-radius: 5px;
     border-width: 0px;
     padding: 5px;

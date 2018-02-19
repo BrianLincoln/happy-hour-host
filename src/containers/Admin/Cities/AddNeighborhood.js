@@ -32,7 +32,7 @@ export class AddNeighborhood extends Component {
           <form className="space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>          
             <label htmlFor="neighborhood-name">name: </label>
             <input required type="text" id="neighborhood-name" value={this.state.neighborhoodName} onChange={this.handleNeighborhoodNameChange} />
-            <input className="button_sm button_scooter" type="submit" value="Submit" />
+            <input className="button_sm button_curious" type="submit" value="Submit" />
           </form>
         </div>
       )

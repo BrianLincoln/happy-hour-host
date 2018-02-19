@@ -68,8 +68,7 @@ export class LocationForm extends Component {
   render() {
     return (
       <div className="add-location-wrapper">
-        <form className="space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>  
-
+        <form className="form-group space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>  
           <div className="form-element">
             <label className="font-title-sm form-label" htmlFor="location-name">name: </label>
             <input required type="text" id="location-name" value={this.state.name} onChange={this.handleFieldChange} />
@@ -84,16 +83,15 @@ export class LocationForm extends Component {
           </div>
           <div className="form-element">              
             <label className="font-title-sm form-label" htmlFor="website">website: </label>
-            <input required type="text" id="website" value={this.state.website} onChange={this.handleFieldChange} />
+            <input type="text" id="website" value={this.state.website} onChange={this.handleFieldChange} />
           </div>  
           <div className="form-element">              
             <label className="font-title-sm form-label" htmlFor="googleMapLink">googleMapLink: </label>
-            <input required type="text" id="googleMapLink" value={this.state.googleMapLink} onChange={this.handleFieldChange} />
+            <input type="text" id="googleMapLink" value={this.state.googleMapLink} onChange={this.handleFieldChange} />
           </div>                                                                       
-
           <div className="button-group">
-            <input className="button_sm button_scooter" type="submit" value="Submit" />
-            <button className="button_sm button_valencia" onClick={this.handleCancelButtonClick} >cancel</button>
+            <input className="button_sm button_curious" type="submit" value="Submit" />
+            <button className="button_sm button_medium" onClick={this.handleCancelButtonClick} >cancel</button>
           </div>
         </form>
       </div>

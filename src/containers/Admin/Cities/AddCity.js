@@ -34,7 +34,7 @@ export class AddCity extends Component {
           <form className="space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>          
             <label className="font-title-sm" htmlFor="city-name">name: </label>
             <input required type="text" id="city-name" value={this.state.cityName} onChange={this.handleCityNameChange} />
-            <input className="button_sm button_scooter" type="submit" value="Submit" />
+            <input className="button_sm button_curious" type="submit" value="Submit" />
           </form>
         </div>
       )

@@ -92,7 +92,7 @@ export class Locations extends Component {
                         <SelectCity {...this.props} handleCitySelect={this.handleCitySelect} />
                         {this.state.showAddLocationForm 
                             ? <LocationForm mode="new" handleCancel={this.toggleAddLocationForm} handleSubmitNewLocation={this.handleSubmitNewLocation} /> 
-                            : <button onClick={this.toggleAddLocationForm}>Add Location</button>}
+                            : <button className="button_sm button_curious" onClick={this.toggleAddLocationForm}>Add Location</button>}
                         <div className="list-group admin-location-list">
                             {locations}
                         </div>                

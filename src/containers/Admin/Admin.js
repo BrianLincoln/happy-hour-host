@@ -41,13 +41,15 @@ export class Admin extends Component {
               break;
           }
           return (
-            <div className="container">
-              <div className="button-group space-top-md space-bottom-md">
-                <button onClick={() => this.handleManageNavViewChange("cities")} className="button button_dark">Manage Cities/Neighborhoods</button>
-                <button onClick={() => this.handleManageNavViewChange("locations")} className="button button_dark">Manage Locations/Specials</button>
+            <div>
+              <div className="button-group space-top-md space-bottom-md">   
+                <button onClick={() => this.handleManageNavViewChange("cities")} className="button button_white">Manage Cities/Neighborhoods</button>
+                <button onClick={() => this.handleManageNavViewChange("locations")} className="button button_white">Manage Locations/Specials</button>
                 <a href="/admin/signout" className="button button_white">sign out</a>
+              </div>                             
+              <div className="container">
+                {view}
               </div>
-              {view}
             </div>
           )
     }

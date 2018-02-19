@@ -139,8 +139,10 @@ export class SpecialForm extends Component {
           <Days handleDayChange={this.handleDayChange} days={this.state.days}/>   
           <Times handleShowTimeFormClick={this.handleShowTimeFormClick} deleteTime={this.deleteTime} times={this.state.times} />  
           {this.state.validationText ? <div className="validation-text">{this.state.validationText}</div> : null}
-          <input className="button_sm button_scooter" type="submit" value="Submit" />
-          <button className="button_sm button_valencia" onClick={this.handleCancelSpecialFormButtonClick}>cancel</button>                  
+          <div className="button-group button-group_left">
+            <input className="button_sm button_curious" type="submit" value="Submit" />
+            <button className="button_sm button_medium" onClick={this.handleCancelSpecialFormButtonClick}>cancel</button>                  
+          </div>
         </div>
       )
     }

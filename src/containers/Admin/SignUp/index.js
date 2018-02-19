@@ -40,7 +40,7 @@ export class Signup extends Component {
               <label htmlFor="secretCode">Secret Code:</label>
               <input id="secretCode" type="password" ref={(secretCode) => this.secretCode = secretCode} />         
             </div>              
-            <input className="button_sm button_scooter" type="submit" value="Sign Up" /> or <a href="/admin/login" className="color-curious"> Log In</a>
+            <input className="button_sm button_curious" type="submit" value="Sign Up" /> or <a href="/admin/login" className="color-curious"> Log In</a>
           </div>
         </form>
       )      

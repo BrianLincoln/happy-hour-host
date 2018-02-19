@@ -4,6 +4,8 @@
     display: block;
 }
 .add-location-wrapper {
+    background: $color-white;
     padding: $space-md;
+    max-width: $breakpoint-xs;
     width: 100%;
 }

@@ -58,8 +58,8 @@ export class AddTime extends Component {
           <input onChange={this.handleTimeChange} required id="end-time" type="time" />                  
         </div>           
         {this.state.validationText ? <div className="validation-text">{this.state.validationText}</div> : null} 
-        <button onClick={this.handleSubmit} className="button_sm button_scooter">save</button>
-        <button onClick={this.props.handleCancelTimeForm} className="button_sm button_dark">cancel</button>
+        <button onClick={this.handleSubmit} className="button_sm button_curious">save</button>
+        <button onClick={this.props.handleCancelTimeForm} className="button_sm button_medium">cancel</button>
       </div>
     );
   }
