@@ -23,11 +23,11 @@ class SpecialPreview extends Component {
     return (      
       <li className="special-preview" key={this.props._id}>
         <div className="row">
-          <div className="col-xs-9">
+          <div className="col-xs-10">
             <div className="space-bottom-xs">{this.props.headline}</div>  
             {times}
           </div>
-          <div className="col-xs-3 special-types">
+          <div className="col-xs-2 special-types">
             {this.props.hasDrinkSpecial ? <i className="special-type-icon fas fa-beer" aria-hidden="true"></i> : null}
             {this.props.hasFoodSpecial ? <i className="special-type-icon fas fa-utensils" aria-hidden="true"></i> : null}            
           </div>

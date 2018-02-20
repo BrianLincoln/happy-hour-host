@@ -22,11 +22,11 @@ class Special extends Component {
 
     return (      
       <li className="special row" key={this.props._id}>
-        <div className="col-xs-9">
+        <div className="col-xs-10">
           <h3 className="space-bottom-xs">{this.props.headline}</h3>  
           {times}
         </div>
-        <div className="col-xs-3 special-types">
+        <div className="col-xs-2 special-types">
           {this.props.hasDrinkSpecial ? <i className="fas fa-beer" aria-hidden="true"></i> : null}
           {this.props.hasFoodSpecial ? <i className="fas fa-utensils" aria-hidden="true"></i> : null}            
         </div>
