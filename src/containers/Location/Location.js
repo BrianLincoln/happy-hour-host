@@ -18,7 +18,9 @@ class Location extends Component {
   setLocation() {
     locationApi.getLocation(this.props.locationId).then((location) => {
       if (location) {
-        this.setState({...location}); 
+        this.setState({...location}, () => {
+          document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${this.state.address.city}, ${this.state.address.state}`;
+        }); 
       } else {
         this.setState({notFound: true});
       }

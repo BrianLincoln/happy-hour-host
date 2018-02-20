@@ -98,7 +98,7 @@
   background-color: #f4f4f4; }
 
 .bg-medium {
-  background-color: #ccc; }
+  background-color: #d4d0cb; }
 
 .bg-dark {
   background-color: #484847; }
@@ -116,7 +116,7 @@
   color: #f4f4f4; }
 
 .color-medium {
-  color: #ccc; }
+  color: #d4d0cb; }
 
 .color-dark {
   color: #484847; }
@@ -1098,7 +1098,7 @@
   color: #484847; }
 
 .button_medium, a.button_mediumt:visited {
-  background-color: #ccc;
+  background-color: #d4d0cb;
   color: #484847; }
 
 .button_dark, a.button_dark:visited {

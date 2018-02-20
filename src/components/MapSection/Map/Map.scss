@@ -9,16 +9,11 @@
     width: 100%;
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: $breakpoint-sm) {
     .map {
         flex: 2;
     }
     .map, .map-container {
         height: 100%;
-    }
-}
-
-@media (min-width: $breakpoint-lg) {
-    .map {
     }
 }
