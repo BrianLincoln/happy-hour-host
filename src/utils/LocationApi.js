@@ -2,16 +2,16 @@ import _ from 'lodash';
 import config from './../config';
 
 //TEMP -- this should get dynamic once there are multiple cities
-const minneapolisCityId = "598392e1f69ccd390c5983c8";
+const minneapoliscity = "598392e1f69ccd390c5983c8";
 
 const locationApi = {
    getLocations: function() {
-    return fetch(config.apiPath + '/city/' + minneapolisCityId + '/locations').then(function(response) { 
+    return fetch(config.apiPath + '/city/' + minneapoliscity + '/locations').then(function(response) { 
         return response.json();
     });
    },
-   getLocationsByCity: function(cityId) {
-        return fetch(config.apiPath + '/city/' + cityId + '/locations').then((response) => response.json())
+   getLocationsByCity: function(city) {
+        return fetch(config.apiPath + '/city/' + city + '/locations').then((response) => response.json())
         .then((cities) => {
             // do stuff with responseJSON here...
             return cities;
@@ -23,7 +23,7 @@ const locationApi = {
             return response.location;
         });
    },
-    postLocation: function(location, cityId) {
+    postLocation: function(location, city) {
         return fetch(config.apiPath + '/location', {      
             method: 'post',
             body: JSON.stringify({
@@ -34,7 +34,7 @@ const locationApi = {
                 },
                 website: location.website,
                 googleMapLink: location.googleMapLink,
-                cityId: cityId
+                city: city
             }),
             headers: {
                 'Accept': 'application/json',

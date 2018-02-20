@@ -76,9 +76,9 @@ module.exports = function(passport) {
 	  });  
 	});
 	
-	router.post('/city/:cityId/neighborhood', (req, res) => {
+	router.post('/city/:city/neighborhood', (req, res) => {
 	
-	  City.findById(req.params.cityId, function(err, city) {
+	  City.findById(req.params.city, function(err, city) {
 		let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
 		neighborhoods.push({"name": req.body.name});
 		city.neighborhoods = neighborhoods;
@@ -92,10 +92,12 @@ module.exports = function(passport) {
 	  });
 	});
 	
-	router.get('/city/:cityId/locations', (req, res) => {
-	  Location.find({"cityId": req.params.cityId}, function(err, locations) {
-		  res.json(locations);
-		});  
+	router.get('/city/:city/locations', (req, res) => {
+		Location.find({"city": req.params.city})
+    	.populate('city')
+    	.exec(function(err, locations) {
+		  	res.json(locations);
+		});
 	});
 	
 	
@@ -110,7 +112,7 @@ module.exports = function(passport) {
 	router.post('/location', (req, res) => {
 	  let location = new Location();
 	  location.name = req.body.name;
-	  location.cityId = req.body.cityId;
+	  location.city = req.body.city;
 	  location.position = {
 			latitude: req.body.position.latitude,
 			longitude: req.body.position.longitude

@@ -47,7 +47,7 @@ var Location = new Schema({
       type: String,
       required: true
     },
-    cityId: Schema.Types.ObjectId,
+    city: { type: Schema.Types.ObjectId, ref: 'City' },    
     specials: [Special],
     position: {
       type: Position,

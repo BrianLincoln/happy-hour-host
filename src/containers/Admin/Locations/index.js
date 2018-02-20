@@ -20,19 +20,19 @@ export class Locations extends Component {
         this.getLocationById = this.getLocationById.bind(this);
 
         this.state = {
-            cityId: null,
+            city: null,
             locations: [],
             showAddLocationForm: false,
             selectedLocation: null
         };
     }    
-    handleCitySelect(cityId) {
-        this.setState({cityId: cityId}, () => {
+    handleCitySelect(city) {
+        this.setState({city: city}, () => {
             this.fetchLocations();            
         });  
     }
     handleSubmitNewLocation(location) {
-        locationApi.postLocation(location, this.state.cityId).then((results) => {
+        locationApi.postLocation(location, this.state.city).then((results) => {
             this.fetchLocations();
             this.toggleAddLocationForm();
         });        
@@ -46,8 +46,8 @@ export class Locations extends Component {
         this.setState({showAddLocationForm: !this.state.showAddLocationForm});
     }
     fetchLocations(selectedLocationId) {
-        if (this.state.cityId) {
-            locationApi.getLocationsByCity(this.state.cityId).then((locations) => {
+        if (this.state.city) {
+            locationApi.getLocationsByCity(this.state.city).then((locations) => {
                 const selectedLocation = selectedLocationId ? this.getLocationById(selectedLocationId, locations) : null;
                 this.setState({locations: locations, selectedLocation: selectedLocation ? selectedLocation : null});
             });
@@ -80,7 +80,7 @@ export class Locations extends Component {
             return (<Location handleLocationClick={this.handleLocationClick} key={location._id} location={location} fetchLocations={this.fetchLocations} /> );
         });
 
-        if (this.state.cityId) {
+        if (this.state.city) {
             if (this.state.selectedLocation) {
                 return (
                     <LocationDetails location={this.state.selectedLocation} deleteLocation={this.deleteLocation} unselectLocation={this.unselectLocation} updateLocation={this.handleSubmitUpdateLocation} fetchLocations={this.fetchLocations} />

@@ -45,15 +45,15 @@ const cityApi = {
     .catch(function(res){ console.log(res) })
    },
 
-   getNeighborhoods: function(cityId) {
-    return fetch(config.apiPath + '/city/' + cityId + '/neighborhood',).then((response) => response.json())
+   getNeighborhoods: function(city) {
+    return fetch(config.apiPath + '/city/' + city + '/neighborhood',).then((response) => response.json())
     .then((neighborhoods) => {
         // do stuff with responseJSON here...
        return neighborhoods;
     });
    },
-   postNeighborhood: function(cityId, neighborhoodName) {
-    return fetch(config.apiPath + '/city/' + cityId + '/neighborhood', {      
+   postNeighborhood: function(city, neighborhoodName) {
+    return fetch(config.apiPath + '/city/' + city + '/neighborhood', {      
         method: 'post',
         body: JSON.stringify({
             name: neighborhoodName
