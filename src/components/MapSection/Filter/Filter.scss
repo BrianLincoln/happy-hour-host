@@ -12,6 +12,7 @@
 }
 .day-filter {
     min-width: 0px; //override inherited button min-width
+    padding: 5px;
 }
 .time-filter-wrapper select {
     padding: $space-sm;
