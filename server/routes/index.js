@@ -43,7 +43,7 @@ var isValidPassword = function(user, password){
 }
 module.exports = function(passport) {
 
-	router.get('/cities', verifyToken, (req, res) => {
+	router.get('/cities', (req, res) => {
 		City.find({}, function(err, cities) {
 		  res.json({
 			success: true,

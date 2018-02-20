@@ -2,19 +2,12 @@ import _ from 'lodash';
 import config from './../config';
 
 const cityApi = {
-   getCities: function() {
-        if (localStorage.authToken) {
-            return fetch(config.apiPath + '/cities', {
-                headers: {
-                    'x-access-token': localStorage.authToken
-                }
-            }).then((response) => response.json())
-            .then((response) => {
-               return response;
-            });        
-        } else {
-            window.location = "/admin/login";
-        }
+   getCities: function() {       
+        return fetch(config.apiPath + '/cities')
+        .then((response) => response.json())
+        .then((response) => {
+            return response;
+        }); 
    },
    postCity: function(name) {
     return fetch(config.apiPath + '/city', {      

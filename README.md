@@ -1,5 +1,7 @@
-## Some useful commands
+## Some things for prodcution
 
 - sudo systemctl [status, start, stop] mongodb
 
-- sudo NODE_ENV=['production'] node server/index.js
+- npm run-script build 
+
+- sudo pm2 restart all

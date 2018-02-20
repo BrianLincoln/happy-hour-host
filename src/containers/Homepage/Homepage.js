@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Homepage.scss';
 import MapSection from './../../components/MapSection/MapSection.js';
-import NeighborhoodList from './../../components/Neighborhoods/NeighborhoodList';
+import CityList from './../../components/Cities/CityList';
+import cityApi from './../../utils/CityApi';
 import locationApi from './../../utils/LocationApi';
 
 export class Homepage extends Component {
@@ -11,31 +12,36 @@ export class Homepage extends Component {
     this.state = {      
       locations: [],
       fetchingLocations: true,
+      cities: [],
+      fetchingCities: true,
     }
     this.fetchLocations = this.fetchLocations.bind(this);
+    this.fetchCities = this.fetchCities.bind(this);
 
     this.fetchLocations();
+    this.fetchCities();
   }
   fetchLocations() {
     locationApi.getLocations().then((locations) => {
       this.setState({locations: locations, fetchingLocations: false});    
     });    
   }   
+  fetchCities() {
+    cityApi.getCities().then((result) => {
+      if (result.success) {
+        this.setState({cities: result.cities});
+      }
+    });
+  }
   render() {
     return (
       <div>
         <MapSection locations={this.state.locations} fetchingLocations={this.state.fetchingLocations} google={this.props.config.googleMapsApiKey} />
-        <section className="homepage-categories">
+        {/*<section className="homepage-categories">
           <div className="container">
-            <h1>Find the best food and drink specials in Minneapolis</h1>
-            <div className="row">
-              <div className="col-xs-12 col-sm-6 homepage-category">
-                <h2>Happy Hours By Neighborhood</h2>
-                <NeighborhoodList />
-              </div>
-            </div>
+            <CityList cities={this.state.cities} locations={this.state.locations} fetchingLocations={this.state.fetchingLocations} />
           </div>
-        </section>
+      </section>*/}
       </div>
     )
   }

@@ -8,7 +8,7 @@ export const GoogleApi = function(opts) {
 
   const googleVersion = '3.29';
   let script = null;
-  let google = window.google = null;
+  let google = window.google || null;
   let loading = false;
   let channel = null;
   let language = null;

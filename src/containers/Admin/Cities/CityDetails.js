@@ -9,7 +9,7 @@ export class CityDetails extends Component {
     return (
       <div className="admin-city-details">
         <CityActions {...this.props} />
-        <Neighborhoods cityId={this.props._id} neighborhoods={this.props.neighborhoods} />
+        <Neighborhoods city={this.props._id} neighborhoods={this.props.neighborhoods} />
       </div>
     )
   }

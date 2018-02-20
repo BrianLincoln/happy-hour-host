@@ -3,6 +3,7 @@ import './../../sprak-styles/sprak.css';
 import './App.scss';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
+import Neighborhood from './../Neighborhood/Neighborhood';
 import Admin from './../Admin/Admin';
 import Login from './../Admin/Login';
 import SignUp from './../Admin//SignUp';
@@ -36,6 +37,13 @@ class App extends Component {
               <Route exact path="/location/:locationId/" render={ (meta)  => <Location 
                   config={config}
                   locationId={meta.match.params.locationId}
+                /> 
+              }/> 
+              <Route exact path="/:city/:neighborhood/" render={ (meta)  => <Neighborhood 
+                  config={config}
+                  neighborhood= {meta.location.state.neighborhood}
+                  locations= {meta.location.state.locations}
+                  fetchingLocations= {meta.location.state.fetchingLocations}
                 /> 
               }/>           
               <Route exact path="/admin" render={ () => <Admin 
