@@ -36,6 +36,7 @@ class App extends Component {
               }/>
               <Route exact path="/location/:locationId/" render={ (meta)  => <Location 
                   config={config}
+                  location={meta.location.state}
                   locationId={meta.match.params.locationId}
                 /> 
               }/> 

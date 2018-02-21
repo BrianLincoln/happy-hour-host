@@ -4,31 +4,41 @@ import Special from './../../components/Special/Special';
 import './Location.scss';
 
 class Location extends Component {
+
   constructor(props) {
     super(props);
 
-    this.setLocation = this.setLocation.bind(this);
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-
+    this.fetchLocation = this.fetchLocation.bind(this);
+    this.setDocumentTitle = this.setDocumentTitle.bind(this);
     this.state = null;
   }
+
   componentDidMount() {
-    this.setLocation();
+    if (this.props.location) {
+      this.setState({...this.props.location}, () => {
+        this.setDocumentTitle()
+      }); 
+    } else {
+      this.fetchLocation();  
+    }  
   }
-  setLocation() {
+
+  fetchLocation() {
     locationApi.getLocation(this.props.locationId).then((location) => {
       if (location) {
         this.setState({...location}, () => {
-          document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${this.state.address.city}, ${this.state.address.state}`;
+          this.setDocumentTitle()
         }); 
       } else {
         this.setState({notFound: true});
       }
-    });    
+    });  
   } 
-  handleBackButtonClick(event) {
-    this.props.history.goBack();
+
+  setDocumentTitle() {
+    document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${this.state.address.city}, ${this.state.address.state}`;
   }
+
   render() { 
     if (this.state === null) {
       return <h1>Loading...</h1>;

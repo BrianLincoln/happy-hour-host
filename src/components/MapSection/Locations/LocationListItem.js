@@ -12,7 +12,10 @@ class LocationListItem extends Component {
     : null;
 
     return (        
-        <Link className="location-list-item" to={{pathname: `/location/${this.props._id}`, state: {...this.props}}}>
+        <Link className="location-list-item" to={{
+          pathname: `/location/${this.props._id}`, 
+          state: {...this.props}
+          }}>
             <h3>{this.props.name}</h3>
             <ul className="location-list-item-specials">
               {specials}
