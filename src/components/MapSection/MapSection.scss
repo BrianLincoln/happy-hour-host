@@ -27,11 +27,6 @@
         box-shadow: 1px 0px 3px $color-medium;
         display: flex;
         flex-direction: column;
-        width: 41.666666666%;
-    }
-}
-@media (min-width: $breakpoint-lg) {
-    .map-results-wrapper {
-        width: 25%;
+        width: 350px;
     }
 }

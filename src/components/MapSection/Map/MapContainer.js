@@ -47,7 +47,7 @@ export class MapContainer extends Component {
       <div className="map-container">
         <Map google={this.props.google}          
           className={'map'}
-          zoom={12}
+          zoom={13}
           centerAroundCurrentLocation={true}
           initialMapCenter={this.props.initialMapCenter}
           onBoundsChange={this.onBoundsChange}

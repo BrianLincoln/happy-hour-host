@@ -1,4 +1,9 @@
 new:
+Fix day filter
+make neighborhood links / map work from map bounds
+
+
+
 -re-work map results to make you click in to a given location to see full details (better list, better analytics)
 -accept html for specials
 -add drink and food booleans to specials
