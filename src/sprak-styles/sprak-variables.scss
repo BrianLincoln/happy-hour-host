@@ -6,7 +6,7 @@ $breakpoint-lg: 1224px;
 
 $color-white: #FFFFFF;
 $color-light: #f4f4f4;
-$color-medium: #d4d0cb;
+$color-medium: #aca9a7;
 $color-dark: #484847;
 $color-curious: #218ACC;
 $color-valencia: #d73838;
@@ -19,6 +19,7 @@ $space-xl: 60px;
 
 $font-family-serif: Georgia, serif;
 $font-family-sans: arial, sans-serif;
+$font-family-sans-black: Arial Black, Arial Bold, Gadget, sans-serif;
 
 %font-title-lg {
     font-family: $font-family-serif;
@@ -35,9 +36,8 @@ $font-family-sans: arial, sans-serif;
 }
 
 %font-title-sm {
-    font-family: $font-family-serif;
+    font-family: $font-family-sans-black;
     font-size: 18px;
-    font-weight: bold;
     line-height: 18px;
 }
 

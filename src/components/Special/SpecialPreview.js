@@ -6,13 +6,6 @@ import timeConverter from './../../utils/TimeConverter';
 class SpecialPreview extends Component {
   render() { 
 
-    let days = this.props.days.map((day, index) => {      
-      const isLast = index + 1 === this.props.days.length;
-      const labelText = isLast ? dayLabels[day] : dayLabels[day] + ", ";
-
-      return <label className="font-sm" key={day}>{labelText}</label>;
-    });
-
     let times = this.props.times.map((time) => {
       const startTime = timeConverter(time.start);
       const endTime = timeConverter(time.end);
@@ -24,7 +17,7 @@ class SpecialPreview extends Component {
       <li className="special-preview" key={this.props._id}>
         <div className="row">
           <div className="col-xs-10">
-            <div className="space-bottom-xs">{this.props.headline}</div>  
+            <div className="font-base-alt space-bottom-xs">{this.props.headline}</div>  
             {times}
           </div>
           <div className="col-xs-2 special-types">
