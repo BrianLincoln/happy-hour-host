@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import cityApi from './../../../utils/CityApi';
-import './AddCity.scss';
+import cityApi from './../../../../utils/CityApi';
 
 export class AddCity extends Component {
   constructor(props) {
@@ -23,7 +22,7 @@ export class AddCity extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    cityApi.postCity(this.state.cityName).then(() => this.props.getCities());
+    cityApi.postCity(this.state.cityName).then(() => this.props.fetchCities());
     this.setState({showAddCityForm: false});
   }
   render() {

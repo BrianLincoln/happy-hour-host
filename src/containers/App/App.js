@@ -4,7 +4,10 @@ import './App.scss';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
 import Neighborhood from './../Neighborhood/Neighborhood';
-import Admin from './../Admin/Admin';
+import Admin from './../Admin/';
+import ManageCities from './../Admin/ManageCities/index.js';
+import ManageLocations from './../Admin/ManageLocations/';
+import AdminLocation from './../Admin/ManageLocations/Location/index.js';
 import Login from './../Admin/Login';
 import SignUp from './../Admin//SignUp';
 import SignOut from './../Admin/SignOut';
@@ -33,7 +36,36 @@ class App extends Component {
               <Route exact path="/" render={ ()  => <Homepage 
                   config={config}
                 /> 
+              }/>          
+              <Route exact path="/admin" render={ () => <Admin 
+                  config={config} 
+                />
+              }/>            
+              <Route exact path="/admin/manage-cities" render={ () => <ManageCities 
+                  config={config} 
+                />          
               }/>
+              <Route exact path="/admin/manage-locations" render={ () => <ManageLocations 
+                  config={config} 
+                />
+              }/>   
+              <Route exact path="/admin/location/:locationId" render={ (meta) => <AdminLocation 
+                  config={config} 
+                  locationId={meta.match.params.locationId}
+                />
+              }/>              
+              <Route exact path="/admin/login" render={ ()  => <Login 
+                  config={config}                 
+                />                 
+              }/> 
+              <Route exact path="/admin/signup" render={ ()  => <SignUp 
+                  config={config}                 
+                />                 
+              }/> 
+              <Route exact path="/admin/signout" render={ ()  => <SignOut 
+                  config={config}                 
+                />                 
+              }/>   
               <Route exact path="/location/:locationId/" render={ (meta)  => <Location 
                   config={config}
                   location={meta.location.state}
@@ -46,23 +78,7 @@ class App extends Component {
                   locations= {meta.location.state.locations}
                   fetchingLocations= {meta.location.state.fetchingLocations}
                 /> 
-              }/>           
-              <Route exact path="/admin" render={ () => <Admin 
-                  config={config} 
-                />
-              }/>  
-              <Route exact path="/admin/login" render={ ()  => <Login 
-                  config={config}                 
-                />                 
-              }/> 
-              <Route exact path="/admin/signup" render={ ()  => <SignUp 
-                  config={config}                 
-                />                 
-              }/> 
-              <Route exact path="/admin/signout" render={ ()  => <SignOut 
-                  config={config}                 
-                />                 
-              }/>                            
+              }/>                          
             </Switch>
           </div>
         </Router>

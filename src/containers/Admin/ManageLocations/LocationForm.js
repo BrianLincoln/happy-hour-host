@@ -9,7 +9,6 @@ export class LocationForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
 
-      console.log(this.props);
     if (this.props.mode === "update") {
       this.state =  {
         _id: this.props.location._id,
@@ -54,7 +53,6 @@ export class LocationForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log("state at submit: ", this.state);
     if (this.props.mode === "new") {
       this.props.handleSubmitNewLocation(this.state);
     } else if (this.props.mode === "update") {

@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 
 class NeighborhoodList extends Component {
     render() {   
-        console.log("NeighborhoodList: ", this.props);
         let neighborhoods = this.props.city.neighborhoods.map((neighborhood) => { 
-            console.log(neighborhood);
             let path = `/${this.props.city.name}/${neighborhood.name}`;
             path = path.replace(" ", "+");
             return (

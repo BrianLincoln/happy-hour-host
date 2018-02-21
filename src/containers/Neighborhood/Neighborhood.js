@@ -4,7 +4,6 @@ import MapSection from './../../components/MapSection/MapSection.js';
 class Neighborhood extends Component {
     
     render() {         
-        console.log(this.props);
         return (      
             <div>
                 <h1>{this.props.neighborhood.name}</h1>

@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
-import './Locations.scss';
 import SelectCity from './SelectCity';
 import LocationForm from './LocationForm';
-import Location from './Location';
-import LocationDetails from './Location/LocationDetails';
+import LocationListItem from './LocationListItem';
+import cityApi from './../../../utils/CityApi';
 import locationApi from './../../../utils/LocationApi';
 
 export class Locations extends Component {
     constructor(props) {
         super(props);
+        this.fetchCities = this.fetchCities.bind(this);
         this.handleCitySelect = this.handleCitySelect.bind(this);
         this.handleSubmitNewLocation = this.handleSubmitNewLocation.bind(this);
         this.toggleAddLocationForm = this.toggleAddLocationForm.bind(this);
         this.fetchLocations = this.fetchLocations.bind(this);
-        this.handleLocationClick = this.handleLocationClick.bind(this);
-        this.unselectLocation = this.unselectLocation.bind(this);
         this.deleteLocation = this.deleteLocation.bind(this);
-        this.handleSubmitUpdateLocation = this.handleSubmitUpdateLocation.bind(this);
         this.getLocationById = this.getLocationById.bind(this);
 
         this.state = {
             city: null,
             locations: [],
-            showAddLocationForm: false,
-            selectedLocation: null
+            showAddLocationForm: false
         };
+
+        this.fetchCities();
     }    
+    fetchCities() {
+        cityApi.getCities().then((result) => {
+            if (result.success) {
+            this.setState({cities: result.cities});
+            }
+        });
+    } 
     handleCitySelect(city) {
         this.setState({city: city}, () => {
             this.fetchLocations();            
@@ -37,36 +42,22 @@ export class Locations extends Component {
             this.toggleAddLocationForm();
         });        
     }
-    handleSubmitUpdateLocation(location) {
-        locationApi.updateLocation(location).then((results) => {
-            this.fetchLocations(location._id);
-        });      
-    }
     toggleAddLocationForm() {
         this.setState({showAddLocationForm: !this.state.showAddLocationForm});
     }
-    fetchLocations(selectedLocationId) {
+    fetchLocations() {
         if (this.state.city) {
             locationApi.getLocationsByCity(this.state.city).then((locations) => {
-                const selectedLocation = selectedLocationId ? this.getLocationById(selectedLocationId, locations) : null;
-                this.setState({locations: locations, selectedLocation: selectedLocation ? selectedLocation : null});
+                this.setState({locations: locations});
             });
         } else {
             this.setState({locations: []});
         }
     }
-    handleLocationClick(location) {
-        this.setState({selectedLocation: location});
-    }
-    unselectLocation() {
-        this.setState({selectedLocation: null});
-    }
-    deleteLocation(location) {
-        locationApi.deleteLocation(location).then(() => {
+    deleteLocation(locationId) {
+        locationApi.deleteLocation(locationId).then(() => {
             this.fetchLocations();
-        }).then(() => {
-            this.setState({selectedLocation: null});  
-        });           
+        });         
     }
     getLocationById(locationId, suppliedLocations) {
         const locations = suppliedLocations ? suppliedLocations : this.state.locations;        
@@ -76,20 +67,19 @@ export class Locations extends Component {
         return result.length > 0 ? result[0] : null;
     }
     render() {
-        const locations = !this.state.locations ? null : this.state.locations.map((location) => {
-            return (<Location handleLocationClick={this.handleLocationClick} key={location._id} location={location} fetchLocations={this.fetchLocations} /> );
-        });
+        if (!this.state.cities) {
+            return <div className="spinner"></div>
+          } else  {
+            const locations = !this.state.locations ? null : this.state.locations.map((location) => {
+                return <LocationListItem location={location} deleteLocation={this.deleteLocation} />
+            });
 
-        if (this.state.city) {
-            if (this.state.selectedLocation) {
-                return (
-                    <LocationDetails location={this.state.selectedLocation} deleteLocation={this.deleteLocation} unselectLocation={this.unselectLocation} updateLocation={this.handleSubmitUpdateLocation} fetchLocations={this.fetchLocations} />
-                )
-            } else {
+            if (this.state.city) {
                 return (
                     <div className="card">
+                        <a className="button_sm .button_transparent" href="/admin"><i className="fas fa-arrow-left"></i> back</a>
                         <h1>Locations</h1>
-                        <SelectCity {...this.props} handleCitySelect={this.handleCitySelect} />
+                        <SelectCity cities={this.state.cities} handleCitySelect={this.handleCitySelect} />
                         {this.state.showAddLocationForm 
                             ? <LocationForm mode="new" handleCancel={this.toggleAddLocationForm} handleSubmitNewLocation={this.handleSubmitNewLocation} /> 
                             : <button className="button_sm button_curious" onClick={this.toggleAddLocationForm}>Add Location</button>}
@@ -97,18 +87,17 @@ export class Locations extends Component {
                             {locations}
                         </div>                
                     </div>
-                )
-            }
-        } else {
-            return (
-                <div className="card">
-                    <h1>Select a city</h1>
-                    {this.props.cities ? <SelectCity {...this.props} handleCitySelect={this.handleCitySelect} /> : null}
-                </div>
-            );
+                )                
+            } else {
+                return (
+                    <div className="card">                    
+                        <a className="button_sm .button_transparent" href="/admin"><i className="fas fa-arrow-left"></i> back</a>
+                        <h1>Select a city</h1>
+                        {this.state.cities ? <SelectCity cities={this.state.cities} handleCitySelect={this.handleCitySelect} /> : null}
+                    </div>
+                );
+            }            
         }
-
-
     }
 }
 

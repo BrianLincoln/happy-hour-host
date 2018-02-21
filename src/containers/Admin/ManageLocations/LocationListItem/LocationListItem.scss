@@ -1,0 +1,16 @@
+@import "./../../../../sprak-styles/sprak-variables.scss";
+
+.admin-location-listitem {
+    align-items: center;
+    border-bottom: solid 1px $color-dark;
+    display: flex;
+    justify-content: space-between;
+
+    > a {
+        padding: $space-md;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

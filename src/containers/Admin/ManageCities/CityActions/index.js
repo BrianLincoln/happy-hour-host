@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cityApi from './../../../utils/CityApi';
+import cityApi from './../../../../utils/CityApi';
 import './CityActions.scss';
 import AddNeighborhood from './AddNeighborhood';
 
@@ -10,7 +10,7 @@ export class CityActions extends Component {
   }
   deleteCity() {
     if (window.confirm("◔_◔ Super sure you want to delete " + this.props.name + "?")) {
-        cityApi.deleteCity(this.props._id).then(() => this.props.getCities());
+        cityApi.deleteCity(this.props._id).then(() => this.props.fetchCities());
     }
   }    
   render() {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import cityApi from './../../../utils/CityApi';
-import Neighborhoods from './neighborhoods/Neighborhoods';
-import CityActions from './CityActions';
+import Neighborhoods from './../neighborhoods/Neighborhoods';
+import CityActions from './../CityActions/';
 import './CityDetails.scss';
 
 export class CityDetails extends Component {

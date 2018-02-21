@@ -34,7 +34,7 @@ export class MapContainer extends Component {
   }
   render() {
     if (!this.props.loaded) {
-      return <div className="spinner"></div>   
+      return <div className="spinner"></div>    
     }
     
     const markers = this.props.locations.map((location) => {

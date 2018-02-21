@@ -20,7 +20,7 @@ const locationApi = {
    getLocation: function(locationId) {
         return fetch(config.apiPath + '/location/' + locationId).then((response) => response.json())
         .then((response) => {
-            return response.location;
+            return response;
         });
    },
     postLocation: function(location, city) {

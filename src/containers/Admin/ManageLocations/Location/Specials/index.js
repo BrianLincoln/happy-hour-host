@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Specials.scss';
 import AddSpecial from './Special/SpecialForm';
-import Special from './Special';
-import SpecialDetails from './Special/SpecialDetails';
+import SpecialListItem from './SpecialListItem/';
+import Special from './Special/';
 import locationApi from './../../../../../utils/LocationApi';
 
 export class Specials extends Component {
@@ -32,12 +32,12 @@ export class Specials extends Component {
   cancelEditSpecial() {
     const selectSpecial = this.state.selectedSpecial;
     
-    this.props.fetchLocations(this.props.locationId);
+    this.props.fetchLocation(this.props.locationId);
     this.setState({selectedSpecial: selectSpecial});
   }
   handleSubmitNewSpecial(special) {
     locationApi.postSpecial(special, this.props.locationId).then((locations) => {
-      this.props.fetchLocations(this.props.locationId);
+      this.props.fetchLocation(this.props.locationId);
       this.setState({showAddSpecialForm: false, selectedSpecial: null});
     });
   }
@@ -45,12 +45,13 @@ export class Specials extends Component {
     this.setState({showEditSpecialForm: false, selectedSpecial: null});
 
     locationApi.updateSpecial(special, this.props.locationId, specialId).then((locations) => {      
-      this.props.fetchLocations(this.props.locationId);
+      this.props.fetchLocation(this.props.locationId);
     });    
   }  
   deleteSpecial(specialId) {
     locationApi.deleteSpecial(this.props.locationId, specialId).then((locations) => {
-      this.props.fetchLocations(this.props.locationId);
+      this.props.fetchLocation(this.props.locationId);
+      this.setState({showAddSpecialForm: false});
     });
   }
   toggleAddSpecialForm() {
@@ -60,11 +61,11 @@ export class Specials extends Component {
     if (this.state.showAddSpecialForm) {
       return (<AddSpecial handleSubmitSpecialForm={this.handleSubmitNewSpecial} handleCancelSpecialForm={this.toggleAddSpecialForm} />);
     } else if (this.state.selectedSpecial) {
-      return (<SpecialDetails special={this.state.selectedSpecial} deselectSpecial={this.handleDeselectSpecial} deleteSpecial={this.deleteSpecial} handleSubmitEditSpecialForm={this.handleSubmitEditSpecialForm} cancelEditSpecial={this.cancelEditSpecial} />);
+      return (<Special special={this.state.selectedSpecial} deselectSpecial={this.handleDeselectSpecial} deleteSpecial={this.deleteSpecial} handleSubmitEditSpecialForm={this.handleSubmitEditSpecialForm} cancelEditSpecial={this.cancelEditSpecial} />);
     } else {
       const specials = this.props.specials.map((special, index) => {
         return (
-          <Special key={special._id} special={special} selectSpecial={this.handleSelectSpecial} />
+          <SpecialListItem key={special._id} special={special} selectSpecial={this.handleSelectSpecial} deleteSpecial={this.deleteSpecial} />
         );
       });    
       return (

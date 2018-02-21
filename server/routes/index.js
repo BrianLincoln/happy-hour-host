@@ -178,19 +178,18 @@ module.exports = function(passport) {
 	
 	router.delete('/location/:locationId/special/:specialId', (req, res) => {
 	  Location.findById(req.params.locationId, function(err, location) {
-		let specials = location.specials ? location.specials : [];
-		specials = _.remove(specials, function(special) {
-			return special._id === req.params.specialId;
-		});
-	
-		location.specials = specials;
-		// Using a promise rather than a callback
-		location.save().then(function(savedLocation) {
-		  res.send(savedLocation);
-		}).catch(function(err) {
-		  console.log(err);
-		  res.status(500).send(err);
-		});
+
+			location.specials = location.specials.filter((special) => {
+				return special._id.toString() !== req.params.specialId;
+			});
+
+			// Using a promise rather than a callback
+			location.save().then(function(savedLocation) {
+				res.send(savedLocation);
+			}).catch(function(err) {
+				console.log(err);
+				res.status(500).send(err);
+			});
 	  });
 	});
 	

@@ -47,7 +47,6 @@ export class SpecialForm extends Component {
         this.setState({headline: event.target.value});
         break;
       case "details":
-        console.log(event.target.value);
         this.setState({details: event.target.value});
         break;
       case "hasDrinkSpecial":
