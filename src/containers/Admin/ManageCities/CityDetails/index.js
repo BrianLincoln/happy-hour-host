@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Neighborhoods from './../neighborhoods/Neighborhoods';
+import NeighborhoodList from './../NeighborhoodList/';
 import CityActions from './../CityActions/';
 import './CityDetails.scss';
 
@@ -8,7 +8,7 @@ export class CityDetails extends Component {
     return (
       <div className="admin-city-details">
         <CityActions {...this.props} />
-        <Neighborhoods city={this.props._id} neighborhoods={this.props.neighborhoods} />
+        <NeighborhoodList cityId={this.props._id} neighborhoods={this.props.neighborhoods} />
       </div>
     )
   }

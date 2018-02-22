@@ -79,16 +79,58 @@ module.exports = function(passport) {
 	router.post('/city/:city/neighborhood', (req, res) => {
 	
 	  City.findById(req.params.city, function(err, city) {
-		let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
-		neighborhoods.push({"name": req.body.name});
-		city.neighborhoods = neighborhoods;
-	
-		// Using a promise rather than a callback
-		city.save().then(function(savedCity) {
-		  res.send(savedCity);
-		}).catch(function(err) {
-		  res.status(500).send(err);
-		});
+			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
+			neighborhoods.push({"name": req.body.name});
+			city.neighborhoods = neighborhoods;
+		
+			// Using a promise rather than a callback
+			city.save().then(function(savedCity) {
+				res.send(savedCity);
+			}).catch(function(err) {
+				res.status(500).send(err);
+			});
+	  });
+	});
+
+	router.get('/city/:cityId/neighborhood/:neighborhoodId', (req, res) => {		
+	  City.findById(req.params.cityId, function(err, city) {
+
+			let neighborhood = city.neighborhoods.filter((neighborhood) => {
+				return neighborhood._id.toString() === req.params.neighborhoodId;
+			});
+
+		  res.json({
+				success: true,
+				neighborhood: neighborhood[0]
+				});
+	  });
+	});
+
+	router.put('/city/:cityId/neighborhood/:neighborhoodId', (req, res) => {
+	  City.findById(req.params.cityId, function(err, city) {
+			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
+			neighborhoods = neighborhoods.map((neighborhood) => {
+				if (neighborhood._id.toString() === req.params.neighborhoodId) {
+					
+	  			neighborhood.name = req.body.neighborhood.name;
+	  			neighborhood.mapCenter = req.body.neighborhood.mapCenter;
+	  			neighborhood.mapZoomLevel = req.body.neighborhood.mapZoomLevel;
+	  			neighborhood.mapPoly = req.body.neighborhood.mapPoly;
+				}
+
+				return neighborhood;
+			});
+
+			city.neighborhoods = neighborhoods;
+		
+			// Using a promise rather than a callback
+			city.save().then(function(savedCity) {
+				res.json({
+					success: true
+					});
+			}).catch(function(err) {
+				res.status(500).send(err);
+			});
 	  });
 	});
 	

@@ -10,27 +10,25 @@ class Map extends Component {
     this.renderChildren = this.renderChildren.bind(this);
   }  
   componentDidMount() {
-    if (this.props.centerAroundCurrentLocation 
-        && navigator 
-        && navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((pos) => {
-            const coords = pos.coords;
-            this.setState({
-              currentLocation: {
-                lat: coords.latitude,
-                lng: coords.longitude
-                  }
-            });
-          });
-    } else {
-      this.setState({
-        currentLocation: {
-          lat: this.props.initialMapCenter.lat,
-          lng: this.props.initialMapCenter.long
-        }
+    let currentLocation = {
+      lat: this.props.initialCenter.lat,
+      lng: this.props.initialCenter.lng
+    };
+
+    if (this.props.centerAroundCurrentLocation && navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const coords = pos.coords;
+
+        currentLocation = {
+            lat: coords.latitude,
+            lng: coords.longitude
+          }            
       });
-    }
-    this.loadMap();
+    } 
+    
+    this.setState({ currentLocation: currentLocation }, () => {
+      this.loadMap();
+    });    
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
@@ -52,8 +50,8 @@ class Map extends Component {
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      let {initialMapCenter, zoom} = this.props;
-      const {lat, lng} = initialMapCenter;
+      let {initialCenter, zoom} = this.props;
+      const {lat, lng} = initialCenter;
       const center = new maps.LatLng(lat, lng);
       const mapConfig = Object.assign({}, {
         center: center,

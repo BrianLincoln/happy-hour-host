@@ -65,7 +65,6 @@ const locationApi = {
         .catch(function(res){ console.log(res) })
     },
     deleteLocation: function(locationId) {
-        console.log("delete: ", locationId);
         return fetch(config.apiPath + '/location/' + locationId, {      
             method: 'delete',            
             headers: {

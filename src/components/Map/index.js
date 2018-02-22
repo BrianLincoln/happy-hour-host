@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleApiComponent from './GoogleApiComponent';
 import Map from './Map';
-import Marker from './Marker';
+import Marker from './Map/Marker';
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -47,9 +47,9 @@ export class MapContainer extends Component {
       <div className="map-container">
         <Map google={this.props.google}          
           className={'map'}
-          zoom={13}
-          centerAroundCurrentLocation={true}
-          initialMapCenter={this.props.initialMapCenter}
+          zoom={this.props.initialZoom}
+          centerAroundCurrentLocation={this.props.centerAroundCurrentLocation}
+          initialCenter={this.props.initialMapCenter}
           onBoundsChange={this.onBoundsChange}
           handleMapClick={this.handleMapClick}
           updateCount={this.state.updateCount}>

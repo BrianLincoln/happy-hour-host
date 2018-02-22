@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Homepage.scss';
-import MapSection from './../../components/MapSection/MapSection.js';
+import MapSection from './MapSection/';
 import CityList from './../../components/Cities/CityList';
 import cityApi from './../../utils/CityApi';
 import locationApi from './../../utils/LocationApi';
@@ -37,11 +37,11 @@ export class Homepage extends Component {
     return (
       <div>
         <MapSection locations={this.state.locations} fetchingLocations={this.state.fetchingLocations} google={this.props.config.googleMapsApiKey} />
-        {/*<section className="homepage-categories">
+        <section className="homepage-categories">
           <div className="container">
             <CityList cities={this.state.cities} locations={this.state.locations} fetchingLocations={this.state.fetchingLocations} />
           </div>
-      </section>*/}
+      </section>
       </div>
     )
   }

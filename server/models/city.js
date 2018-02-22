@@ -1,10 +1,30 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var Position = new Schema({
+  latitude: {
+    type: String,
+    required: true
+  },
+  longitude: {
+    type: String,
+    required: true
+  }
+});
+
 var Neighborhood = new Schema({
     name: {
         type: String,
         required: true
+    },
+    mapCenter: {
+      type: Position
+    },
+    mapZoomLevel: {
+      type: Number
+    },
+    mapPoly: {
+      type: Array
     }
 });
 

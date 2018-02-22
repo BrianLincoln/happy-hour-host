@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Day from './Day';
 import TimeFilter from './TimeFilter';
-import dayLabels from './../../../utils/DayLabels';
+import dayLabels from './../../utils/DayLabels';
 import './Filter.scss';
 
 class Filter extends Component {

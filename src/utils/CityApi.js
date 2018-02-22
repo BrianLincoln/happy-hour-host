@@ -45,6 +45,13 @@ const cityApi = {
        return neighborhoods;
     });
    },
+   getNeighborhood: function(cityId, neighborhoodId) {
+    return fetch(config.apiPath + '/city/' + cityId + '/neighborhood/' + neighborhoodId,).then((response) => response.json())
+    .then((neighborhood) => {
+        // do stuff with responseJSON here...
+       return neighborhood;
+    });
+   },
    postNeighborhood: function(city, neighborhoodName) {
     return fetch(config.apiPath + '/city/' + city + '/neighborhood', {      
         method: 'post',
@@ -59,6 +66,36 @@ const cityApi = {
     .then(function(res){ console.log(res) })
     .catch(function(res){ console.log(res) })
    },
+   updateNeighborhood: function(neighborhood, cityId, neighborhoodId) {
+        return fetch(config.apiPath + '/city/' + cityId + '/neighborhood/' + neighborhoodId, {      
+            method: 'put',
+            body: JSON.stringify({
+                neighborhood: neighborhood
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }        
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            return response;
+        }); 
+    },     
+   deleteNeighborhood: function(cityId, neighborhoodId) {
+    return fetch(config.apiPath + '/city/' + cityId + '/neighborhood/' + neighborhoodId, {      
+        method: 'delete',
+        body: JSON.stringify({
+            _id: neighborhoodId
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }        
+    })
+    .then(function(res){ console.log(res) })
+    .catch(function(res){ console.log(res) })
+   }   
 
 }
 

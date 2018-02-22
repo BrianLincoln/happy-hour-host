@@ -10,6 +10,7 @@ class NeighborhoodList extends Component {
                 <Link key={neighborhood._id} to={{
                     pathname: path, 
                     state: {
+                        cityName: this.props.city.name,
                         locations: this.props.locations, 
                         fetchingLocations: this.props.fetchingLocations,
                         neighborhood: neighborhood

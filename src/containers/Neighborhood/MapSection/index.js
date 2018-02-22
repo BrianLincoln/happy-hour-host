@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Filter from './Filter/Filter';
-import MapContainer from './Map/MapContainer';
-import LocationsList from './Locations/LocationsList';
-import timeValues from './../../utils/TimeValues';
-import locationFilter from './../../utils/LocationFilter';
+import Filter from './../../../components/Filter/';
+import Map from './../../../components/Map/';
+import LocationsList from './../../../components/Locations/LocationsList';
+import timeValues from './../../../utils/TimeValues';
+import locationFilter from './../../../utils/LocationFilter';
 import './MapSection.scss';
 import _ from 'lodash';
 
-export class MapSection extends Component {
+export class HomepageMapSection extends Component {
   constructor(props) {
     super(props);
     this.setLocations = this.setLocations.bind(this);
@@ -17,39 +17,33 @@ export class MapSection extends Component {
     this.updateActiveDays = this.updateActiveDays.bind(this);
     this.updateActiveTime = this.updateActiveTime.bind(this);
 
-    const now = new Date();
-    const today = now.getDay();
-    let hours = now.getHours();
-    let activeTime;
-
-    if (hours < 5) {
-      hours += 24;//hacky way of dealing with times passed midnight
-    }
-    timeValues.forEach((time) => {
-      if (hours >= time.start && hours < time.end) {
-        activeTime = time;
-      } 
-    });
-
     this.state = {
       locations: [],
       selectedLocation: null,
       updateCount: 0,
       filters: {
-        days: [today],
-        time: activeTime
+        days: [],
+        time: {value: "any"}
       },
       bounds: [],
       initialMapCenter: {
-        lat: 44.9778,
-        lng: -93.2650
-      }
+        lat: 44.948933,
+        lng: -93.2998411
+      },
+      initialZoom: 15,
+      hasSetLocations: false
     }
-  }  
+  }
   setLocations() {
     if (!this.props.fetchingLocations && this.props.locations.length > 0) {  
-      let filteredLocations = locationFilter.filter(this.props.locations, this.state.bounds, this.state.filters);          
-      this.setState({locations: filteredLocations});
+      let filteredLocations = locationFilter.filter(this.props.locations, this.state.bounds, this.state.filters);                      
+
+      //Pass initial locations up to parent
+      if (!this.state.hasSetLocations) {
+        this.props.setNeighborhoodLocations(filteredLocations);
+      }
+        
+      this.setState({locations: filteredLocations, hasSetLocations: true});
     }
   } 
   handleLocationSelect(locationId) {
@@ -87,11 +81,13 @@ export class MapSection extends Component {
   render() {
     return (
       <div className="map-search-container">
-        <MapContainer 
+        <Map 
+            centerAroundCurrentLocation={false}
             locations={this.state.locations} 
             onMapUpdate={this.onMapUpdate} 
             google={this.props.googleMapsApiKey} 
             initialMapCenter={this.state.initialMapCenter} 
+            initialZoom={this.state.initialZoom}
             handleLocationSelect={this.handleLocationSelect}
             handleLocationDeselect = {this.handleLocationDeselect}
             selectedLocation = {this.state.selectedLocation} />
@@ -122,4 +118,4 @@ export class MapSection extends Component {
   }
 }
 
-export default MapSection;
+export default HomepageMapSection;

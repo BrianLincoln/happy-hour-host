@@ -1,5 +1,11 @@
 const timeValues = [
     {
+        label: "Whenever",
+        value: "any",
+        start: 0,
+        end: 26 //hacky way of saying 2am
+    },
+    {
         label: "Morning (5am - Noon)",
         value: "morning",
         start: 5,
@@ -18,10 +24,10 @@ const timeValues = [
         end: 21
     },
     {
-        label: "Late Night (9pm - 5am)",
+        label: "Late Night (9pm - 2am)",
         value: "late-night",
         start: 21,
-        end: 29 //hacky way of saying 5am
+        end: 26 //hacky way of saying 2am
     }
 ]
 

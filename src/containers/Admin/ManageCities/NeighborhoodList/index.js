@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Neighborhood from './Neighborhood';
+import NeighborhoodListItem from './../NeighborhoodListItem';
 import cityApi from './../../../../utils/CityApi';
 
 export class Neighborhoods extends Component {
@@ -9,10 +9,17 @@ export class Neighborhoods extends Component {
     this.state =  {
       showAddNeighborhood: false
     }
+
+    this.deleteNeighborhood = this.deleteNeighborhood.bind(this);
   }
+
+  deleteNeighborhood(neighborHoodId) {
+    cityApi.deleteNeighborhood(this.props.cityId, neighborHoodId);
+  }
+
   render() {
     const neighborhoods = !this.props.neighborhoods ? null : this.props.neighborhoods.map((neighborhood) => {
-      return (<Neighborhood key={neighborhood._id} {...neighborhood} /> );      
+      return (<NeighborhoodListItem cityId={this.props.cityId} deleteNeighborhood={this.deleteNeighborhood} key={neighborhood._id} neighborhood={neighborhood} /> );      
     })
     
     return (

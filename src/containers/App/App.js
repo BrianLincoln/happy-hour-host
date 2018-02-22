@@ -3,11 +3,12 @@ import './../../sprak-styles/sprak.css';
 import './App.scss';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
-import Neighborhood from './../Neighborhood/Neighborhood';
+import Neighborhood from './../Neighborhood/';
 import Admin from './../Admin/';
 import ManageCities from './../Admin/ManageCities/index.js';
 import ManageLocations from './../Admin/ManageLocations/';
 import AdminLocation from './../Admin/ManageLocations/Location/index.js';
+import AdminNeighborhood from './../Admin/ManageCities/Neighborhood/';
 import Login from './../Admin/Login';
 import SignUp from './../Admin//SignUp';
 import SignOut from './../Admin/SignOut';
@@ -48,7 +49,13 @@ class App extends Component {
               <Route exact path="/admin/manage-locations" render={ () => <ManageLocations 
                   config={config} 
                 />
-              }/>   
+              }/>  
+              <Route exact path="/admin/city/:cityId/neighborhood/:neighborhoodId" render={ (meta) => <AdminNeighborhood 
+                  config={config} 
+                  cityId={meta.match.params.cityId}
+                  neighborhoodId={meta.match.params.neighborhoodId}
+                />
+              }/>  
               <Route exact path="/admin/location/:locationId" render={ (meta) => <AdminLocation 
                   config={config} 
                   locationId={meta.match.params.locationId}
@@ -74,6 +81,7 @@ class App extends Component {
               }/> 
               <Route exact path="/:city/:neighborhood/" render={ (meta)  => <Neighborhood 
                   config={config}
+                  cityName= {meta.location.state.cityName}
                   neighborhood= {meta.location.state.neighborhood}
                   locations= {meta.location.state.locations}
                   fetchingLocations= {meta.location.state.fetchingLocations}

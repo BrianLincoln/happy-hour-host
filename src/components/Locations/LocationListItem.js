@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SpecialPreview from './../../Special/SpecialPreview';
+import SpecialPreview from './../Special/SpecialPreview';
 import './LocationListItem.scss';
 
 class LocationListItem extends Component {
