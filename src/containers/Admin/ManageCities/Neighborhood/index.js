@@ -25,7 +25,7 @@ export class Neighborhoods extends Component {
           mapCenterLatitudeField: result.neighborhood.mapCenter.latitude || "x",
           mapCenterLongitudeField: result.neighborhood.mapCenter.longitude || "",
           mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
-          polyField: result.neighborhood.mapPoly.toString() || "",
+          polyField: JSON.stringify(result.neighborhood.mapPoly) || "",
         });
       }
     });;
@@ -57,11 +57,11 @@ export class Neighborhoods extends Component {
     let updatedNeighborhood = {
       name: this.state.nameField,
       mapCenter: {
-        latitude: this.state.mapCenterYField,
+        latitude: this.state.mapCenterLatitudeField,
         longitude: this.state.mapCenterLongitudeField
       },
       mapZoomLevel: this.state.mapZoomLevelField,
-      mapPoly: this.state.polyField.split()
+      mapPoly: JSON.parse(this.state.polyField)
     }
 
     cityApi.updateNeighborhood(updatedNeighborhood, this.props.cityId, this.props.neighborhoodId).then((result) => {
@@ -105,6 +105,8 @@ export class Neighborhoods extends Component {
                 <div className="form-element">
                   <label className="form-label" htmlFor="poly">poly</label>
                   <input onChange={this.handleFieldChange} required id="poly" type="text" value={this.state.polyField} />                    
+                  <label className="color-medium">like this: [[-93.306181,44.9635469],[-93.3078117,44.9360903],[-93.2780285,44.9357258],[-93.2764835,44.9633647],[-93.306181,44.9635469]] </label>
+                  <label className="color-medium">from here: <a href="https://www.keene.edu/campus/maps/tool/">https://www.keene.edu/campus/maps/tool/</a> </label>
                 </div>
                 {updateSuccessMessage}
                 <div className="button-group button-group_left">

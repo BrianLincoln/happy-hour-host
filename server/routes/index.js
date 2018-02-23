@@ -106,6 +106,20 @@ module.exports = function(passport) {
 	  });
 	});
 
+	router.get('/city-name/:cityName/neighborhood-name/:neighborhoodName', (req, res) => {
+		City.findOne({ 'name': req.params.cityName }, function (err, city) {
+			
+			let neighborhood = city.neighborhoods.filter((neighborhood) => {
+				return neighborhood.name === req.params.neighborhoodName;
+			});
+
+		  res.json({
+				success: true,
+				neighborhood: neighborhood[0]
+			});
+		});
+	});	
+
 	router.put('/city/:cityId/neighborhood/:neighborhoodId', (req, res) => {
 	  City.findById(req.params.cityId, function(err, city) {
 			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];

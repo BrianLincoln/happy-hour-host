@@ -79,12 +79,13 @@ class App extends Component {
                   locationId={meta.match.params.locationId}
                 /> 
               }/> 
-              <Route exact path="/:city/:neighborhood/" render={ (meta)  => <Neighborhood 
+              <Route exact path="/:cityName/:neighborhoodName/" render={ (meta)  => <Neighborhood 
                   config={config}
-                  cityName= {meta.location.state.cityName}
-                  neighborhood= {meta.location.state.neighborhood}
-                  locations= {meta.location.state.locations}
-                  fetchingLocations= {meta.location.state.fetchingLocations}
+                  cityName= {meta.match.params.cityName}
+                  neighborhoodName= {meta.match.params.neighborhoodName}
+                  neighborhood= {meta.location.state ? meta.location.state.neighborhood : null}
+                  locations= {meta.location.state ? meta.location.state.locations : null}
+                  fetchingLocations= {meta.location.state ? meta.location.state.fetchingLocations : null}
                 /> 
               }/>                          
             </Switch>

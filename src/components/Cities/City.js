@@ -9,7 +9,7 @@ class CityList extends Component {
                 <div className="row">
                     <div className="col-xs-12 col-sm-6 homepage-category">
                         <h2>Happy hours in your neighborhood</h2>
-                        {/*<NeighborhoodList city={this.props.city} locations={this.props.locations} fetchingLocations={this.props.fetchingLocations} />                        */}
+                        <NeighborhoodList city={this.props.city} locations={this.props.locations} fetchingLocations={this.props.fetchingLocations} />
                     </div>
                 </div>                
             </div>

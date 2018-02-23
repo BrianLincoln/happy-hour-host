@@ -52,6 +52,13 @@ const cityApi = {
        return neighborhood;
     });
    },
+   getNeighborhoodByDisplayNames: function(cityName, neighborhoodName) {
+    return fetch(config.apiPath + '/city-name/' + cityName + '/neighborhood-name/' + neighborhoodName,).then((response) => response.json())
+    .then((neighborhood) => {
+        // do stuff with responseJSON here...
+       return neighborhood;
+    });
+   },
    postNeighborhood: function(city, neighborhoodName) {
     return fetch(config.apiPath + '/city/' + city + '/neighborhood', {      
         method: 'post',

@@ -30,20 +30,14 @@ export class HomepageMapSection extends Component {
         lat: 44.948933,
         lng: -93.2998411
       },
-      initialZoom: 15,
-      hasSetLocations: false
+      initialZoom: 15
     }
   }
   setLocations() {
     if (!this.props.fetchingLocations && this.props.locations.length > 0) {  
       let filteredLocations = locationFilter.filter(this.props.locations, this.state.bounds, this.state.filters);                      
 
-      //Pass initial locations up to parent
-      if (!this.state.hasSetLocations) {
-        this.props.setNeighborhoodLocations(filteredLocations);
-      }
-        
-      this.setState({locations: filteredLocations, hasSetLocations: true});
+      this.setState({locations: filteredLocations});
     }
   } 
   handleLocationSelect(locationId) {

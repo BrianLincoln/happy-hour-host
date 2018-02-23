@@ -20,6 +20,15 @@ const locationFilter = {
         });
 
         return result;
+    },
+
+    filterByMapPoly: (locations, mapPoly) => {
+        let result = locations.filter((location) => {
+            let point = [parseFloat(location.position.longitude), parseFloat(location.position.latitude)];
+
+            return positionIsInPoly(point, mapPoly);
+        })
+        return result;        
     }
 }  
 
@@ -34,9 +43,6 @@ function positionIsInBounds(position, bounds) {
 }
 
 function positionIsInPoly(point, poly) {
-    // ray-casting algorithm based on
-    // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-    
     var x = point[0], y = point[1];
     
     var inside = false;
@@ -44,7 +50,7 @@ function positionIsInPoly(point, poly) {
         var xi = poly[i][0], yi = poly[i][1];
         var xj = poly[j][0], yj = poly[j][1];
         
-        var intersect = ((yi > y) != (yj > y))
+        var intersect = ((yi > y) !== (yj > y))
             && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
         if (intersect) inside = !inside;
     }
