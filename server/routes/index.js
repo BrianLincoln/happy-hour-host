@@ -76,11 +76,20 @@ module.exports = function(passport) {
 	  });  
 	});
 	
-	router.post('/city/:city/neighborhood', (req, res) => {
-	
-	  City.findById(req.params.city, function(err, city) {
-			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
-			neighborhoods.push({"name": req.body.name});
+	router.get('/city/:cityId/neighborhoods', (req, res) => {		
+		console.log(req.params);
+	  City.findById(req.params.cityId, function(err, city) {
+		  res.json({
+				success: true,
+				neighborhoods: city.neighborhoods
+				});
+	  });
+	});
+
+	router.post('/city/:cityId/neighborhood', (req, res) => {
+	  City.findById(req.params.cityId, function(err, city) {
+			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];			
+			neighborhoods.push(req.body.neighborhood);			
 			city.neighborhoods = neighborhoods;
 		
 			// Using a promise rather than a callback
@@ -147,6 +156,28 @@ module.exports = function(passport) {
 			});
 	  });
 	});
+
+	router.delete('/city/:cityId/neighborhood/:neighborhoodId', (req, res) => {
+	  City.findById(req.params.cityId, function(err, city) {
+			let neighborhoods = city.neighborhoods ? city.neighborhoods : [];
+			neighborhoods = neighborhoods.filter((neighborhood) => {
+				if (neighborhood._id.toString() !== req.params.neighborhoodId) {
+					return true;
+				}
+			});
+
+			city.neighborhoods = neighborhoods;
+		
+			// Using a promise rather than a callback
+			city.save().then(function(savedCity) {
+				res.json({
+					success: true
+					});
+			}).catch(function(err) {
+				res.status(500).send(err);
+			});
+	  });
+	});
 	
 	router.get('/city/:city/locations', (req, res) => {
 		Location.find({"city": req.params.city})
@@ -156,7 +187,6 @@ module.exports = function(passport) {
 		});
 	});
 	
-	
 	router.get('/location/:locationId', (req, res) => {
 		Location.findOne({"_id": req.params.locationId}, function(err, location) {
 		  res.json({
@@ -165,6 +195,7 @@ module.exports = function(passport) {
 		  });
 		}); 
 	});
+
 	router.post('/location', (req, res) => {
 	  let location = new Location();
 	  location.name = req.body.name;

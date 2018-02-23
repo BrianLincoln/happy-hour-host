@@ -22,7 +22,7 @@ export class Neighborhoods extends Component {
           neighborhood: result.neighborhood,
           showUpdateSuccess: showUpdateSuccess,
           nameField: result.neighborhood.name || "",
-          mapCenterLatitudeField: result.neighborhood.mapCenter.latitude || "x",
+          mapCenterLatitudeField: result.neighborhood.mapCenter.latitude || "",
           mapCenterLongitudeField: result.neighborhood.mapCenter.longitude || "",
           mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
           polyField: JSON.stringify(result.neighborhood.mapPoly) || "",
@@ -83,6 +83,7 @@ export class Neighborhoods extends Component {
       return (
         <div className="container">
           <div className="admin-neighborhood">
+          <a className="button_sm .button_transparent" href="/admin/manage-cities"><i className="fas fa-arrow-left"></i> back</a>
             <h1>{this.state.neighborhood.name}</h1>
             <form className=" form-group space-top-sm space-bottom-sm" onSubmit={this.handleSubmitForm}>          
 

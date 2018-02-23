@@ -22,7 +22,18 @@ export class AddNeighborhood extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    cityApi.postNeighborhood(this.props._id, this.state.neighborhoodName).then(() => this.props.fetchCities());;
+
+    const neighborhood = {
+      name: this.state.neighborhoodName,
+      mapCenter: {
+        latitude: 0,
+        longitude: 0
+      },
+      mapZoomLevel: 13,
+      mapPoly: []
+    }
+
+    cityApi.postNeighborhood(this.props._id, neighborhood).then(() => this.props.fetchCities());;
   }
   render() {
     if (this.state.showAddNeighborhoodForm) {

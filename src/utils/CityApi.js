@@ -38,9 +38,10 @@ const cityApi = {
     .catch(function(res){ console.log(res) })
    },
 
-   getNeighborhoods: function(city) {
-    return fetch(config.apiPath + '/city/' + city + '/neighborhood',).then((response) => response.json())
+   getNeighborhoods: function(cityId) {
+    return fetch(config.apiPath + '/city/' + cityId + '/neighborhoods',).then((response) => response.json())
     .then((neighborhoods) => {
+        console.log("result");
         // do stuff with responseJSON here...
        return neighborhoods;
     });
@@ -59,11 +60,12 @@ const cityApi = {
        return neighborhood;
     });
    },
-   postNeighborhood: function(city, neighborhoodName) {
-    return fetch(config.apiPath + '/city/' + city + '/neighborhood', {      
+   postNeighborhood: function(cityId, neighborhood) {
+       console.log(cityId, neighborhood);
+    return fetch(config.apiPath + '/city/' + cityId + '/neighborhood', {      
         method: 'post',
         body: JSON.stringify({
-            name: neighborhoodName
+            neighborhood: neighborhood
         }),
         headers: {
             'Accept': 'application/json',

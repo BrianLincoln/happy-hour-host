@@ -7,6 +7,7 @@ export class Neighborhoods extends Component {
     super(props);
 
     this.state =  {
+      fetchNeighborhoods: this.props.fetchNeighborhoods,
       showAddNeighborhood: false
     }
 
@@ -14,7 +15,9 @@ export class Neighborhoods extends Component {
   }
 
   deleteNeighborhood(neighborHoodId) {
-    cityApi.deleteNeighborhood(this.props.cityId, neighborHoodId);
+    cityApi.deleteNeighborhood(this.props.cityId, neighborHoodId).then(() => {
+      this.props.fetchCities()
+    });
   }
 
   render() {
