@@ -26,11 +26,8 @@ export class HomepageMapSection extends Component {
         time: {value: "any"}
       },
       bounds: [],
-      initialMapCenter: {
-        lat: 44.948933,
-        lng: -93.2998411
-      },
-      initialZoom: 15
+      initialMapCenter: this.props.initialMapCenter ? this.props.initialMapCenter : {lat: 44.948933, lng: -93.2998411},
+      initialZoom: this.props.initialZoomLevel ? this.props.initialZoomLevel : 13
     }
   }
   setLocations() {

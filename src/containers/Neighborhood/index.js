@@ -65,10 +65,9 @@ class Neighborhood extends Component {
             let neighborhoodLocations = this.state.neighborhoodLocations.map((location) => {
                 return <LocationListItem key={location._id} {...location} />;
             });
-
             return (      
                 <div>
-                    <MapSection locations={this.state.locations} fetchingLocations={this.props.fetchingLocations} google={this.props.config.googleMapsApiKey} />                
+                    <MapSection initialZoomLevel={this.state.neighborhood.mapZoomLevel} locations={this.state.locations} fetchingLocations={this.props.fetchingLocations} google={this.props.config.googleMapsApiKey} />                
                     <section className="background-valencia">
                         <div className="container space-bottom-xl space-top-xl">
                             <h1 className="align-center space-bottom-xl">All Happy Hours in {this.state.neighborhood.name}, {this.props.cityName}</h1>
