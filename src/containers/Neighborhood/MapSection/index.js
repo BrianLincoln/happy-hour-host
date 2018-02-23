@@ -71,7 +71,7 @@ export class HomepageMapSection extends Component {
 
   render() {
     return (
-      <div className="map-search-container">
+      <div className="neighborhood-map-search-container">
         <Map 
             centerAroundCurrentLocation={false}
             locations={this.state.locations} 
@@ -83,7 +83,7 @@ export class HomepageMapSection extends Component {
             handleLocationDeselect = {this.handleLocationDeselect}
             selectedLocation = {this.state.selectedLocation} />
 
-        <div className="map-results-wrapper">
+        <div className="neighborhood-map-results-wrapper">
             {this.state.selectedLocation 
               ? <button onClick={this.handleLocationDeselect} className="map-results-back font-sm" >{"back to results"}</button> 
               : <Filter 

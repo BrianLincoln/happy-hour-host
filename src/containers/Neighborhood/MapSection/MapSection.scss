@@ -17,13 +17,13 @@
 }
 
 @media (min-width: $breakpoint-sm) {
-    .map-search-container {
+    .neighborhood-map-search-container {
         display: flex;
         flex-direction: row-reverse;
         height: 60vh;
         overflow: hidden;
     }
-    .map-results-wrapper {
+    .neighborhood-map-results-wrapper {
         box-shadow: 1px 0px 3px $color-medium;
         display: flex;
         flex-direction: column;
