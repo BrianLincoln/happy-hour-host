@@ -1,0 +1,16 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+a.neighborhood-list-item {
+    border-bottom: solid 1px $color-medium;
+    color: $color-white;
+    display: block;
+    padding: $space-md;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.neighborhood-list-item:last-child {
+    border-bottom: none;
+}

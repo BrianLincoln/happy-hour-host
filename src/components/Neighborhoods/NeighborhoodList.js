@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './NeighborhoodList.scss';
 
 class NeighborhoodList extends Component {
     render() {   
@@ -7,7 +8,8 @@ class NeighborhoodList extends Component {
             let path = `/${this.props.city.name}/${neighborhood.name}`;
             path = path.replace(" ", "+");
             return (
-                <Link key={neighborhood._id} to={{
+                <Link className="neighborhood-list-item"
+                    key={neighborhood._id} to={{
                     pathname: path, 
                     state: {
                         cityName: this.props.city.name,
