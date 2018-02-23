@@ -28,27 +28,34 @@ class Neighborhood extends Component {
     }
 
     componentDidMount() {
-
-        this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
+        if (this.state.locations &&  this.state.neighborhood) {
+            this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
+        }
     }
 
     fetchNeighborhood(cityName, neighborhoodName) {
         cityApi.getNeighborhoodByDisplayNames(cityName, neighborhoodName).then((result) => {
           if (result.success) {
-            this.setState({neighborhood: result.neighborhood});
+            this.setState({neighborhood: result.neighborhood}, () => {                
+                this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
+            });
           }
         });
     }  
 
     fetchLocations() {
         locationApi.getLocations().then((locations) => {
-          this.setState({locations: locations});    
+            this.setState({locations: locations}, () => {                
+                this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
+            });   
         });    
-      }      
+    }      
 
     setNeighborhoodLocations(locations, mapPoly) {
-        let filteredLocations = locationFilter.filterByMapPoly(locations, mapPoly);
-        this.setState({neighborhoodLocations: filteredLocations});
+        if (this.state.neighborhoodLocations.length === 0) {
+            let filteredLocations = locationFilter.filterByMapPoly(locations, mapPoly);
+            this.setState({neighborhoodLocations: filteredLocations});
+        }
     }
 
     render() {
