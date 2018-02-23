@@ -11,6 +11,7 @@ class Neighborhood extends Component {
         super(props);
         this.fetchNeighborhood = this.fetchNeighborhood.bind(this);
         this.fetchLocations = this.fetchLocations.bind(this);
+        this.setDocumentTitle = this.setDocumentTitle.bind(this);
         this.setNeighborhoodLocations = this.setNeighborhoodLocations.bind(this);
 
         this.state = {
@@ -29,6 +30,7 @@ class Neighborhood extends Component {
 
     componentDidMount() {
         if (this.state.locations &&  this.state.neighborhood) {
+            this.setDocumentTitle();
             this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
         }
     }
@@ -36,7 +38,8 @@ class Neighborhood extends Component {
     fetchNeighborhood(cityName, neighborhoodName) {
         cityApi.getNeighborhoodByDisplayNames(cityName, neighborhoodName).then((result) => {
           if (result.success) {
-            this.setState({neighborhood: result.neighborhood}, () => {                
+            this.setState({neighborhood: result.neighborhood}, () => {               
+                this.setDocumentTitle();               
                 this.setNeighborhoodLocations(this.state.locations, this.state.neighborhood.mapPoly);
             });
           }
@@ -50,7 +53,9 @@ class Neighborhood extends Component {
             });   
         });    
     }      
-
+    setDocumentTitle() {
+        document.title = `${this.state.neighborhood.name} Happy Hours - Food & Drink Specials in ${this.state.neighborhood.name}, ${this.props.cityName}`;
+    }
     setNeighborhoodLocations(locations, mapPoly) {
         if (this.state.neighborhoodLocations.length === 0) {
             let filteredLocations = locationFilter.filterByMapPoly(locations, mapPoly);
