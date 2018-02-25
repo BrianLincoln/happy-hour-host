@@ -56,7 +56,7 @@ export class LocationDetails extends Component {
             <div className="row">       
               <div className="col-xs-12 col-md-6">
                 <div className="card col-xs-12">
-                  <a className="button_sm .button_transparent" href="/admin/manage-locations"><i className="fas fa-arrow-left"></i> back</a>
+                  <a className="button_sm .button_transparent" href={`/admin/city/${this.props.cityId}`}><i className="fas fa-arrow-left"></i> back</a>
                   <h1>{this.state.location.name}</h1>
                   <div>{this.state.location.position.latitude}, {this.state.location.position.longitude}</div>
                   {this.state.location.website ? <div><a href={this.state.location.website}>{this.state.location.website}</a></div> : null}
