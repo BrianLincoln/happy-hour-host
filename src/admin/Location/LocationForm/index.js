@@ -20,7 +20,6 @@ export class LocationForm extends Component {
       }
     } else {
       this.state = {
-        _id: this.props.location._id,
         name: '',
         positionLatitude: '',
         positionLongitude: '',

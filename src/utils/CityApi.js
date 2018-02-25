@@ -10,7 +10,7 @@ const cityApi = {
         }); 
    },
    //defaulting to mpls for now
-   getCity: function(cityId = "598392e1f69ccd390c5983c8") {       
+   getCity: function(cityId = "5a92e61f5afd0826f0e5a7a6") {       
         return fetch(`${config.apiPath}/city/${cityId}`)
         .then((response) => response.json())
         .then((response) => {

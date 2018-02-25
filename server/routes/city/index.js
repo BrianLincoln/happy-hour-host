@@ -16,10 +16,16 @@ router.get('/cities', (req, res) => {
 
 router.get('/city/:cityId', (req, res) => {
 	City.findById(req.params.cityId, function(err, city) {
-		res.json({
-			success: true,
-			city: city
-		});
+		if (city) {
+			res.json({
+				success: true,
+				city: city
+			});
+		} else {
+			res.json({
+				success: false
+			})
+		}
 	}); 
 });
 

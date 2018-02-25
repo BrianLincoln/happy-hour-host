@@ -4,7 +4,8 @@ import NeighborhoodList from '../Neighborhoods/NeighborhoodList';
 class CityList extends Component {
     render() {   
         return (      
-            <div>            
+            <div>  
+                {/* this needs to be dynamic */}          
                 <h1>Food and drink specials in Minneapolis</h1>
                 <div className="row">
                     <div className="col-xs-12 col-sm-6 homepage-category">

@@ -26,20 +26,30 @@ export class Homepage extends Component {
           locations: result.city.locations,
           fetchingCity: false
         });
+      } else {
+        this.setState({ fetchingCity: "failed" });
       }
     });
   }
   render() {
-    return (
-      <div>
-        <MapSection cityName={this.state.cityName} locations={this.state.locations} fetchingData={this.state.fetchingCity} google={this.props.config.googleMapsApiKey} />
-        <section className="homepage-categories">
-          <div className="container">
-            <City city={this.state.city} locations={this.state.locations} fetchingData={this.state.fetchingCity} />
-          </div>
-        </section>
-      </div>
-    )
+    if (this.state.fetchingCity === "failed") {
+      return (        
+        <div className="container space-top-xl space-bottom-xl">
+          <h2>Hmmm... ran into an issue finding a city. Try refreshing!</h2>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <MapSection cityName={this.state.cityName} locations={this.state.locations} fetchingData={this.state.fetchingCity} google={this.props.config.googleMapsApiKey} />
+          <section className="homepage-categories">
+            <div className="container">
+              <City city={this.state.city} locations={this.state.locations} fetchingData={this.state.fetchingCity} />
+            </div>
+          </section>
+        </div>
+      )
+    }
   }
 }
 
