@@ -11,15 +11,15 @@ class LocationsList extends Component {
       </div>
     );  
 
-    if (this.props.fetchingLocations) {
+    if (this.props.fetchingData) {
       locations = <div className="spinner"></div>;
     }
 
     if (this.props.selectedLocation) {
-      locations = <LocationListItem key={this.props.selectedLocation._id} {...this.props.selectedLocation} /> 
+      locations = <LocationListItem cityName={this.props.cityName} key={this.props.selectedLocation._id} {...this.props.selectedLocation} /> 
     } else if (this.props.locations.length > 0) {
       locations = this.props.locations.map((location) => {
-        return <LocationListItem key={location._id} {...location} /> 
+        return <LocationListItem cityName={this.props.cityName} key={location._id} {...location} /> 
       });  
     }
    

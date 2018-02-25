@@ -69,7 +69,7 @@ class Neighborhood extends Component {
             return <div className="spinner"></div>
         } else  {    
             let neighborhoodLocations = this.state.neighborhoodLocations.map((location) => {
-                return <LocationListItem key={location._id} {...location} />;
+                return <LocationListItem key={location._id} cityName={this.props.cityName} {...location} />;
             });
             return (      
                 <div>
@@ -86,9 +86,9 @@ class Neighborhood extends Component {
                                 <div className="col-xs-12 col-sm-5">
                                     <div className="card col-xs-12 neighborhood-text">
                                         <h2 className="card-heading">Find the best food and drink specials in {this.state.neighborhood.name}</h2>
-                                        <p>Happy Hour Host is the best way to find happy hours in {this.state.neighborhood.name}, {this.props.cityName}. Use our <a href="/admin" title="home page">full map</a> to find food and drink specials in {this.state.neighborhood.name} right now. You can filter by day of the week and time to find the best happy hours where and when you want.</p>
+                                        <p>Happy Hour Host is the best way to find happy hours in {this.state.neighborhood.name}, {this.props.cityName}. Use our <a href="/" title="home page">full map</a> to find food and drink specials in {this.state.neighborhood.name} right now. You can filter by day of the week and time to find the best happy hours where and when you want.</p>
                                         <p>Whether you're looking for lunch specials, food specials, drink specials, 2 for 1s / buy on get one, or just cheap drinks Happy Hour Host has you covered.</p>
-                                        <p>Help us help you by reporting any missing or innacurate happy hour information. Email us at <a href="mailto:happyhourhost@gmail.com">happyhourhost@gmail.com</a>. It really helps if you can send a link or image of an accurate menu.</p>
+                                        <p>Help us help you by reporting any missing or innacurate happy hour information. Email us at <a href="mailto:thehappyhourhost@gmail.com">thehappyhourhost@gmail.com</a>. It really helps if you can send a link or image of an accurate menu.</p>
                                     </div>
                                 </div>
                             </div>

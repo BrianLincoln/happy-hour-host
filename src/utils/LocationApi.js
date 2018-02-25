@@ -2,11 +2,11 @@ import _ from 'lodash';
 import config from './../config';
 
 //TEMP -- this should get dynamic once there are multiple cities
-const minneapoliscity = "598392e1f69ccd390c5983c8";
+const minneapoliscityId = "598392e1f69ccd390c5983c8";
 
 const locationApi = {
    getLocations: function() {
-    return fetch(config.apiPath + '/city/' + minneapoliscity + '/locations').then(function(response) { 
+    return fetch(config.apiPath + '/city/' + minneapoliscityId + '/locations').then(function(response) {                 
         return response.json();
     });
    },
@@ -17,36 +17,22 @@ const locationApi = {
             return cities;
         });
    },   
-   getLocation: function(locationId) {
-        return fetch(config.apiPath + '/location/' + locationId).then((response) => response.json())
+   getLocation: function(cityId, locationId) {
+        return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}`)
         .then((response) => {
-            return response;
+            return response.json();
         });
    },
-    postLocation: function(location, city) {
-        return fetch(config.apiPath + '/location', {      
+   getLocationByDisplayNames : function(cityName, locationName) {
+    return fetch(config.apiPath + '/city-name/' + cityName + '/location-name/' + locationName,).then((response) => response.json())
+    .then((location) => {
+        // do stuff with responseJSON here...
+       return location;
+    });
+   },   
+    postLocation: function(cityId, location) {
+        return fetch(`${config.apiPath}/city/${cityId}/location`, {      
             method: 'post',
-            body: JSON.stringify({
-                name: location.name,
-                position: {
-                    latitude: location.positionLatitude,                
-                    longitude: location.positionLongitude
-                },
-                website: location.website,
-                googleMapLink: location.googleMapLink,
-                city: city
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }        
-        })
-        .then(function(res){ console.log(res) })
-        .catch(function(res){ console.log(res) })
-    },
-    updateLocation: function(location) {
-        return fetch(config.apiPath + '/location/'+ location._id, {      
-            method: 'PUT',
             body: JSON.stringify({
                 name: location.name,
                 position: {
@@ -64,8 +50,29 @@ const locationApi = {
         .then(function(res){ console.log(res) })
         .catch(function(res){ console.log(res) })
     },
-    deleteLocation: function(locationId) {
-        return fetch(config.apiPath + '/location/' + locationId, {      
+    updateLocation: function(cityId, location) {
+        return fetch(`${config.apiPath}/city/${cityId}/location/${location._id}`, {      
+            method: 'PUT',
+            body: JSON.stringify({
+                _id: location._id,
+                name: location.name,
+                position: {
+                    latitude: location.positionLatitude,                
+                    longitude: location.positionLongitude
+                },
+                website: location.website,
+                googleMapLink: location.googleMapLink
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }        
+        })
+        .then(function(res){ console.log(res) })
+        .catch(function(res){ console.log(res) })
+    },
+    deleteLocation: function(cityId, locationId) {
+        return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}`, {      
             method: 'delete',            
             headers: {
                 'Accept': 'application/json',
@@ -75,13 +82,10 @@ const locationApi = {
         .then(function(res){ console.log(res) })
         .catch(function(res){ console.log(res) })
     },
-    postSpecial: function(special, locationId) {
-        return fetch(config.apiPath + '/location/' + locationId + '/special', {      
+    postSpecial: function(cityId, locationId, special) {
+        return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special`, {      
             method: 'post',
-            body: JSON.stringify({
-                special: special,
-                locationId: locationId
-            }),
+            body: JSON.stringify({...special}),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -2,13 +2,21 @@ import _ from 'lodash';
 import config from './../config';
 
 const cityApi = {
-   getCities: function() {       
+    getCities: function() {       
         return fetch(config.apiPath + '/cities')
         .then((response) => response.json())
         .then((response) => {
             return response;
         }); 
    },
+   //defaulting to mpls for now
+   getCity: function(cityId = "598392e1f69ccd390c5983c8") {       
+        return fetch(`${config.apiPath}/city/${cityId}`)
+        .then((response) => response.json())
+        .then((response) => {
+            return response;
+        }); 
+    },
    postCity: function(name) {
     return fetch(config.apiPath + '/city', {      
         method: 'post',
@@ -37,11 +45,9 @@ const cityApi = {
     .then(function(res){ console.log(res) })
     .catch(function(res){ console.log(res) })
    },
-
    getNeighborhoods: function(cityId) {
     return fetch(config.apiPath + '/city/' + cityId + '/neighborhoods',).then((response) => response.json())
     .then((neighborhoods) => {
-        console.log("result");
         // do stuff with responseJSON here...
        return neighborhoods;
     });

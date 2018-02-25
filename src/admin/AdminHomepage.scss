@@ -1,0 +1,21 @@
+@import "./../sprak-styles/sprak-variables.scss";
+
+.admin-homepage {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: $space-xl;
+
+    > a {
+        border-bottom: solid 1px $color-dark;
+        display: block;
+        padding: $space-md;
+
+        &:hover {
+            background: $color-light;
+        }
+
+        &:last-child {
+            border-bottom: 0px;
+        }
+    }
+}

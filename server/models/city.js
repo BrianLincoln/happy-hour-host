@@ -28,23 +28,64 @@ var Neighborhood = new Schema({
     }
 });
 
-Neighborhood.pre('validate', function(next) {
-  next();
+var TimeWindow = new Schema({
+  start: {
+        type: String,
+        required: true
+    },
+  end: {
+        type: String,
+        required: true
+    }
 });
 
-Neighborhood.pre('save', function(next) {
-  next();
+var Special = new Schema({
+  headline: {
+      type: String,
+      required: true
+  },     
+  details: {
+    type: String
+  },
+  days: {
+    type: Array,
+    required: true
+  }, 
+  times: {
+    type: [TimeWindow]
+  },
+  hasDrinkSpecial: Boolean,
+  hasFoodSpecial: Boolean
 });
 
+var Location = new Schema({
+  name: {
+    type: String,
+    required: true
+  },    
+  specials: [Special],
+  position: {
+    latitude: {
+      type: String,
+      required: true
+    },
+    longitude: {
+      type: String,
+      required: true
+    }
+  },
+  website: String,
+  googleMapLink: String
+});
 
 var City = new Schema({
     name: {
         type: String,
         required: true
     },
-    neighborhoods: [Neighborhood]
+    neighborhoods: [Neighborhood],
+    locations: [Location]
 });
-
 
 City.pre('validate', function(next) {
   next();

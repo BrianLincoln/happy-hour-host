@@ -11,9 +11,11 @@ class LocationListItem extends Component {
     }) 
     : null;
 
+    let path = encodeURI(`/${this.props.cityName}/${this.props.name}`.trim().replace(" ","+"));
+
     return (        
         <Link className="location-list-item" to={{
-          pathname: `/location/${this.props._id}`, 
+          pathname: path, 
           state: {...this.props}
           }}>
             <h3>{this.props.name}</h3>

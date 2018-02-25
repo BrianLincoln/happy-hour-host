@@ -1,0 +1,17 @@
+@import "./../../../../sprak-styles/sprak-variables.scss";
+
+.admin-speial-listitem {
+    align-items: center;
+    border-bottom: solid 1px $color-dark;
+    display: flex;
+    justify-content: space-between;
+
+    > a {
+        cursor: pointer;
+        padding: $space-md;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

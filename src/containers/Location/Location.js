@@ -10,7 +10,7 @@ class Location extends Component {
 
     this.fetchLocation = this.fetchLocation.bind(this);
     this.setDocumentTitle = this.setDocumentTitle.bind(this);
-    this.state = null;
+    this.state = {};
   }
 
   componentDidMount() {
@@ -24,19 +24,17 @@ class Location extends Component {
   }
 
   fetchLocation() {
-    locationApi.getLocation(this.props.locationId).then((location) => {
-      if (location) {
-        this.setState({...location}, () => {
+    locationApi.getLocationByDisplayNames(this.props.cityName, this.props.locationName).then((result) => {
+      if (result.success) {
+        this.setState({...result.location}, () => {
           this.setDocumentTitle()
-        }); 
-      } else {
-        this.setState({notFound: true});
+        });
       }
-    });  
+    }); 
   } 
 
   setDocumentTitle() {
-    document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${this.state.address.city}, ${this.state.address.state}`;
+    document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${this.state.cityname}`;
   }
 
   render() { 

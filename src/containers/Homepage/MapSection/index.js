@@ -48,7 +48,7 @@ export class HomepageMapSection extends Component {
     }
   }  
   setLocations() {
-    if (!this.props.fetchingLocations && this.props.locations.length > 0) {  
+    if (!this.props.fetchingData && this.props.locations.length > 0) {  
       let filteredLocations = locationFilter.filter(this.props.locations, this.state.bounds, this.state.filters);          
       this.setState({locations: filteredLocations});
     }
@@ -111,11 +111,12 @@ export class HomepageMapSection extends Component {
             <LocationsList 
               activeDays={this.state.filters.days} 
               activeTime={this.state.filters.time} 
+              cityName={this.props.cityName}
               timeValues={timeValues} 
               updateActiveDays={this.updateActiveDays} 
               updateActiveTime={this.updateActiveTime} 
               locations={this.state.locations} 
-              fetchingLocations={this.props.fetchingLocations}
+              fetchingData={this.props.fetchingData}
               handleLocationDeselect = {this.handleLocationDeselect}
               selectedLocation = {this.state.selectedLocation} />  
             </div>                           
