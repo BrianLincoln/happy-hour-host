@@ -94,9 +94,9 @@ const locationApi = {
         .then(function(res){ console.log(res) })
         .catch(function(res){ console.log(res) })
     }, 
-    updateSpecial: function(special, locationId, specialId) {
-        return fetch(config.apiPath + '/location/' + locationId + '/special/' + specialId, {      
-            method: 'post',
+    updateSpecial: function(cityId, locationId, specialId, special) {
+        return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special/${specialId}`, {      
+            method: 'put',
             body: JSON.stringify({
                 special: special,
                 specialId: specialId,

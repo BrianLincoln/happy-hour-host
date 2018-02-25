@@ -44,7 +44,7 @@ export class Specials extends Component {
   handleSubmitEditSpecialForm(special, specialId) {
     this.setState({showEditSpecialForm: false, selectedSpecial: null});
 
-    locationApi.updateSpecial(special, this.props.locationId, specialId).then((locations) => {      
+    locationApi.updateSpecial(this.props.cityId, this.props.locationId, specialId, special).then((locations) => {      
       this.props.fetchLocation(this.props.locationId);
     });    
   }  

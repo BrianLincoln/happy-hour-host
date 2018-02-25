@@ -126,19 +126,21 @@ router.post('/city/:cityId/location/:locationId/special', (req, res) => {
   );
 });
 
-router.post('/location/:locationId/special/:specialId', (req, res) => {		
-  Location.findById(req.params.locationId, function(err, location) {
-    const special = location.specials.id(req.params.specialId);
-    special.set(req.body.special);
-    
-    // Using a promise rather than a callback
-    location.save().then(function(savedLocation) {
-      res.send(savedLocation);
-    }).catch(function(err) {
-      console.log(err);
-      res.status(500).send(err);
-    });
-  });
+//update existing special
+router.put('/city/:cityId/location/:locationId/special/:specialId', (req, res) => {    
+  City.findById(req.params.cityId, function(err, city) {
+      city.locations.id(req.params.locationId).specials = city.locations.id(req.params.locationId).specials.map((special) => {        
+        if (special._id.toString() === req.params.specialId) {
+          return req.body.special;
+        }
+        
+        return special;
+      });
+      
+      city.save();
+      res.json({success: true});
+    }
+  );
 });
 
 router.delete('/location/:locationId/special/:specialId', (req, res) => {
