@@ -4,9 +4,12 @@ import config from './../config';
 const cityApi = {
     getCities: function() {       
         return fetch(config.apiPath + '/cities')
-        .then((response) => response.json())
         .then((response) => {
-            return response;
+            if (response.status === 403) {
+                window.location = "/admin/login";
+            }
+            
+            return response.json();
         }); 
    },
    //defaulting to mpls for now
@@ -21,7 +24,8 @@ const cityApi = {
     return fetch(config.apiPath + '/city', {      
         method: 'post',
         body: JSON.stringify({
-            name: name
+            name: name,
+            token: localStorage.authToken
         }),
         headers: {
             'Accept': 'application/json',
@@ -67,7 +71,6 @@ const cityApi = {
     });
    },
    postNeighborhood: function(cityId, neighborhood) {
-       console.log(cityId, neighborhood);
     return fetch(config.apiPath + '/city/' + cityId + '/neighborhood', {      
         method: 'post',
         body: JSON.stringify({

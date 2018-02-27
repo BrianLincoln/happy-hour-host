@@ -1,4 +1,5 @@
 const express = require('express');
+const passportUtils = require('../../passport/utils');
 const router = express.Router();
 const City = require('./../../models/city');
 const locationRoutes = require('./location');
@@ -30,7 +31,7 @@ router.get('/city/:cityId', (req, res) => {
 });
 
 //=auth
-router.post('/city', (req, res) => {
+router.post('/city', passportUtils.verifyToken, (req, res) => {
 	let city = new City();
 	city.name = req.body.name;
 

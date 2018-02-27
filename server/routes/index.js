@@ -4,38 +4,12 @@ const path = require('path');
 const _ = require('lodash');
 var bCrypt = require('bcrypt-nodejs');
 var jwt    = require('jsonwebtoken');
-var app = require('../app.js');
+const passportUtils = require('../passport/utils');
+const app = require('../app.js');
 const cityRoutes = require('./city');
 
 //these should be removed
 const User = require('./../models/user.js');
-
-var verifyToken = function (req, res, done) {
-	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-	// decode token
-	if (token) {
-		// verifies secret and checks exp
-		jwt.verify(token, app.get('secretCode'), function(err, decoded) {      
-			if (err) {
-				return res.json({ success: false, message: 'Failed to authenticate token.' });    
-			} else {
-				// if everything is good, save to request for use in other routes
-				req.decoded = decoded;    
-				done();
-			}
-		});
-  	} else {
-		// if there is no token
-		// return an error
-		return res.status(403).send({ 
-			success: false, 
-			message: 'No token provided.' 
-		});
-  }
-}
-
-
 
 var isValidPassword = function(user, password){
 	return bCrypt.compareSync(password, user.password);
@@ -50,6 +24,12 @@ module.exports = function(passport) {
 		});
 	});   
 
+	router.post('/verfiy-token', passportUtils.verifyToken, function(req, res, done) {
+		res.json({
+			success: true
+		});
+	});
+	
 	router.post('/authenticate', function(req, res, done) {
 		User.findOne({ 'username' :  req.body.username }, function(err, user) {
 			// In case of any error, return using the done method

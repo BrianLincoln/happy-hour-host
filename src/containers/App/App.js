@@ -4,6 +4,7 @@ import './App.scss';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
 import Neighborhood from './../Neighborhood';
+import TokenFailed from './../TokenFailed';
 import Admin from './../../admin/';
 import AdminCity from './../../admin/City';
 import AdminNeighborhood from './../../admin/Neighborhood';
@@ -38,6 +39,10 @@ class App extends Component {
                 /> 
               }/>          
               <Route exact path="/admin" render={ () => <Admin 
+                  config={config} 
+                />
+              }/>         
+              <Route exact path="/token-failed" render={ () => <TokenFailed 
                   config={config} 
                 />
               }/>              

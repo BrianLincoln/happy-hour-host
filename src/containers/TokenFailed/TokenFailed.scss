@@ -1,0 +1,10 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+.token-failed {
+    background-image: url(/static/media/travolta.137ca9e2.gif);
+    min-height: 90vh;
+    background-position: bottom right;
+    background-size: 60vh;    
+    background-repeat: no-repeat;
+    padding: $space-xl;
+}

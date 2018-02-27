@@ -12,7 +12,7 @@ export class Signup extends Component {
     event.preventDefault();
     loginApi.postSignUp(this.username, this.password, this.secretCode).then((status) => {
       if (status === 200) {
-        //window.location.href = '../admin';
+        window.location.href = '../admin';
       } else {
         this.setState({failureText: "Pshhh... get out of here"});
       }

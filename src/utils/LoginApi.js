@@ -2,7 +2,26 @@ import _ from 'lodash';
 import config from './../config';
 
 const loginApi = {
-    postLogin: function(username, password) {
+    verifiyToken: function(token) {
+        return fetch(config.apiPath + '/verfiy-token', {   
+            method: 'post',
+            body: JSON.stringify({
+                token: token
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }        
+        })
+        .then((res) => { 
+            return res.json()
+        })
+        .then((res) => { 
+            return res;
+        })
+        .catch(function(res){ console.log(res) })
+    },
+    postLogin: function(username, password) {        
         return fetch(config.apiPath + '/authenticate', {      
             method: 'post',
             body: JSON.stringify({
