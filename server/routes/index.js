@@ -4,7 +4,7 @@ const path = require('path');
 const _ = require('lodash');
 var bCrypt = require('bcrypt-nodejs');
 var jwt    = require('jsonwebtoken');
-const passportUtils = require('../passport/utils');
+const passportUtils = require('../utils');
 const app = require('../app.js');
 const cityRoutes = require('./city');
 

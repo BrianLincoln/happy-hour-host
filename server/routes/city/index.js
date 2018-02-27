@@ -1,5 +1,5 @@
 const express = require('express');
-const passportUtils = require('../../passport/utils');
+const passportUtils = require('../../utils');
 const router = express.Router();
 const City = require('./../../models/city');
 const locationRoutes = require('./location');

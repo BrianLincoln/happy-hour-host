@@ -29,9 +29,7 @@ class TokenFailed extends Component {
             }, 1000)
         }
     } 
-
-
-
+    
     render() {
         return (
             <div className="token-failed">
