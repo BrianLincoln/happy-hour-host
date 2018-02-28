@@ -30,6 +30,9 @@ export class Admin extends Component {
     } else {
       return (
         <div className="admin-homepage">  
+          <div className="admin-header">
+            <a href="/admin/signout">sign out</a>
+          </div>
           <Cities />
         </div> 
       )

@@ -7,7 +7,7 @@ class TokenFailed extends Component {
         super(props);
 
         this.state = {
-            countdown: 5
+            countdown: 3
         }
 
         this.countdown = this.countdown.bind(this);
