@@ -1,100 +1,98 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var Position = new Schema({
-  latitude: {
+const {
+  Schema,
+} = mongoose;
+
+const Neighborhood = new Schema({
+  name: {
     type: String,
-    required: true
+    required: true,
   },
-  longitude: {
-    type: String,
-    required: true
-  }
+  mapCenter: {
+    latitude: {
+      type: Number,
+      required: true,
+    },
+    longitude: {
+      type: Number,
+      required: true,
+    },
+  },
+  mapZoomLevel: {
+    type: Number,
+  },
+  mapPoly: {
+    type: Array,
+  },
 });
 
-var Neighborhood = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    mapCenter: {
-      type: Position
-    },
-    mapZoomLevel: {
-      type: Number
-    },
-    mapPoly: {
-      type: Array
-    }
-});
-
-var TimeWindow = new Schema({
+const TimeWindow = new Schema({
   start: {
-        type: String,
-        required: true
-    },
+    type: String,
+    required: true,
+  },
   end: {
-        type: String,
-        required: true
-    }
+    type: String,
+    required: true,
+  },
 });
 
-var Special = new Schema({
+const Special = new Schema({
   headline: {
-      type: String,
-      required: true
-  },     
+    type: String,
+    required: true,
+  },
   details: {
-    type: String
+    type: String,
   },
   days: {
     type: Array,
-    required: true
-  }, 
+    required: true,
+  },
   times: {
-    type: [TimeWindow]
+    type: [TimeWindow],
   },
   hasDrinkSpecial: Boolean,
-  hasFoodSpecial: Boolean
+  hasFoodSpecial: Boolean,
 });
 
-var Location = new Schema({
+const Location = new Schema({
   name: {
     type: String,
-    required: true
-  },    
+    required: true,
+  },
   specials: [Special],
   position: {
     latitude: {
-      type: String,
-      required: true
+      type: Number,
+      required: true,
     },
     longitude: {
-      type: String,
-      required: true
-    }
+      type: Number,
+      required: true,
+    },
   },
   website: String,
-  googleMapLink: String
+  googleMapLink: String,
 });
 
-var City = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    neighborhoods: [Neighborhood],
-    locations: [Location]
+const City = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  neighborhoods: [Neighborhood],
+  locations: [Location],
 });
 
-City.pre('validate', function(next) {
+City.pre('validate', (next) => {
   next();
 });
 
-City.pre('save', function(next) {
+City.pre('save', (next) => {
   next();
 });
 
-
-var Model = mongoose.model('City', City);
+const Model = mongoose.model('City', City);
 module.exports = Model;

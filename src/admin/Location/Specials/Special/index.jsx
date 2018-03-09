@@ -1,0 +1,149 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import SpecialForm from './SpecialForm';
+import dayLabels from './../../../../utils/DayLabels';
+import timeConverter from './../../../../utils/TimeConverter';
+
+const propTypes = {
+  special: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    details: PropTypes.string,
+    headline: PropTypes.string.isRequired,
+    hasDrinkSpecial: PropTypes.bool,
+    hasFoodSpecial: PropTypes.bool,
+    days: PropTypes.array,
+    times: PropTypes.array,
+  }).isRequired,
+  deleteSpecial: PropTypes.func.isRequired,
+  deselectSpecial: PropTypes.func.isRequired,
+  cancelEditSpecial: PropTypes.func.isRequired,
+  handleSubmitEditSpecialForm: PropTypes.func.isRequired,
+};
+
+export class SpecialDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showEditSpecialForm: false,
+    };
+
+    this.toggleEditSpecial = this.toggleEditSpecial.bind(this);
+    this.deleteSpecial = this.deleteSpecial.bind(this);
+    this.deselectSpecial = this.deselectSpecial.bind(this);
+    this.handleSubmitEditSpecialForm = this.handleSubmitEditSpecialForm.bind(this);
+    this.handleCancelSpecialForm = this.handleCancelSpecialForm.bind(this);
+  }
+
+  toggleEditSpecial() {
+    this.setState({
+      showEditSpecialForm: !this.state.showEditSpecialForm,
+    });
+  }
+
+  deleteSpecial(event) {
+    event.preventDefault();
+    this.props.deleteSpecial(this.props.special._id);
+  }
+
+  deselectSpecial(event) {
+    event.preventDefault();
+    this.props.deselectSpecial();
+  }
+
+  handleSubmitEditSpecialForm(special) {
+    this.toggleEditSpecial();
+    this.props.handleSubmitEditSpecialForm(special, this.props.special._id);
+  }
+
+  handleCancelSpecialForm() {
+    this.setState({
+      showEditSpecialForm: false,
+    },
+    this.props.cancelEditSpecial());
+  }
+
+  render() {
+    if (this.state.showEditSpecialForm) {
+      return (
+        <SpecialForm
+          handleSubmitSpecialForm={this.handleSubmitEditSpecialForm}
+          handleCancelSpecialForm={this.handleCancelSpecialForm}
+          special={this.props.special}
+        />
+      );
+    }
+    const specialTypes = (
+      <div>
+        <div>
+          drink specials:{' '}
+          <input type="checkbox" checked={this.props.special.hasDrinkSpecial} disabled />
+        </div>
+        <div>
+          food specials:{' '}
+          <input type="checkbox" checked={this.props.special.hasFoodSpecial} disabled />
+        </div>
+      </div>
+    );
+
+    const days = this.props.special.days
+      ? this.props.special.days.map((day, index) => {
+        const isLast = index + 1 === this.props.special.days.length;
+        const labelText = isLast ? dayLabels[day] : `${dayLabels[day]}, `;
+
+        return (
+          <span className="font-base-alt" key={day}>
+            {labelText}
+          </span>
+        );
+      })
+      : "none (won't show on site)";
+
+    const times =
+      this.props.special.times && this.props.special.times.length > 0
+        ? this.props.special.times.map((time) => {
+          const startTime = timeConverter(time.start);
+          const endTime = timeConverter(time.end);
+
+          return (
+            <div className="font-base-alt" key={time._id}>
+              {startTime} - {endTime}
+            </div>
+          );
+        })
+        : 'Never';
+
+    return (
+      <div className="card">
+        <div className="list-group">
+          <div className="list-item">
+            <span className="font-title-sm">{this.props.special.headline}</span>
+          </div>
+
+          <div className="list-item admin-special-details">{this.props.special.details}</div>
+          <div className="list-item">{specialTypes}</div>
+          <div className="list-item">{days}</div>
+          <div className="list-item">{times}</div>
+
+          <div className="space-top-md button-group button-group_left">
+            <button onClick={this.toggleEditSpecial} className="button_sm button_curious">
+              + edit
+            </button>
+            <button onClick={this.deselectSpecial} className="button_sm button_dark">
+              back
+            </button>
+          </div>
+          <div className="list-item">
+            <button className="button_sm button_valencia" onClick={this.deleteSpecial}>
+              delete special
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+SpecialDetails.propTypes = propTypes;
+
+export default SpecialDetails;

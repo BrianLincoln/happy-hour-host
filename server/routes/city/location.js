@@ -1,162 +1,183 @@
 const express = require('express');
+
 const router = express.Router();
 const City = require('./../../models/city');
 
-//get locations for a city
+// get locations for a city
 router.get('/city/:cityId/locations', (req, res) => {
-    City.findById(req.params.cityId, (err, city) => {        
-        res.json({
-            success: true,
-            locations: city.locations
-        })
-    });
+  City.findById(req.params.cityId, (err, city) => {
+    if (city) {
+      res.json({
+        success: true,
+        locations: city.locations,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  });
 });
 
-//get a location by id
+// get a location by id
 router.get('/city/:cityId/location/:locationId', (req, res) => {
-	City.findById(req.params.cityId, function(err, city) {
-		let location = city.locations.find((location) => {
-			return location._id.toString() === req.params.locationId;
-		});
-  
-		res.json({
-			success: true,
-			location: location
-		});
-	});
-});
+  City.findById(req.params.cityId, (err, city) => {
+    const location = city.locations.find(location => location._id.toString() === req.params.locationId);
 
-//get a location by city & location names
-router.get('/city-name/:cityName/location-name/:locationName', (req, res) => {
-  let cityName = decodeURIComponent(req.params.cityName.replace("+", " "));
-  let locationName = decodeURIComponent(req.params.locationName.replace("+", " "));
-
-  City.findOne({ 'name': cityName }, function (err, city) {
-    
-    let location = city.locations.find((location) => {
-      return location.name === locationName;
-    });
-
-  res.json({
+    res.json({
       success: true,
-      location: location
+      location,
     });
   });
-});	
+});
 
-//post new location
+// get a location by city & location names
+router.get('/city-name/:cityName/location-name/:locationName', (req, res) => {
+  const cityName = decodeURIComponent(req.params.cityName.replace('+', ' '));
+  const locationName = decodeURIComponent(req.params.locationName.replace('+', ' '));
+
+  City.findOne({
+    name: cityName,
+  },
+  (err, city) => {
+    const location = city.locations.find(location => location.name === locationName);
+
+    res.json({
+      success: true,
+      location,
+    });
+  });
+});
+
+// post new location
 router.post('/city/:cityId/location', (req, res) => {
   const location = {
     name: req.body.name,
     position: {
       latitude: req.body.position.latitude,
-      longitude: req.body.position.longitude
+      longitude: req.body.position.longitude,
     },
     website: req.body.website,
-    googleMapLink: req.body.googleMapLink
+    googleMapLink: req.body.googleMapLink,
   };
-  
-  City.findById(req.params.cityId, (err, city) => {
-      let locations = city.locations ? city.locations : [];
-      locations.push(location);
 
-      city.locations = locations;
-	
-      // Using a promise rather than a callback
-      city.save().then(function(savedCity) {
+  City.findById(req.params.cityId, (err, city) => {
+    const locations = city.locations ? city.locations : [];
+    locations.push(location);
+
+    city.locations = locations;
+
+    // Using a promise rather than a callback
+    city
+      .save()
+      .then((savedCity) => {
         res.json({
-          success: true
-          });
-      }).catch(function(err) {
+          success: true,
+        });
+      })
+      .catch((err) => {
         res.status(500).send(err);
       });
   });
 });
 
-//update existing location
-router.put('/city/:cityId/location/:locationId', (req, res) => {  
-  
-  City.findOneAndUpdate({ "_id": req.params.cityId, "locations._id": req.params.locationId },
-    { 
-        "$set": {
-            "locations.$": req.body
-        }
+// update existing location
+router.put('/city/:cityId/location/:locationId', (req, res) => {
+  City.findOneAndUpdate(
+    {
+      _id: req.params.cityId,
+      'locations._id': req.params.locationId,
     },
-    function(err, doc) {
-      res.json({success: true});
+    {
+      $set: {
+        'locations.$': req.body,
+      },
+    },
+    (err, doc) => {
+      res.json({
+        success: true,
+      });
     }
   );
-
 });
 
-//delete location
+// delete location
 router.delete('/city/:cityId/location/:locationId', (req, res) => {
-  City.findById(req.params.cityId, function(err, city) {
+  City.findById(req.params.cityId, (err, city) => {
     let locations = city.locations ? city.locations : [];
-    
-		locations = locations.filter((location) => {
-			if (location._id.toString() !== req.params.locationId) {
-				return true;
-			}
-		});
 
-		city.locations = locations;
-	
-		// Using a promise rather than a callback
-		city.save().then(function(savedCity) {
-			res.json({
-				  success: true
+    locations = locations.filter((location) => {
+      if (location._id.toString() !== req.params.locationId) {
+        return true;
+      }
+    });
+
+    city.locations = locations;
+
+    // Using a promise rather than a callback
+    city
+      .save()
+      .then((savedCity) => {
+        res.json({
+          success: true,
+        });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
       });
-		}).catch(function(err) {
-			res.status(500).send(err);
-		});
   });
 });
 
 router.post('/city/:cityId/location/:locationId/special', (req, res) => {
-  City.findOneAndUpdate({"_id": req.params.cityId, "locations._id": req.params.locationId},
+  City.findOneAndUpdate(
     {
-      "$push": {
-        'locations.$.specials': req.body
-      }
+      _id: req.params.cityId,
+      'locations._id': req.params.locationId,
     },
-    function(err, doc) {
-      res.json({success: true});
+    {
+      $push: {
+        'locations.$.specials': req.body,
+      },
+    },
+    (err, doc) => {
+      res.json({
+        success: true,
+      });
     }
   );
 });
 
-//update existing special
-router.put('/city/:cityId/location/:locationId/special/:specialId', (req, res) => {    
-  City.findById(req.params.cityId, function(err, city) {
-      city.locations.id(req.params.locationId).specials = city.locations.id(req.params.locationId).specials.map((special) => {        
+// update existing special
+router.put('/city/:cityId/location/:locationId/special/:specialId', (req, res) => {
+  City.findById(req.params.cityId, (err, city) => {
+    city.locations.id(req.params.locationId).specials = city.locations
+      .id(req.params.locationId)
+      .specials.map((special) => {
         if (special._id.toString() === req.params.specialId) {
           return req.body.special;
         }
-        
+
         return special;
       });
-      
-      city.save();
-      res.json({success: true});
-    }
-  );
+
+    city.save();
+    res.json({
+      success: true,
+    });
+  });
 });
 
-router.delete('/location/:locationId/special/:specialId', (req, res) => {
-  Location.findById(req.params.locationId, function(err, location) {
+router.delete('/city/:cityId/location/:locationId/special/:specialId', (req, res) => {
+  City.findById(req.params.cityId, (err, city) => {
+    city.locations
+      .id(req.params.locationId)
+      .specials.id(req.params.specialId)
+      .remove();
 
-        location.specials = location.specials.filter((special) => {
-            return special._id.toString() !== req.params.specialId;
-        });
-
-        // Using a promise rather than a callback
-        location.save().then(function(savedLocation) {
-            res.send(savedLocation);
-        }).catch(function(err) {
-            console.log(err);
-            res.status(500).send(err);
-        });
+    city.save();
+    res.json({
+      success: true,
+    });
   });
 });
 

@@ -1,61 +1,70 @@
 const express = require('express');
 const passportUtils = require('../../utils');
+
 const router = express.Router();
 const City = require('./../../models/city');
 const locationRoutes = require('./location');
 const neighborhoodRoutes = require('./neighborhood');
 
-//=auth (basically downloads everything)
+//= auth (basically downloads everything)
 router.get('/cities', (req, res) => {
-	City.find({}, function(err, cities) {
-		res.json({
-		success: true,
-		cities: cities
-		});
-	}); 
+  City.find({}, (err, cities) => {
+    res.json({
+      success: true,
+      cities,
+    });
+  });
 });
 
 router.get('/city/:cityId', (req, res) => {
-	City.findById(req.params.cityId, function(err, city) {
-		if (city) {
-			res.json({
-				success: true,
-				city: city
-			});
-		} else {
-			res.json({
-				success: false
-			})
-		}
-	}); 
+  City.findById(req.params.cityId, (err, city) => {
+    if (city) {
+      res.json({
+        success: true,
+        city,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  });
 });
 
-//=auth
-router.post('/city', passportUtils.verifyToken, (req, res) => {
-	let city = new City();
-	city.name = req.body.name;
+//= auth
+router.post(
+  '/city', passportUtils.verifyToken, (req, res) => {
+    const city = new City();
+    city.name = req.body.name;
 
-	city.save(function(err) {
-		if (err) {
-			res.send(err);
-		}
-		
-		res.json({ message: 'City added to DB', data: city });
-	});  
-});
+    city.save((err) => {
+      if (err) {
+        res.send(err);
+      }
 
-//=auth
+      res.json({
+        message: 'City added to DB',
+        data: city,
+      });
+    });
+  }
+);
+
+//= auth
 router.delete('/city', (req, res) => {
-	let city = new City();
-	city._id = req.body._id;
+  const city = new City();
+  city._id = req.body._id;
 
-	city.remove(function(err) {
-		if (err) {
-			res.send(err);
-		}
+  city.remove((err) => {
+    if (err) {
+      res.send(err);
+    }
 
-		res.json({ message: 'City deleted from DB', data: city });
-	});  
+    res.json({
+      message: 'City deleted from DB',
+      data: city,
+    });
+  });
 });
 
 router.use(locationRoutes);
