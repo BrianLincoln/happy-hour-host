@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import cityApi from "./../../utils/CityApi";
-import locationApi from "./../../utils/LocationApi";
-import NeighborhoodListItem from "./NeighborhoodListItem";
-import AddNeighborhood from "./AddNeighborhood";
-import AddLocation from "./AddLocation";
-import LocationListItem from "./LocationListItem";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import cityApi from './../../utils/CityApi';
+import locationApi from './../../utils/LocationApi';
+import NeighborhoodListItem from './NeighborhoodListItem';
+import AddNeighborhood from './AddNeighborhood';
+import AddLocation from './AddLocation';
+import LocationListItem from './LocationListItem';
 
-const propTypes = { cityId: PropTypes.string.isRequired };
+const propTypes = {
+  cityId: PropTypes.string.isRequired,
+};
 
 export class City extends Component {
   constructor(props) {
@@ -25,9 +27,11 @@ export class City extends Component {
   }
 
   fetchCity() {
-    cityApi.getCity(this.props.cityId).then(result => {
+    cityApi.getCity(this.props.cityId).then((result) => {
       if (result.success) {
-        this.setState({ city: result.city });
+        this.setState({
+          city: result.city,
+        });
       }
     });
   }
@@ -63,24 +67,24 @@ export class City extends Component {
     const neighborhoods = !this.state.city.neighborhoods
       ? null
       : this.state.city.neighborhoods.map(neighborhood => (
-          <NeighborhoodListItem
-            cityId={this.state.city._id}
-            deleteNeighborhood={this.deleteNeighborhood}
-            key={neighborhood._id}
-            neighborhood={neighborhood}
-          />
-        ));
+        <NeighborhoodListItem
+          cityId={this.state.city._id}
+          deleteNeighborhood={this.deleteNeighborhood}
+          key={neighborhood._id}
+          neighborhood={neighborhood}
+        />
+      ));
 
     const locations = !this.state.city.locations
       ? null
       : this.state.city.locations.map(location => (
-          <LocationListItem
-            key={location._id}
-            cityId={this.state.city._id}
-            location={location}
-            deleteLocation={this.deleteLocation}
-          />
-        ));
+        <LocationListItem
+          key={location._id}
+          cityId={this.state.city._id}
+          location={location}
+          deleteLocation={this.deleteLocation}
+        />
+      ));
 
     return (
       <div className="container">

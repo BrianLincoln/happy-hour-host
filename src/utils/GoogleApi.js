@@ -1,5 +1,7 @@
+/* eslint-disable */
+// source: https://gist.github.com/auser/1d55aa3897f15d17caf21dc39b85b663
 export const GoogleApi = function(opts) {
-  opts = opts || {}
+  opts = opts || {};
 
   const apiKey = opts.apiKey;
   const libraries = opts.libraries || [];
@@ -26,17 +28,18 @@ export const GoogleApi = function(opts) {
       v: googleVersion,
       channel: channel,
       language: language,
-      region: region
-    }
+      region: region,
+    };
 
     let paramStr = Object.keys(params)
-        .filter(k => !!params[k])
-        .map(k => `${k}=${params[k]}`).join('&');
+      .filter(k => !!params[k])
+      .map(k => `${k}=${params[k]}`)
+      .join('&');
 
     return `${url}?${paramStr}`;
-  }
+  };
 
   return url();
-}
+};
 
-export default GoogleApi
+export default GoogleApi;

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import config from './../config';
 
 // TEMP -- this should get dynamic once there are multiple cities

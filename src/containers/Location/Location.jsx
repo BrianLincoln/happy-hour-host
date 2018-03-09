@@ -1,4 +1,4 @@
-import React, { Component, } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import locationApi from './../../utils/LocationApi';
 import Special from './../../components/Special/Special';

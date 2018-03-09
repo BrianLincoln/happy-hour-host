@@ -14,7 +14,7 @@ module.exports = {
 
     'comma-dangle': [
       'error',
-      'always',
+      'always-multiline',
       {
         functions: 'never',
       },

@@ -109,19 +109,19 @@ module.exports = {
       // It's important to do this before Babel processes the JS.
 
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEMP -- UNCOMMENT TO RUN LINT ~~~~~~~~~~~~~~~~~~~~~~~~~
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   enforce: 'pre',
-      //   use: [
-      //     {
-      //       options: {
-      //         // formatter: eslintFormatter,
-      //       },
-      //       // loader: require.resolve('eslint-loader'),
-      //     },
-      //   ],
-      //   include: paths.appSrc,
-      // },
+      {
+        test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        use: [
+          {
+            options: {
+              formatter: eslintFormatter,
+            },
+            loader: require.resolve('eslint-loader'),
+          },
+        ],
+        include: paths.appSrc,
+      },
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEMP -- UNCOMMENT TO RUN LINT ~~~~~~~~~~~~~~~~~~~~~~~~~
 
       // ** ADDING/UPDATING LOADERS **

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   activeTime: PropTypes.shape({
     label: PropTypes.string,
+    value: PropTypes.string,
   }).isRequired,
   handleTimeChange: PropTypes.func.isRequired,
   timeValues: PropTypes.arrayOf(PropTypes.shape({

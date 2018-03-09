@@ -1,4 +1,4 @@
-import React, { Component, } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import locationFilter from './../../utils/LocationFilter';
 import cityApi from './../../utils/CityApi';

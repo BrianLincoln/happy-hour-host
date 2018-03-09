@@ -1,4 +1,4 @@
-import React, { Component, } from 'react';
+import React, { Component } from 'react';
 import './AdminHomepage.scss';
 import Cities from './Cities';
 import loginApi from './../utils/LoginApi';
