@@ -22,10 +22,10 @@ module.exports = {
     'block-spacing': 'error',
     'no-alert': 0,
     'import/no-named-as-default': 0,
-    'linebreak-style': ['error', 'windows', ],
-    'lines-between-class-members': ['error', 'always', ],
-    'no-underscore-dangle': ['off', 'allow', ],
-    'no-return-assign': ['warn', 'always', ],
+    'linebreak-style': ['warn', 'windows'],
+    'lines-between-class-members': ['error', 'always'],
+    'no-underscore-dangle': ['off', 'allow'],
+    'no-return-assign': ['warn', 'always'],
     'react/no-array-index-key': 'warn',
 
     'function-paren-newline': [
