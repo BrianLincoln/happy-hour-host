@@ -1,24 +1,11 @@
 import config from './../config';
 
 // TEMP -- this should get dynamic once there are multiple cities
-const minneapoliscityId = '5a92e61f5afd0826f0e5a7a6';
 
 const cityApi = {
-  getCities() {
-    return fetch(`${config.apiPath}/cities`).then((response) => {
-      if (response.status === 403) {
-        window.location = '/admin/login';
-      }
-
-      return response.json();
-    });
-  },
+  getCities() {},
   // defaulting to mpls for now
-  getCity(cityId = minneapoliscityId) {
-    return fetch(`${config.apiPath}/city/${cityId}`)
-      .then(response => response.json())
-      .then(response => response);
-  },
+  getCity() {},
   postCity(name) {
     return fetch(`${config.apiPath}/city`, {
       method: 'post',
