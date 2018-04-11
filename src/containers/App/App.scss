@@ -13,9 +13,9 @@
   z-index: 4;
 }
 
-a.logo {      
+a.logo {
   color: $color-white;
-  font-family: 'Neucha', sans-serif;
+  font-family: "Neucha", sans-serif;
   text-shadow: 1px 1px 1px #302c29;
 }
 
@@ -24,11 +24,13 @@ a.logo {
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
- 
+
 .spinner:before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -40,19 +42,18 @@ a.logo {
   border-radius: 50%;
   border: 5px solid $color-curious;
   border-top-color: $color-light;
-  animation: spinner .6s linear infinite;
+  animation: spinner 0.6s linear infinite;
 }
 
-
 //this probably aught to end up in the sprak style guide
-.form-element  {
+.form-element {
   display: block;
   margin-bottom: $space-lg;
 }
 
 .form-label {
   display: block;
-  line-height: .8em;
+  line-height: 0.8em;
 }
 
 .form-element > input {
@@ -70,4 +71,30 @@ a.logo {
   padding: $space-md;
   margin: $space-md 0;
   text-align: center;
+}
+
+//add to style guide
+.reset-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  text-align: inherit;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
 }

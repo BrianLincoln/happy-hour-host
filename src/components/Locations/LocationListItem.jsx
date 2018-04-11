@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import SpecialPreview from './../Special/SpecialPreview';
+import PreviewableSpecial from './../PreviewableSpecial/PreviewableSpecial';
 import './LocationListItem.scss';
 
 const propTypes = {
@@ -14,24 +14,25 @@ const propTypes = {
 
 function LocationListItem(props) {
   const specials = props.specials
-    ? props.specials.map(special => <SpecialPreview key={special._id} {...special} />)
+    ? props.specials.map(special => <PreviewableSpecial key={special._id} {...special} />)
     : null;
 
   const path = encodeURI(`/${props.cityName}/${props.name}`.trim().replace(' ', '+'));
 
   return (
-    <Link
-      className="location-list-item"
-      to={{
-        pathname: path,
-        state: {
-          ...props,
-        },
-      }}
-    >
-      <h3>{props.name}</h3>
+    <div className="location-list-item">
+      <Link
+        to={{
+          pathname: path,
+          state: {
+            ...props,
+          },
+        }}
+      >
+        <h3 className="location-list-item-name">{props.name}</h3>
+      </Link>
       <ul className="location-list-item-specials">{specials}</ul>
-    </Link>
+    </div>
   );
 }
 

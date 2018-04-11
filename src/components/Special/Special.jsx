@@ -45,7 +45,7 @@ function Special(props) {
         {times}
       </div>
       <div className="col-xs-2 special-types">
-        {props.hasDrinkSpecial ? <i className="fas fa-beer" aria-hidden="true" /> : null}
+        {props.hasDrinkSpecial ? <i className="fas fa-glass-martini" aria-hidden="true" /> : null}
         {props.hasFoodSpecial ? <i className="fas fa-utensils" aria-hidden="true" /> : null}
       </div>
       <div className="col-xs-12 font-base-alt special-details">{props.details}</div>

@@ -1,20 +1,19 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
 .location-list-item {
-    border-bottom: solid 1px $color-medium;
-    display: block;
-    padding: $space-md;
-
-    &:hover {
-        background: $color-light;
-    }
+  border-bottom: solid 1px $color-medium;
+  display: block;
+  padding: $space-md;
 }
 
 .location-list-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .location-list-item-name {
-    margin-bottom: $space-sm;
+  margin-bottom: $space-sm;
 }
 
+.location-list-item-name:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,60 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+button.previewable-special {
+  border-left: solid $space-xs $color-medium;
+  cursor: pointer;
+  margin: 0 0 $space-md 0;
+  padding: $space-sm $space-md;
+  width: 100%;
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    background: $color-light;
+  }
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.previewable-special-types {
+  color: $color-valencia;
+  display: flex;
+  justify-content: flex-end;
+
+  > * {
+    margin: 0 $space-xs $space-sm $space-xs;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.previewable-special-toggle {
+  clear: both;
+  color: $color-curious;
+  padding: $space-sm 0 0 0;
+  text-align: center;
+}
+
+.previewable-special-toggle-icon {
+  font-size: 20px;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.previewable-special-details {
+  @extend %font-base-alt;
+  background-color: $color-dark;
+  box-shadow: 1px 1px 1px #000;
+  color: $color-white;
+  clear: both;
+  padding: $space-md;
+  margin: $space-md;
+  text-shadow: 1px 0px 1px #000;
+  white-space: pre-wrap;
+}

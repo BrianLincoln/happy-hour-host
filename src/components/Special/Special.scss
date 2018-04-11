@@ -1,39 +1,29 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
 .special {
-    border-bottom: solid 1px $color-medium;
-    padding: $space-md 0;
+  border-bottom: solid 1px $color-medium;
+  padding: $space-md 0;
 
-    &:last-child {
-        border-bottom: 0px;
-    }
-}
-
-.special-preview {
-    border-left: solid $space-xs $color-medium;
-    margin: $space-md 0;
-    padding: 0 $space-md;
-
-    &:last-child {
-        margin-bottom: 0px;
-    }
+  &:last-child {
+    border-bottom: 0px;
+  }
 }
 
 .special-types {
-    color: $color-valencia;
-    display: flex;
-    justify-content: flex-end;
+  color: $color-valencia;
+  display: flex;
+  justify-content: flex-end;
 
-    > * {
-        margin: 0 $space-xs $space-sm $space-xs;
+  > * {
+    margin: 0 $space-xs $space-sm $space-xs;
 
-        &:last-child {
-            margin-bottom: 0px;
-        }
+    &:last-child {
+      margin-bottom: 0px;
     }
+  }
 }
 
 .special-details {
-    margin-top: $space-sm;
-    white-space: pre-wrap;
+  margin-top: $space-sm;
+  white-space: pre-wrap;
 }
