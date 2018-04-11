@@ -36,6 +36,7 @@ export class MapSection extends Component {
     this.setLocations = this.setLocations.bind(this);
     this.handleLocationSelect = this.handleLocationSelect.bind(this);
     this.handleLocationDeselect = this.handleLocationDeselect.bind(this);
+    this.handlePopState = this.handlePopState.bind(this);
     this.onMapUpdate = this.onMapUpdate.bind(this);
     this.updateActiveDays = this.updateActiveDays.bind(this);
     this.updateActiveTime = this.updateActiveTime.bind(this);
@@ -69,6 +70,14 @@ export class MapSection extends Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('popstate', this.handlePopState);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this.handlePopState);
+  }
+
   onMapUpdate(bounds) {
     this.setState({
       bounds,
@@ -83,7 +92,7 @@ export class MapSection extends Component {
       const filteredLocations = locationFilter.filter(
         this.props.locations,
         this.state.bounds,
-        this.state.filters,
+        this.state.filters
       );
       this.setState({
         locations: filteredLocations,
@@ -91,16 +100,37 @@ export class MapSection extends Component {
     }
   }
 
-  handleLocationSelect(locationId) {
+  handlePopState(event) {
+    event.preventDefault();
+
+    if (this.state.selectedLocation) {
+      this.handleLocationDeselect();
+    }
+  }
+
+  handleLocationSelect(location) {
     this.setState({
-      selectedLocation: locationId || null,
+      selectedLocation: location || null,
     });
+
+    if (window.location.href.indexOf('#') === -1) {
+      window.history.pushState(
+        location, `Map Selection - ${location.name}`, '#'
+      );
+    } else {
+      window.history.replaceState(
+        location, `Map Selection - ${location.name}`, '#'
+      );
+    }
   }
 
   handleLocationDeselect() {
     this.setState({
       selectedLocation: null,
     });
+    window.history.replaceState(
+      null, 'Happy Hour Host', '#'
+    );
   }
 
   updateActiveDays(activeDays) {
