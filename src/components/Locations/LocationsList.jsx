@@ -8,6 +8,7 @@ const defaultProps = {
 };
 
 const propTypes = {
+  cityId: PropTypes.string.isRequired,
   cityName: PropTypes.string.isRequired,
   fetchingData: PropTypes.bool.isRequired,
   locations: PropTypes.arrayOf(PropTypes.shape({
@@ -33,6 +34,7 @@ function LocationsList(props) {
   if (props.selectedLocation) {
     locations = (
       <LocationListItem
+        cityId={props.cityId}
         cityName={props.cityName}
         key={props.selectedLocation._id}
         {...props.selectedLocation}
@@ -40,7 +42,12 @@ function LocationsList(props) {
     );
   } else if (props.locations.length > 0) {
     locations = props.locations.map(location => (
-      <LocationListItem cityName={props.cityName} key={location._id} {...location} />
+      <LocationListItem
+        cityId={props.cityId}
+        cityName={props.cityName}
+        key={location._id}
+        {...location}
+      />
     ));
   }
 

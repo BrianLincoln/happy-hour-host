@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import locationFilter from './../../utils/LocationFilter';
 import cityApi from './../../utils/CityApi';
 import locationApi from './../../utils/LocationApi';
-import MapSection from './../MapSection/';
+import MapSection from './../MapSection/MapSection';
 import LocationListItem from './../../components/Locations/LocationListItem';
 import './Neighborhood.scss';
 
@@ -14,6 +14,7 @@ const defaultProps = {
 };
 
 const propTypes = {
+  cityId: PropTypes.string.isRequired,
   cityName: PropTypes.string.isRequired,
   fetchingLocations: PropTypes.bool,
   neighborhoodName: PropTypes.string.isRequired,
@@ -109,6 +110,7 @@ class Neighborhood extends Component {
     return (
       <div>
         <MapSection
+          cityId={this.props.cityId}
           cityName={this.props.cityName}
           initialZoom={this.state.neighborhood.mapZoomLevel}
           initialCenter={this.state.neighborhood.mapCenter}

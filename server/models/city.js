@@ -38,6 +38,21 @@ const TimeWindow = new Schema({
   },
 });
 
+const Rating = new Schema({
+  isAccurate: {
+    type: Boolean,
+    required: true,
+  },
+  userIP: {
+    type: String,
+    required: true,
+  },
+  dateAdded: {
+    type: Date,
+    required: true,
+  },
+});
+
 const Special = new Schema({
   headline: {
     type: String,
@@ -52,6 +67,9 @@ const Special = new Schema({
   },
   times: {
     type: [TimeWindow],
+  },
+  ratings: {
+    type: [Rating],
   },
   hasDrinkSpecial: Boolean,
   hasFoodSpecial: Boolean,

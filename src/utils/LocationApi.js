@@ -145,6 +145,26 @@ const locationApi = {
         console.log(res);
       });
   },
+  rateSpecial(
+    cityId, locationId, specialId, isAccurate
+  ) {
+    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special/${specialId}/rating`,
+      {
+        method: 'post',
+        body: JSON.stringify({
+          isAccurate,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => response.json())
+      .then(response => response)
+      .catch((response) => {
+        console.log(response);
+      });
+  },
 };
 
 export default locationApi;

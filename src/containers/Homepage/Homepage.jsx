@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Homepage.scss';
-import MapSection from './../MapSection/';
+import MapSection from './../MapSection/MapSection';
 import City from './../../components/Cities/City';
 import cityApi from './../../utils/CityApi';
 
@@ -16,7 +16,6 @@ export class Homepage extends Component {
     super(props);
 
     this.state = {
-      cityName: '',
       fetchingCity: true,
     };
 
@@ -29,7 +28,6 @@ export class Homepage extends Component {
     cityApi.getCity().then((result) => {
       if (result.success) {
         this.setState({
-          cityName: result.city.name,
           city: result.city,
           locations: result.city.locations,
           fetchingCity: false,
@@ -43,7 +41,9 @@ export class Homepage extends Component {
   }
 
   render() {
-    if (this.state.fetchingCity === 'failed') {
+    if (this.state.fetchingCity) {
+      return <div className="spinner" />;
+    } else if (this.state.fetchingCity === 'failed') {
       return (
         <div className="container space-top-xl space-bottom-xl">
           <h2>Hmmm... ran into an issue finding a city. Try refreshing!</h2>
@@ -66,7 +66,8 @@ export class Homepage extends Component {
     return (
       <div>
         <MapSection
-          cityName={this.state.cityName}
+          cityId={this.state.city._id}
+          cityName={this.state.city.name}
           locations={this.state.locations}
           fetchingData={this.state.fetchingCity}
           googleMapsApiKey={this.props.config.googleMapsApiKey}

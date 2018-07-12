@@ -5,7 +5,9 @@ import PreviewableSpecial from './../PreviewableSpecial/PreviewableSpecial';
 import './LocationListItem.scss';
 
 const propTypes = {
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  cityId: PropTypes.string.isRequired,
   cityName: PropTypes.string.isRequired,
   specials: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string,
@@ -14,7 +16,14 @@ const propTypes = {
 
 function LocationListItem(props) {
   const specials = props.specials
-    ? props.specials.map(special => <PreviewableSpecial key={special._id} {...special} />)
+    ? props.specials.map(special => (
+      <PreviewableSpecial
+        key={special._id}
+        cityId={props.cityId}
+        locationId={props._id}
+        {...special}
+      />
+    ))
     : null;
 
   const path = encodeURI(`/${props.cityName}/${props.name}`.trim().replace(' ', '+'));

@@ -4,7 +4,13 @@ import config from './../config';
 const minneapoliscityId = '5a92e61f5afd0826f0e5a7a6';
 
 const cityApi = {
-  getCities() {},
+  getCities() {
+    return fetch(`${config.apiPath}/cities`)
+      .then(response => response.json())
+      .then(city =>
+        // do stuff with responseJSON here...
+        city);
+  },
   // defaulting to mpls for now
   getCity(cityId = minneapoliscityId) {
     return fetch(`${config.apiPath}/city/${cityId}`)

@@ -153,6 +153,7 @@ router.put('/city/:cityId/location/:locationId/special/:specialId', (req, res) =
     city.locations.id(req.params.locationId).specials = city.locations
       .id(req.params.locationId)
       .specials.map((special) => {
+        console.log(special);
         if (special._id.toString() === req.params.specialId) {
           return req.body.special;
         }
@@ -168,11 +169,37 @@ router.put('/city/:cityId/location/:locationId/special/:specialId', (req, res) =
 });
 
 router.delete('/city/:cityId/location/:locationId/special/:specialId', (req, res) => {
+  console.log('delete special');
   City.findById(req.params.cityId, (err, city) => {
     city.locations
       .id(req.params.locationId)
       .specials.id(req.params.specialId)
       .remove();
+
+    city.save();
+    res.json({
+      success: true,
+    });
+  });
+});
+
+router.post('/city/:cityId/location/:locationId/special/:specialId/rating', (req, res) => {
+  console.log('rating: ', req.body);
+  console.log('ip: ', req.ip);
+  console.log('date: ', Date.now());
+  console.log('params: ', req.params);
+
+  const rating = {
+    isAccurate: req.body.isAccurate,
+    userIP: req.ip,
+    dateAdded: Date.now(),
+  };
+
+  City.findById(req.params.cityId, (err, city) => {
+    city.locations
+      .id(req.params.locationId)
+      .specials.id(req.params.specialId)
+      .ratings.push(rating);
 
     city.save();
     res.json({

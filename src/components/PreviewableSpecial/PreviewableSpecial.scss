@@ -1,18 +1,10 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
-button.previewable-special {
-  border-left: solid $space-xs $color-medium;
-  cursor: pointer;
+.previewable-special {
+  border-left: solid $space-xs $color-light;
   margin: 0 0 $space-md 0;
   padding: $space-sm $space-md;
   width: 100%;
-
-  &:focus {
-    outline: 0;
-  }
-  &:hover {
-    background: $color-light;
-  }
 
   &:last-child {
     margin-bottom: 0px;
@@ -36,8 +28,15 @@ button.previewable-special {
 .previewable-special-toggle {
   clear: both;
   color: $color-curious;
+  cursor: pointer;
+  display: inline-block;
   padding: $space-sm 0 0 0;
   text-align: center;
+  width: 100%;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .previewable-special-toggle-icon {
@@ -53,7 +52,7 @@ button.previewable-special {
   box-shadow: 1px 1px 1px #000;
   color: $color-white;
   clear: both;
-  padding: $space-md;
+  padding: $space-md $space-md 0 $space-md;
   margin: $space-md;
   text-shadow: 1px 0px 1px #000;
   white-space: pre-wrap;

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './PreviewableSpecial.scss';
+import RateSpecial from './../RateSpecial/RateSpecial';
 import dayLabels from './../../utils/DayLabels';
 import timeConverter from './../../utils/TimeConverter';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
+  cityId: PropTypes.string.isRequired,
+  locationId: PropTypes.string.isRequired,
   details: PropTypes.string.isRequired,
   hasDrinkSpecial: PropTypes.bool.isRequired,
   hasFoodSpecial: PropTypes.bool.isRequired,
@@ -14,7 +17,7 @@ const propTypes = {
   times: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export class SpecialPreview extends Component {
+export class PreviewableSpecial extends Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +31,6 @@ export class SpecialPreview extends Component {
 
   handleToggleDetailsClick(event) {
     event.preventDefault();
-
     this.setState({
       showDetails: !this.state.showDetails,
     });
@@ -68,34 +70,44 @@ export class SpecialPreview extends Component {
     });
 
     const showDetails = !this.state.showDetails ? (
-      <div className="previewable-special-toggle">
+      <button
+        className="previewable-special-toggle reset-button"
+        onClick={this.handleToggleDetailsClick}
+        onKeyUp={this.handleToggleDetailsKeyUp}
+      >
         show details
         <span className="previewable-special-toggle-icon">
           <i className="fas fa-angle-down" />
         </span>
-      </div>
+      </button>
     ) : null;
 
     const hideDetails = this.state.showDetails ? (
-      <div className="previewable-special-toggle">
+      <button
+        className="previewable-special-toggle reset-button"
+        onClick={this.handleToggleDetailsClick}
+        onKeyUp={this.handleToggleDetailsKeyUp}
+      >
         hide details
         <span className="previewable-special-toggle-icon">
           <i className="fas fa-angle-up" />
         </span>
-      </div>
+      </button>
     ) : null;
 
     const details = this.state.showDetails ? (
-      <div className="previewable-special-details">{this.props.details}</div>
+      <div className="previewable-special-details">
+        {this.props.details}
+        <RateSpecial
+          _id={this.props._id}
+          cityId={this.props.cityId}
+          locationId={this.props.locationId}
+        />
+      </div>
     ) : null;
 
     return (
-      <button
-        className="previewable-special reset-button"
-        key={this.props._id}
-        onClick={this.handleToggleDetailsClick}
-        onKeyUp={this.handleToggleDetailsKeyUp}
-      >
+      <div className="previewable-special" key={this.props._id}>
         <div className="row">
           <div className="col-xs-10">
             <div className="font-base-alt space-bottom-xs">{this.props.headline}</div>
@@ -114,11 +126,11 @@ export class SpecialPreview extends Component {
           {hideDetails}
           {details}
         </div>
-      </button>
+      </div>
     );
   }
 }
 
-SpecialPreview.propTypes = propTypes;
+PreviewableSpecial.propTypes = propTypes;
 
-export default SpecialPreview;
+export default PreviewableSpecial;
