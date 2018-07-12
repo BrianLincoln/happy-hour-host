@@ -8,17 +8,28 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const path = require('path');
-var app = module.exports = express();
+
+const app = (module.exports = express());
 const secretConfig = require('./secret-config');
 app.use(require('helmet')());
+
 app.set('secretCode', secretConfig.secretCode); // secret variable
 
-mongoose.connect("mongodb://localhost:27017/happy", { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/happy',
+  {
+    useMongoClient: true,
+  });
 
-//Get the default connection
+const City = require('./models/city.js');
+const Location = require('./models/location.js');
+const Neighborhood = require('./models/neighborhood.js');
+const Rating = require('./models/rating.js');
+const Special = require('./models/special.js');
+
+// Get the default connection
 const db = mongoose.connection;
 
-//Bind connection to error event (to get notification of connection errors)
+// Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(cors());
@@ -29,40 +40,43 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 
 // Use the body-parser package in our application
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Serve static assets
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
+app.use(express.static(path.resolve(
+  __dirname, '..', 'build'
+)));
 
 // Configuring Passport
 app.use(session({
   secret: 'keyboard cat',
-  cookie: { secure: false }
+  cookie: {
+    secure: false,
+  },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Using the flash middleware provided by connect-flash to store messages in session
+// and displaying in templates
+app.use(flash());
 
+// Initialize Passport
+const initPassport = require('./passport/init');
 
- // Using the flash middleware provided by connect-flash to store messages in session
- // and displaying in templates
- app.use(flash());
-
- // Initialize Passport
-var initPassport = require('./passport/init');
 initPassport(passport);
 
+const routes = require('./routes/index')(passport);
 
-var routes = require('./routes/index')(passport);
 app.use('/', routes);
 
-
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
+const isAuthenticated = function (
+  req, res, next
+) {
+  if (req.isAuthenticated()) return next();
   res.redirect('/');
-}
+};

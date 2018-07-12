@@ -1,27 +1,31 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt   = require('bcrypt-nodejs');
+const mongoose = require('mongoose');
 
-var User = new Schema({
+const {
+  Schema,
+} = mongoose;
+const bcrypt = require('bcrypt-nodejs');
+
+const User = new Schema({
   username: {
-      type: String,
-      required: true
-  },    
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
-User.methods.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+User.methods.generateHash = function (password) {
+  return bcrypt.hashSync(
+    password, bcrypt.genSaltSync(8), null
+  );
 };
 
 // checking if password is valid
-User.methods.validPassword = function(password) {
+User.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-
-var Model = mongoose.model('User', User);
+const Model = mongoose.model('User', User);
 module.exports = Model;
