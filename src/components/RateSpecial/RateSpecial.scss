@@ -1,0 +1,29 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+.rate-special {
+  @extend %font-sm;
+  border-top: solid 1px $color-white;
+  color: $color-white;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: $space-md;
+  padding: $space-md;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.rate-special-form {
+  text-align: center;
+  min-height: $space-lg;
+  padding: 0 $space-lg;
+  position: relative;
+
+  & > * {
+    margin-bottom: $space-md;
+    width: 100%;
+  }
+}
