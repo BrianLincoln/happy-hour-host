@@ -1,10 +1,9 @@
 // server/index.js
 
-'use strict';
 
 const app = require('./app');
 const https = require('https');
-var secretConfig = require('./secret-config.js');
+const secretConfig = require('./secret-config.js');
 
 const PORT = 80;
 

@@ -46,7 +46,8 @@ app.use(express.static(path.resolve(
   __dirname, '..', 'build'
 )));
 
-// Configuring Passport
+// Configuring Passport --
+// TODO: this is not secret... it should be
 app.use(session({
   secret: 'keyboard cat',
   cookie: {
