@@ -16,25 +16,28 @@ export class Neighborhoods extends Component {
     this.fetchNeighborhood = this.fetchNeighborhood.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
 
     this.fetchNeighborhood();
   }
 
   fetchNeighborhood(showUpdateSuccess) {
-    cityApi.getNeighborhood(this.props.cityId, this.props.neighborhoodId).then((result) => {
-      if (result.success) {
-        this.setState({
-          neighborhood: result.neighborhood,
-          showUpdateSuccess,
-          nameField: result.neighborhood.name || '',
-          mapCenterLatitudeField: result.neighborhood.mapCenter.latitude || '',
-          mapCenterLongitudeField: result.neighborhood.mapCenter.longitude || '',
-          mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
-          polyField: JSON.stringify(result.neighborhood.mapPoly) || '',
-        });
-      }
-    });
+    cityApi
+      .getNeighborhood(this.props.cityId, this.props.neighborhoodId)
+      .then((result) => {
+        if (result.success) {
+          this.setState({
+            neighborhood: result.neighborhood,
+            showUpdateSuccess,
+            nameField: result.neighborhood.name || '',
+            mapCenterLatitudeField:
+              result.neighborhood.mapCenter.latitude || '',
+            mapCenterLongitudeField:
+              result.neighborhood.mapCenter.longitude || '',
+            mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
+            polyField: JSON.stringify(result.neighborhood.mapPoly) || '',
+          });
+        }
+      });
   }
 
   handleFieldChange(event) {
@@ -84,16 +87,13 @@ export class Neighborhoods extends Component {
 
     cityApi
       .updateNeighborhood(
-        updatedNeighborhood, this.props.cityId, this.props.neighborhoodId,
+        updatedNeighborhood,
+        this.props.cityId,
+        this.props.neighborhoodId
       )
-      .then((result) => {
-        const showUpdateSuccess = result.success;
-        this.fetchNeighborhood(showUpdateSuccess);
+      .then(() => {
+        window.location.href = `/admin/city/${this.props.cityId}`;
       });
-  }
-
-  handleCancelButtonClick() {
-    this.fetchNeighborhood();
   }
 
   render() {
@@ -110,7 +110,10 @@ export class Neighborhoods extends Component {
     return (
       <div className="container">
         <div className="admin-neighborhood">
-          <a className="button_sm .button_transparent" href={`/admin/city/${this.props.cityId}`}>
+          <a
+            className="button_sm .button_transparent"
+            href={`/admin/city/${this.props.cityId}`}
+          >
             <i className="fas fa-arrow-left" /> back
           </a>
           <h1>{this.state.neighborhood.name}</h1>
@@ -190,7 +193,18 @@ export class Neighborhoods extends Component {
             </div>
             {updateSuccessMessage}
             <div className="button-group button-group_left">
-              <input className="button_sm button_curious" type="submit" value="update" />
+              <input
+                className="button_sm button_curious"
+                type="submit"
+                value="update"
+              />
+
+              <a
+                className="button_sm button_valencia"
+                href={`/admin/city/${this.props.cityId}`}
+              >
+                cancel
+              </a>
             </div>
           </form>
         </div>

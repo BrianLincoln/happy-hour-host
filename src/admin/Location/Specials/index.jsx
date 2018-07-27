@@ -7,7 +7,6 @@ import Special from './Special/';
 import locationApi from './../../../utils/LocationApi';
 
 const propTypes = {
-  cityId: PropTypes.string.isRequired,
   locationId: PropTypes.string.isRequired,
   fetchLocation: PropTypes.func.isRequired,
   specials: PropTypes.arrayOf(PropTypes.shape({
@@ -55,9 +54,7 @@ export class Specials extends Component {
   }
 
   handleSubmitNewSpecial(special) {
-    locationApi.postSpecial(
-      this.props.cityId, this.props.locationId, special
-    ).then(() => {
+    locationApi.postSpecial(this.props.locationId, special).then(() => {
       this.props.fetchLocation(this.props.locationId);
       this.setState({
         showAddSpecialForm: false,
@@ -73,7 +70,7 @@ export class Specials extends Component {
 
     locationApi
       .updateSpecial(
-        this.props.cityId, this.props.locationId, specialId, special
+        this.props.locationId, specialId, special
       )
       .then(() => {
         this.props.fetchLocation(this.props.locationId);
@@ -81,9 +78,7 @@ export class Specials extends Component {
   }
 
   deleteSpecial(specialId) {
-    locationApi.deleteSpecial(
-      this.props.cityId, this.props.locationId, specialId
-    ).then(() => {
+    locationApi.deleteSpecial(this.props.locationId, specialId).then(() => {
       this.props.fetchLocation(this.props.locationId);
       this.setState({
         showAddSpecialForm: false,

@@ -5,7 +5,6 @@ import locationApi from './../../utils/LocationApi';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
-  cityId: PropTypes.string.isRequired,
   locationId: PropTypes.string.isRequired,
 };
 
@@ -47,7 +46,7 @@ export class RateSpecial extends Component {
   submitSpecialForm(isAccurate) {
     locationApi
       .rateSpecial(
-        this.props.cityId, this.props.locationId, this.props._id, isAccurate
+        this.props.locationId, this.props._id, isAccurate
       )
       .then(() => {
         this.setState({
@@ -76,10 +75,16 @@ export class RateSpecial extends Component {
 
     let formContent = (
       <div className="rate-special-form">
-        <button className="button_sm button_curious" onClick={this.handleYesButtonClick}>
+        <button
+          className="button_sm button_curious"
+          onClick={this.handleYesButtonClick}
+        >
           Yep, looks good!
         </button>
-        <button className="button_sm button_valencia" onClick={this.handleNoButtonClick}>
+        <button
+          className="button_sm button_valencia"
+          onClick={this.handleNoButtonClick}
+        >
           Nope
         </button>
       </div>

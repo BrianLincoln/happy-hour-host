@@ -11,20 +11,15 @@ const path = require('path');
 
 const app = (module.exports = express());
 const secretConfig = require('./secret-config');
+
 app.use(require('helmet')());
 
 app.set('secretCode', secretConfig.secretCode); // secret variable
 
-mongoose.connect('mongodb://localhost:27017/happy',
+mongoose.connect('mongodb://localhost:27017/happy2',
   {
     useMongoClient: true,
   });
-
-const City = require('./models/city.js');
-const Location = require('./models/location.js');
-const Neighborhood = require('./models/neighborhood.js');
-const Rating = require('./models/rating.js');
-const Special = require('./models/special.js');
 
 // Get the default connection
 const db = mongoose.connection;
@@ -70,13 +65,6 @@ const initPassport = require('./passport/init');
 
 initPassport(passport);
 
-const routes = require('./routes/index')(passport);
+const routes = require('./routes/routes')(passport);
 
 app.use('/', routes);
-
-const isAuthenticated = function (
-  req, res, next
-) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/');
-};

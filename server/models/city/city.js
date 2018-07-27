@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Location = require('./location');
 const Neighborhood = require('./neighborhood');
 
 const {
@@ -11,8 +10,13 @@ const City = new Schema({
     type: String,
     required: true,
   },
-  Neighborhood: [Neighborhood],
-  locations: [Location],
+  neighborhoods: [Neighborhood],
+  locations: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Location',
+    },
+  ],
 });
 
 City.pre('validate', (next) => {

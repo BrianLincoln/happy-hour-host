@@ -9,12 +9,21 @@ const locationFilter = {
 
     locations.map(location => {
       let filteredLocation = Object.assign({}, location);
-      let isInMapBounds = positionIsInBounds(filteredLocation.position, mapBounds);
+      let isInMapBounds = positionIsInBounds(
+        filteredLocation.position,
+        mapBounds
+      );
 
       if (isInMapBounds) {
         //if both days and times are empty we can just push everything -- no need to filter
-        if (isInMapBounds && (filters.days.length > 0 || filters.time.value !== 'any')) {
-          filteredLocation.specials = filterSpecials(filteredLocation.specials, filters);
+        if (
+          isInMapBounds &&
+          (filters.days.length > 0 || filters.time.value !== 'any')
+        ) {
+          filteredLocation.specials = filterSpecials(
+            filteredLocation.specials,
+            filters
+          );
         }
         if (filteredLocation.specials.length > 0) {
           result.push(filteredLocation);
@@ -27,7 +36,10 @@ const locationFilter = {
 
   filterByMapPoly: (locations, mapPoly) => {
     let result = locations.filter(location => {
-      let point = [parseFloat(location.position.longitude), parseFloat(location.position.latitude)];
+      let point = [
+        parseFloat(location.position.longitude),
+        parseFloat(location.position.latitude),
+      ];
 
       return positionIsInPoly(point, mapPoly);
     });
@@ -58,7 +70,8 @@ function positionIsInPoly(point, poly) {
     var xj = poly[j][0],
       yj = poly[j][1];
 
-    var intersect = yi > y !== yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi;
+    var intersect =
+      yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
     if (intersect) inside = !inside;
   }
 
@@ -70,7 +83,10 @@ function filterSpecials(specials, filters) {
 
   specials.map(special => {
     //first check for specials with matching days
-    if (filters.days.length === 0 || _.intersection(filters.days, special.days).length > 0) {
+    if (
+      filters.days.length === 0 ||
+      _.intersection(filters.days, special.days).length > 0
+    ) {
       let hasMatchingTime = false;
 
       if (filters.time.value === 'any') {
@@ -88,7 +104,10 @@ function filterSpecials(specials, filters) {
             specialEndTime = specialEndTime + 2400;
           }
 
-          if (specialStartTime < filterEndTime && specialEndTime > filterStartTime) {
+          if (
+            specialStartTime < filterEndTime &&
+            specialEndTime > filterStartTime
+          ) {
             hasMatchingTime = true;
           }
         });

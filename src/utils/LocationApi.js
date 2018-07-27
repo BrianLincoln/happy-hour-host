@@ -1,42 +1,33 @@
 import config from './../config';
 
-// TEMP -- this should get dynamic once there are multiple cities
-const minneapoliscityId = '5a92e61f5afd0826f0e5a7a6';
-
 const locationApi = {
   getLocations() {
-    return fetch(`${config.apiPath}/city/${minneapoliscityId}/locations`).then(response =>
+    return fetch(`${config.apiPath}/locations`).then(response =>
       response.json());
   },
-  getLocationsByCity(city) {
-    return fetch(`${config.apiPath}/city/${city}/locations`)
-      .then(response => response.json())
-      .then(cities =>
-        // do stuff with responseJSON here...
-        cities);
+  getLocationsByCity(cityId) {
+    return fetch(`${config.apiPath}/locations?cityId=${cityId}`).then(response => response.json());
   },
-  getLocation(cityId, locationId) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}`).then(response =>
+  getLocation(locationId) {
+    return fetch(`${config.apiPath}/locations/${locationId}`).then(response =>
       response.json());
   },
-  getLocationByDisplayNames(cityName, locationName) {
-    return fetch(`${config.apiPath}/city-name/${cityName}/location-name/${locationName}`)
-      .then(response => response.json())
-      .then(location =>
-        // do stuff with responseJSON here...
-        location);
-  },
-  postLocation(cityId, location) {
-    return fetch(`${config.apiPath}/city/${cityId}/location`, {
-      method: 'post',
+
+  postLocation(location) {
+    return fetch(`${config.apiPath}/locations`, {
+      method: 'POST',
       body: JSON.stringify({
-        name: location.name,
-        position: {
-          latitude: location.positionLatitude,
-          longitude: location.positionLongitude,
+        token: localStorage.authToken,
+        location: {
+          city: location.city,
+          name: location.name,
+          position: {
+            latitude: location.positionLatitude,
+            longitude: location.positionLongitude,
+          },
+          website: location.website,
+          googleMapLink: location.googleMapLink,
         },
-        website: location.website,
-        googleMapLink: location.googleMapLink,
       }),
       headers: {
         Accept: 'application/json',
@@ -50,18 +41,25 @@ const locationApi = {
         console.log(res);
       });
   },
-  updateLocation(cityId, location) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${location._id}`, {
+
+  updateLocation(location) {
+    console.log(location);
+
+    return fetch(`${config.apiPath}/locations/${location._id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        _id: location._id,
-        name: location.name,
-        position: {
-          latitude: location.positionLatitude,
-          longitude: location.positionLongitude,
+        token: localStorage.authToken,
+        location: {
+          _id: location._id,
+          city: location.city,
+          name: location.name,
+          position: {
+            latitude: location.positionLatitude,
+            longitude: location.positionLongitude,
+          },
+          website: location.website,
+          googleMapLink: location.googleMapLink,
         },
-        website: location.website,
-        googleMapLink: location.googleMapLink,
       }),
       headers: {
         Accept: 'application/json',
@@ -75,13 +73,16 @@ const locationApi = {
         console.log(res);
       });
   },
-  deleteLocation(cityId, locationId) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}`, {
+  deleteLocation(locationId) {
+    return fetch(`${config.apiPath}/locations/${locationId}`, {
       method: 'delete',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        token: localStorage.authToken,
+      }),
     })
       .then((res) => {
         console.log(res);
@@ -90,13 +91,16 @@ const locationApi = {
         console.log(res);
       });
   },
-  postSpecial(
-    cityId, locationId, special
-  ) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special`, {
+
+  // --------------------- //
+  // TODO Move out of here to a new file //
+  // --------------------- //
+  postSpecial(locationId, special) {
+    return fetch(`${config.apiPath}/locations/${locationId}/specials`, {
       method: 'post',
       body: JSON.stringify({
-        ...special,
+        token: localStorage.authToken,
+        special,
       }),
       headers: {
         Accept: 'application/json',
@@ -111,20 +115,20 @@ const locationApi = {
       });
   },
   updateSpecial(
-    cityId, locationId, specialId, special
+    locationId, specialId, special
   ) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special/${specialId}`, {
-      method: 'put',
-      body: JSON.stringify({
-        special,
-        specialId,
-        locationId,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
+    return fetch(`${config.apiPath}/locations/${locationId}/specials/${specialId}`,
+      {
+        method: 'put',
+        body: JSON.stringify({
+          token: localStorage.authToken,
+          special,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -132,12 +136,18 @@ const locationApi = {
         console.log(res);
       });
   },
-  deleteSpecial(
-    cityId, locationId, specialId
-  ) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special/${specialId}`, {
-      method: 'delete',
-    })
+  deleteSpecial(locationId, specialId) {
+    return fetch(`${config.apiPath}/locations/${locationId}/specials/${specialId}`,
+      {
+        method: 'delete',
+        body: JSON.stringify({
+          token: localStorage.authToken,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -148,17 +158,19 @@ const locationApi = {
   rateSpecial(
     cityId, locationId, specialId, isAccurate
   ) {
-    return fetch(`${config.apiPath}/city/${cityId}/location/${locationId}/special/${specialId}/rating`,
-      {
-        method: 'post',
-        body: JSON.stringify({
-          isAccurate,
-        }),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
+    return fetch(`${
+      config.apiPath
+    }/city/${cityId}/location/${locationId}/special/${specialId}/rating`,
+    {
+      method: 'post',
+      body: JSON.stringify({
+        isAccurate,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
       .then(response => response.json())
       .then(response => response)
       .catch((response) => {

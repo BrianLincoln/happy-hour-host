@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LocationForm from './../../Location/LocationForm';
 
 const propTypes = {
+  cityId: PropTypes.string.isRequired,
   postLocation: PropTypes.func.isRequired,
 };
 
@@ -33,10 +34,14 @@ export class AddLocation extends Component {
     if (this.state.showAddLocationForm) {
       return (
         <div>
-          <button onClick={this.toggleAddLocationForm} className="button_sm button_dark">
+          <button
+            onClick={this.toggleAddLocationForm}
+            className="button_sm button_dark"
+          >
             x hide
           </button>
           <LocationForm
+            cityId={this.props.cityId}
             mode="new"
             handleCancel={this.toggleAddLocationForm}
             handleSubmitNewLocation={this.handleSubmit}
@@ -46,7 +51,10 @@ export class AddLocation extends Component {
     }
 
     return (
-      <button onClick={this.toggleAddLocationForm} className="button_sm button_dark">
+      <button
+        onClick={this.toggleAddLocationForm}
+        className="button_sm button_dark"
+      >
         + add location
       </button>
     );

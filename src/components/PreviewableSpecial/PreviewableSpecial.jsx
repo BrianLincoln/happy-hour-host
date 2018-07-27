@@ -7,7 +7,6 @@ import timeConverter from './../../utils/TimeConverter';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
-  cityId: PropTypes.string.isRequired,
   locationId: PropTypes.string.isRequired,
   details: PropTypes.string.isRequired,
   hasDrinkSpecial: PropTypes.bool.isRequired,
@@ -98,11 +97,7 @@ export class PreviewableSpecial extends Component {
     const details = this.state.showDetails ? (
       <div className="previewable-special-details">
         {this.props.details}
-        <RateSpecial
-          _id={this.props._id}
-          cityId={this.props.cityId}
-          locationId={this.props.locationId}
-        />
+        <RateSpecial _id={this.props._id} locationId={this.props.locationId} />
       </div>
     ) : null;
 
@@ -110,16 +105,24 @@ export class PreviewableSpecial extends Component {
       <div className="previewable-special" key={this.props._id}>
         <div className="row">
           <div className="col-xs-10">
-            <div className="font-base-alt space-bottom-xs">{this.props.headline}</div>
+            <div className="font-base-alt space-bottom-xs">
+              {this.props.headline}
+            </div>
             {days}
             {times}
           </div>
           <div className="col-xs-2 previewable-special-types">
             {this.props.hasDrinkSpecial ? (
-              <i className="special-type-icon fas fa-glass-martini" aria-hidden="true" />
+              <i
+                className="special-type-icon fas fa-glass-martini"
+                aria-hidden="true"
+              />
             ) : null}
             {this.props.hasFoodSpecial ? (
-              <i className="special-type-icon fas fa-utensils" aria-hidden="true" />
+              <i
+                className="special-type-icon fas fa-utensils"
+                aria-hidden="true"
+              />
             ) : null}
           </div>
           {showDetails}

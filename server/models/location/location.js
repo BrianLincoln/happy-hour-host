@@ -10,6 +10,11 @@ const Location = new Schema({
     type: String,
     required: true,
   },
+  city: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'City',
+    required: true,
+  },
   specials: [Special],
   position: {
     latitude: {
@@ -25,4 +30,4 @@ const Location = new Schema({
   googleMapLink: String,
 });
 
-module.exports = Location;
+module.exports = mongoose.model('Location', Location);

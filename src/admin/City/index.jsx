@@ -24,6 +24,7 @@ export class City extends Component {
     this.state = {};
 
     this.fetchCity();
+    this.fetchLocations();
   }
 
   fetchCity() {
@@ -31,6 +32,16 @@ export class City extends Component {
       if (result.success) {
         this.setState({
           city: result.city,
+        });
+      }
+    });
+  }
+
+  fetchLocations() {
+    locationApi.getLocationsByCity(this.props.cityId).then((result) => {
+      if (result.success) {
+        this.setState({
+          locations: result.locations,
         });
       }
     });
@@ -49,14 +60,14 @@ export class City extends Component {
   }
 
   postLocation(location) {
-    locationApi.postLocation(this.state.city._id, location).then(() => {
-      this.fetchCity();
+    locationApi.postLocation(location).then(() => {
+      this.fetchLocations();
     });
   }
 
   deleteLocation(locationId) {
-    locationApi.deleteLocation(this.state.city._id, locationId).then(() => {
-      this.fetchCity();
+    locationApi.deleteLocation(locationId).then(() => {
+      this.fetchLocations();
     });
   }
 
@@ -75,9 +86,9 @@ export class City extends Component {
         />
       ));
 
-    const locations = !this.state.city.locations
+    const locations = !this.state.locations
       ? null
-      : this.state.city.locations.map(location => (
+      : this.state.locations.map(location => (
         <LocationListItem
           key={location._id}
           cityId={this.state.city._id}
@@ -103,7 +114,10 @@ export class City extends Component {
           <div className="col-xs-12 col-xs-6">
             <div className="card col-xs-12">
               <h2 className="card-heading">Locations</h2>
-              <AddLocation postLocation={this.postLocation} />
+              <AddLocation
+                cityId={this.state.city._id}
+                postLocation={this.postLocation}
+              />
               {locations}
             </div>
           </div>

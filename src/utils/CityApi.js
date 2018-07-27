@@ -1,7 +1,7 @@
 import config from './../config';
 
 // TEMP -- this should get dynamic once there are multiple cities
-const minneapoliscityId = '5a92e61f5afd0826f0e5a7a6';
+const minneapoliscityId = '5b490c5b7781014240dd2ffa';
 
 const cityApi = {
   getCities() {
@@ -13,14 +13,14 @@ const cityApi = {
   },
   // defaulting to mpls for now
   getCity(cityId = minneapoliscityId) {
-    return fetch(`${config.apiPath}/city/${cityId}`)
+    return fetch(`${config.apiPath}/cities/${cityId}`)
       .then(response => response.json())
       .then(city =>
         // do stuff with responseJSON here...
         city);
   },
   postCity(name) {
-    return fetch(`${config.apiPath}/city`, {
+    return fetch(`${config.apiPath}/cities`, {
       method: 'post',
       body: JSON.stringify({
         name,
@@ -38,11 +38,11 @@ const cityApi = {
         console.log(res);
       });
   },
-  deleteCity(_id) {
-    return fetch(`${config.apiPath}/city`, {
+  deleteCity(cityId) {
+    return fetch(`${config.apiPath}/cities/${cityId}`, {
       method: 'delete',
       body: JSON.stringify({
-        _id,
+        token: localStorage.authToken,
       }),
       headers: {
         Accept: 'application/json',
@@ -56,32 +56,29 @@ const cityApi = {
         console.log(res);
       });
   },
+  // --------------------- //
+  // TODO Move out of here to a new file //
+  // --------------------- //
   getNeighborhoods(cityId) {
-    return fetch(`${config.apiPath}/city/${cityId}/neighborhoods`)
+    return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods`)
       .then(response => response.json())
       .then(neighborhoods =>
         // do stuff with responseJSON here...
         neighborhoods);
   },
   getNeighborhood(cityId, neighborhoodId) {
-    return fetch(`${config.apiPath}/city/${cityId}/neighborhood/${neighborhoodId}`)
-      .then(response => response.json())
-      .then(neighborhood =>
-        // do stuff with responseJSON here...
-        neighborhood);
-  },
-  getNeighborhoodByDisplayNames(cityName, neighborhoodName) {
-    return fetch(`${config.apiPath}/city-name/${cityName}/neighborhood-name/${neighborhoodName}`)
+    return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods/${neighborhoodId}`)
       .then(response => response.json())
       .then(neighborhood =>
         // do stuff with responseJSON here...
         neighborhood);
   },
   postNeighborhood(cityId, neighborhood) {
-    return fetch(`${config.apiPath}/city/${cityId}/neighborhood`, {
+    return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods`, {
       method: 'post',
       body: JSON.stringify({
         neighborhood,
+        token: localStorage.authToken,
       }),
       headers: {
         Accept: 'application/json',
@@ -98,30 +95,34 @@ const cityApi = {
   updateNeighborhood(
     neighborhood, cityId, neighborhoodId
   ) {
-    return fetch(`${config.apiPath}/city/${cityId}/neighborhood/${neighborhoodId}`, {
-      method: 'put',
-      body: JSON.stringify({
-        neighborhood,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
+    return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods/${neighborhoodId}`,
+      {
+        method: 'put',
+        body: JSON.stringify({
+          token: localStorage.authToken,
+          neighborhood,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then(response => response.json())
       .then(response => response);
   },
   deleteNeighborhood(cityId, neighborhoodId) {
-    return fetch(`${config.apiPath}/city/${cityId}/neighborhood/${neighborhoodId}`, {
-      method: 'delete',
-      body: JSON.stringify({
-        _id: neighborhoodId,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
+    return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods/${neighborhoodId}`,
+      {
+        method: 'delete',
+        body: JSON.stringify({
+          token: localStorage.authToken,
+          _id: neighborhoodId,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then((res) => {
         console.log(res);
       })

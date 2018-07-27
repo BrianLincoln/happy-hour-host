@@ -14,7 +14,6 @@ const propTypes = {
     days: PropTypes.array,
     times: PropTypes.array,
   }).isRequired,
-  deleteSpecial: PropTypes.func.isRequired,
   deselectSpecial: PropTypes.func.isRequired,
   cancelEditSpecial: PropTypes.func.isRequired,
   handleSubmitEditSpecialForm: PropTypes.func.isRequired,
@@ -29,7 +28,6 @@ export class SpecialDetails extends Component {
     };
 
     this.toggleEditSpecial = this.toggleEditSpecial.bind(this);
-    this.deleteSpecial = this.deleteSpecial.bind(this);
     this.deselectSpecial = this.deselectSpecial.bind(this);
     this.handleSubmitEditSpecialForm = this.handleSubmitEditSpecialForm.bind(this);
     this.handleCancelSpecialForm = this.handleCancelSpecialForm.bind(this);
@@ -39,11 +37,6 @@ export class SpecialDetails extends Component {
     this.setState({
       showEditSpecialForm: !this.state.showEditSpecialForm,
     });
-  }
-
-  deleteSpecial(event) {
-    event.preventDefault();
-    this.props.deleteSpecial(this.props.special._id);
   }
 
   deselectSpecial(event) {
@@ -77,11 +70,19 @@ export class SpecialDetails extends Component {
       <div>
         <div>
           drink specials:{' '}
-          <input type="checkbox" checked={this.props.special.hasDrinkSpecial} disabled />
+          <input
+            type="checkbox"
+            checked={this.props.special.hasDrinkSpecial}
+            disabled
+          />
         </div>
         <div>
           food specials:{' '}
-          <input type="checkbox" checked={this.props.special.hasFoodSpecial} disabled />
+          <input
+            type="checkbox"
+            checked={this.props.special.hasFoodSpecial}
+            disabled
+          />
         </div>
       </div>
     );
@@ -120,22 +121,25 @@ export class SpecialDetails extends Component {
             <span className="font-title-sm">{this.props.special.headline}</span>
           </div>
 
-          <div className="list-item admin-special-details">{this.props.special.details}</div>
+          <div className="list-item admin-special-details">
+            {this.props.special.details}
+          </div>
           <div className="list-item">{specialTypes}</div>
           <div className="list-item">{days}</div>
           <div className="list-item">{times}</div>
 
           <div className="space-top-md button-group button-group_left">
-            <button onClick={this.toggleEditSpecial} className="button_sm button_curious">
+            <button
+              onClick={this.toggleEditSpecial}
+              className="button_sm button_curious"
+            >
               + edit
             </button>
-            <button onClick={this.deselectSpecial} className="button_sm button_dark">
+            <button
+              onClick={this.deselectSpecial}
+              className="button_sm button_dark"
+            >
               back
-            </button>
-          </div>
-          <div className="list-item">
-            <button className="button_sm button_valencia" onClick={this.deleteSpecial}>
-              delete special
             </button>
           </div>
         </div>

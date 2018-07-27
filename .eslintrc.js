@@ -48,5 +48,6 @@ module.exports = {
         next: 'return',
       },
     ],
+    'max-len': ['off'],
   },
 };

@@ -9,6 +9,7 @@ const defaultProps = {
 
 const propTypes = {
   mode: PropTypes.string.isRequired,
+  cityId: PropTypes.string.isRequired,
   location: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
@@ -36,6 +37,7 @@ export class LocationForm extends Component {
     if (this.props.mode === 'update') {
       this.state = {
         _id: this.props.location._id,
+        city: this.props.cityId,
         name: this.props.location.name ? this.props.location.name : '',
         positionLatitude: this.props.location.position.latitude
           ? this.props.location.position.latitude
@@ -43,12 +45,17 @@ export class LocationForm extends Component {
         positionLongitude: this.props.location.position.longitude
           ? this.props.location.position.longitude
           : '',
-        neighborhoods: this.props.location.neighborhoods ? this.props.location.neighborhoods : [],
+        neighborhoods: this.props.location.neighborhoods
+          ? this.props.location.neighborhoods
+          : [],
         website: this.props.location.website ? this.props.location.website : '',
-        googleMapLink: this.props.location.googleMapLink ? this.props.location.googleMapLink : '',
+        googleMapLink: this.props.location.googleMapLink
+          ? this.props.location.googleMapLink
+          : '',
       };
     } else {
       this.state = {
+        city: this.props.cityId,
         name: '',
         positionLatitude: '',
         positionLongitude: '',
@@ -108,7 +115,10 @@ export class LocationForm extends Component {
 
   render() {
     return (
-      <form className="form-group space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>
+      <form
+        className="form-group space-top-sm space-bottom-sm"
+        onSubmit={this.handleSubmit}
+      >
         <div className="form-element">
           <label className="font-title-sm form-label" htmlFor="location-name">
             name:{' '}
@@ -168,8 +178,15 @@ export class LocationForm extends Component {
           </label>
         </div>
         <div className="button-group">
-          <input className="button_sm button_curious" type="submit" value="Submit" />
-          <button className="button_sm button_medium" onClick={this.handleCancelButtonClick}>
+          <input
+            className="button_sm button_curious"
+            type="submit"
+            value="Submit"
+          />
+          <button
+            className="button_sm button_medium"
+            onClick={this.handleCancelButtonClick}
+          >
             cancel
           </button>
         </div>
