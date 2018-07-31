@@ -1,6 +1,5 @@
 const express = require('express');
 const passportUtils = require('../../utils');
-const City = require('./../../models/city/city');
 const Location = require('./../../models/location/location');
 
 const router = express.Router();
@@ -9,6 +8,7 @@ const router = express.Router();
 router.post(
   '/api/locations/:locationId/specials',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.locationId,
@@ -33,6 +33,7 @@ router.post(
 router.put(
   '/api/locations/:locationId/specials/:specialId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.locationId,
@@ -60,6 +61,7 @@ router.put(
 router.delete(
   '/api/locations/:locationId/specials/:specialId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.locationId,

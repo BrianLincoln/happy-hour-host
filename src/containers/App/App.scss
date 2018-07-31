@@ -1,11 +1,12 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
 .site-header {
+  align-items: center;
   background-color: $color-valencia;
   box-shadow: 0px 1px 1px $color-medium;
   display: flex;
   flex-direction: column;
-  height: 10vh;
+  height: 8vh;
   justify-content: center;
   min-height: 65px;
   position: relative;

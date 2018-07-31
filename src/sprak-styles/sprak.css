@@ -1297,6 +1297,8 @@
   .form-group label {
     display: block; }
   .form-group input[type=text],
+  .form-group input[type=email],
+  .form-group input[type=password],
   .form-group textarea,
   .form-group select {
     box-shadow: inset 0px 0px 55px #f4f4f4, 1px 1px 1px #ccc;

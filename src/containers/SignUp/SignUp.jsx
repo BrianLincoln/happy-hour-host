@@ -11,9 +11,7 @@ export class Signup extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    loginApi.postSignUp(
-      this.username, this.password, this.secretCode,
-    ).then((status) => {
+    loginApi.signUp(this.email, this.password).then((status) => {
       if (status === 200) {
         window.location.href = '../admin';
       } else {
@@ -30,33 +28,41 @@ export class Signup extends Component {
     }
 
     return (
-      <form className="space-top-sm space-bottom-sm row" onSubmit={this.handleSubmit}>
-        <div className="card col-xs-12 col-sm-6 col-sm-offset-3">
+      <form
+        className="form-group space-top-xl space-bottom-sm row"
+        onSubmit={this.handleSubmit}
+      >
+        <div className="card col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
           <div className="card-heading">Sign Up</div>
           <div className="form-element">
-            <label htmlFor="username">
-              Username:
-              <input id="username" type="text" ref={username => (this.username = username)} />
-            </label>
-          </div>
-          <div className="form-element">
-            <label htmlFor="password">
-              Password:
-              <input id="password" type="password" ref={password => (this.password = password)} />
-            </label>
-          </div>
-          <div className="form-element">
-            <label htmlFor="secretCode">
-              Secret Code:
+            <label htmlFor="email" className="font-title-sm form-label">
+              Email:
               <input
-                id="secretCode"
-                type="password"
-                ref={secretCode => (this.secretCode = secretCode)}
+                required
+                id="email"
+                type="email"
+                ref={email => (this.email = email)}
               />
             </label>
           </div>
-          <input className="button_sm button_curious" type="submit" value="Sign Up" /> or{' '}
-          <a href="/admin/login" className="color-curious">
+          <div className="form-element">
+            <label htmlFor="password" className="font-title-sm form-label">
+              Password:
+              <input
+                required
+                id="password"
+                type="password"
+                ref={password => (this.password = password)}
+              />
+            </label>
+          </div>
+          <input
+            className="button_sm button_curious"
+            type="submit"
+            value="Sign Up"
+          />{' '}
+          or{' '}
+          <a href="/login" className="color-curious">
             {' '}
             Log In
           </a>

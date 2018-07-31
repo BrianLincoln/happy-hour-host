@@ -25,7 +25,7 @@ module.exports = {
     'linebreak-style': ['warn', 'windows'],
     'lines-between-class-members': ['error', 'always'],
     'no-underscore-dangle': ['off', 'allow'],
-    'no-return-assign': ['warn', 'always'],
+    'no-return-assign': ['off', 'allow'],
     'react/no-array-index-key': 'warn',
 
     'function-paren-newline': [

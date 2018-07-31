@@ -36,8 +36,12 @@ router.get('/api/cities/:cityId', (req, res) => {
 });
 
 //= auth
+//= admin only
 router.post(
-  '/api/cities', passportUtils.verifyToken, (req, res) => {
+  '/api/cities',
+  passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
+  (req, res) => {
     const city = new City(req.body);
 
     city.save((err) => {
@@ -54,8 +58,12 @@ router.post(
 );
 
 //= auth
+//= admin only
 router.delete(
-  '/api/cities/:cityId', passportUtils.verifyToken, (req, res) => {
+  '/api/cities/:cityId',
+  passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
+  (req, res) => {
     const city = new City();
     city._id = req.params.cityId;
 

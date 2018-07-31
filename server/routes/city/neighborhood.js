@@ -39,9 +39,11 @@ router.get('/api/cities/:cityId/neighborhoods/:neighborhoodId', (req, res) => {
 });
 
 //= auth
+//= admin only
 router.post(
   '/api/cities/:cityId/neighborhoods',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.cityId,
@@ -64,9 +66,11 @@ router.post(
 );
 
 //= auth
+//= admin only
 router.put(
   '/api/cities/:cityId/neighborhoods/:neighborhoodId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.cityId,
@@ -91,9 +95,11 @@ router.put(
 );
 
 //= auth
+//= admin only
 router.delete(
   '/api/cities/:cityId/neighborhoods/:neighborhoodId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const query = {
       _id: req.params.cityId,

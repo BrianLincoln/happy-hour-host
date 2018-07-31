@@ -43,8 +43,6 @@ const locationApi = {
   },
 
   updateLocation(location) {
-    console.log(location);
-
     return fetch(`${config.apiPath}/locations/${location._id}`, {
       method: 'PUT',
       body: JSON.stringify({

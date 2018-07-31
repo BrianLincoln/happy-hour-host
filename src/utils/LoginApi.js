@@ -18,11 +18,11 @@ const loginApi = {
         console.log(res);
       });
   },
-  postLogin(username, password) {
+  login(email, password) {
     return fetch(`${config.apiPath}/authenticate`, {
       method: 'post',
       body: JSON.stringify({
-        username: username.value,
+        email: email.value,
         password: password.value,
       }),
       headers: {
@@ -34,23 +34,22 @@ const loginApi = {
       .then((res) => {
         if (res.success) {
           localStorage.setItem('authToken', res.token);
-          window.location = '/admin';
+          window.location = '/';
         }
+
+        return res;
       })
       .catch((res) => {
         console.log(res);
       });
   },
 
-  postSignUp(
-    username, password, secretCode
-  ) {
+  signUp(email, password) {
     return fetch(`${config.apiPath}/signup`, {
       method: 'post',
       body: JSON.stringify({
-        username: username.value,
+        email: email.value,
         password: password.value,
-        secretCode: secretCode.value,
       }),
       headers: {
         Accept: 'application/json',
@@ -65,7 +64,46 @@ const loginApi = {
 
   signOut() {
     localStorage.removeItem('authToken');
-    window.location = '/';
+    window.location = '/login';
+  },
+
+  forgotPassword(email) {
+    return fetch(`${config.apiPath}/forgot-password`, {
+      method: 'post',
+      body: JSON.stringify({
+        email: email.value,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(response => response)
+      .catch((res) => {
+        console.log(res);
+      });
+  },
+
+  resetPassword(
+    email, password, token
+  ) {
+    return fetch(`${config.apiPath}/reset-password/${token}`, {
+      method: 'post',
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(response => response)
+      .catch((res) => {
+        console.log(res);
+      });
   },
 };
 

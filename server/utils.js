@@ -1,31 +1,49 @@
-
-var jwt    = require('jsonwebtoken');
-var app = require('./app.js');
+const jwt = require('jsonwebtoken');
+const app = require('./app.js');
 
 module.exports = {
-    verifyToken: (req, res, done) => {
-        // check header or url parameters or post parameters for token
-        var token = req.body.token || req.query.token || req.headers['x-access-token'];
-        
-        // decode token
-        if (token) {
-            // verifies secret and checks exp
-            jwt.verify(token, app.get('secretCode'), function(err, decoded) {      
-                if (err) {
-                    return res.json({ success: false, message: 'Failed to authenticate token.' });    
-                } else {
-                    // if everything is good, save to request for use in other routes
-                    req.decoded = decoded;    
-                    done();
-                }
+  verifyToken: (
+    req, res, done
+  ) => {
+    // check header or url parameters or post parameters for token
+    const token =
+      req.body.token || req.query.token || req.headers['x-access-token'];
+
+    // decode token
+    if (token) {
+      // verifies secret and checks exp
+      jwt.verify(
+        token, app.get('secretCode'), (err, decoded) => {
+          if (err) {
+            return res.json({
+              success: false,
+              message: 'Failed to authenticate token.',
             });
-          } else {
-            // if there is no token
-            // return an error
-            return res.status(403).send({ 
-                success: false, 
-                message: 'No token provided.' 
-            });
-      }
+          }
+          // if everything is good, save to request for use in other routes
+          req.decoded = decoded;
+          done();
+        }
+      );
+    } else {
+      // if there is no token
+      // return an error
+      return res.status(403).send({
+        success: false,
+        message: 'No token provided.',
+      });
     }
-}
+  },
+
+  requireRole(roles) {
+    return (
+      req, res, next
+    ) => {
+      if (req.decoded && roles.includes(req.decoded.role)) {
+        next();
+      } else {
+        res.send(403);
+      }
+    };
+  },
+};

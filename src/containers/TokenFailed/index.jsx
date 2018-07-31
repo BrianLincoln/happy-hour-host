@@ -18,7 +18,7 @@ class TokenFailed extends Component {
 
   countdown() {
     if (this.state.countdown === 0) {
-      window.location = '/admin/login';
+      window.location = '/login';
     } else {
       setTimeout(() => {
         this.setState({
@@ -27,7 +27,7 @@ class TokenFailed extends Component {
         () => {
           this.countdown();
         });
-      }, 1000);
+      }, 500);
     }
   }
 
