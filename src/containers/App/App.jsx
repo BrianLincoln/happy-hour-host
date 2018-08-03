@@ -2,13 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../sprak-styles/sprak.css';
 import './App.scss';
-import HeaderNav from './../../components/HeaderNav/HeaderNav';
+import HeaderNav from './..//HeaderNav/HeaderNav';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
 import Neighborhood from './../Neighborhood';
 import SignUp from '../SignUp/SignUp';
 import Login from './../Login/Login';
 import SignOut from '../SignOut/SignOut';
+import SuggestLocation from '../SuggestLocation/SuggestLocation';
+import ManageSuggestions from '../ManageSuggestions/ManageSuggestions';
 import ForgotPassword from './../ForgotPassword/ForgotPassword';
 import ResetPassword from './../ResetPassword/ResetPassword';
 import TokenFailed from './../TokenFailed';
@@ -80,6 +82,16 @@ function App() {
                   token={meta.match.params.token}
                 />
               )}
+            />
+            <Route
+              exact
+              path="/suggest-location"
+              render={() => <SuggestLocation config={config} />}
+            />
+            <Route
+              exact
+              path="/manage-suggestions"
+              render={() => <ManageSuggestions config={config} />}
             />
             <Route
               exact

@@ -8,7 +8,7 @@ export class SignOut extends Component {
 
   render() {
     return (
-      <div className="col-xs-12 col-sm-6 col-sm-offset-3 ">
+      <div className="hero-text">
         <h1>Signing out...</h1>
       </div>
     );

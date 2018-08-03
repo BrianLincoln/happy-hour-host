@@ -37,7 +37,11 @@ class Cities extends Component {
     const cities = !this.state.cities
       ? null
       : this.state.cities.map(city => (
-        <CityListItem key={city._id} deleteCity={this.deleteCity} city={city} />
+        <CityListItem
+          key={city._id}
+          deleteCity={this.deleteCity}
+          city={city}
+        />
       ));
 
     return (

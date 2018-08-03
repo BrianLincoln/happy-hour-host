@@ -1,0 +1,15 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+.source-explanation ul {
+  list-style-type: disc;
+  padding-left: 2em;
+
+  a,
+  a:visited {
+    color: $color-curious;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

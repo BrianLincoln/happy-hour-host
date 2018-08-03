@@ -1,0 +1,50 @@
+@import "./../../sprak-styles/sprak-variables.scss";
+
+.header-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.header-nav-menu-toggle {
+  color: $color-white;
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  height: 8vh;
+  min-height: 65px;
+  padding: $space-md;
+}
+
+.header-nav-menu-toggle-email {
+  @extend %font-base-alt;
+  margin-right: $space-md;
+}
+
+.header-nav-menu {
+  background: $color-dark;
+  clear: both;
+  color: $color-white;
+  width: 300px;
+}
+.header-nav-menu > a,
+.header-nav-menu > a:visited {
+  @extend %font-sm;
+  color: $color-white;
+  display: block;
+  padding: $space-md;
+
+  &:hover {
+    background-color: $color-light;
+    color: $color-dark;
+  }
+}
+.header-nav-signup-pitch {
+  padding: $space-md;
+}
+
+.header-nav-icon {
+  margin-right: $space-md;
+  font-size: 18px;
+}

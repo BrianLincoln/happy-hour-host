@@ -54,8 +54,12 @@ router.get('/api/locations/:locationId', (req, res) => {
 });
 
 //= auth
+// TODO -- add cityID -- this is probably broken
 router.post(
-  '/api/locations', passportUtils.verifyToken, (req, res) => {
+  '/api/locations',
+  passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
+  (req, res) => {
     const location = new Location(req.body.location);
 
     location.save((err) => {
@@ -75,6 +79,7 @@ router.post(
 router.put(
   '/api/locations/:locationId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     Location.findByIdAndUpdate(
       req.params.locationId,
@@ -95,6 +100,7 @@ router.put(
 router.delete(
   '/api/locations/:locationId',
   passportUtils.verifyToken,
+  passportUtils.requireRole(['admin']),
   (req, res) => {
     const location = new Location();
     location._id = req.params.locationId;

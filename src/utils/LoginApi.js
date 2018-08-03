@@ -18,6 +18,20 @@ const loginApi = {
         console.log(res);
       });
   },
+  getUserFromAuthToken() {
+    return fetch(`${config.apiPath}/user-from-token`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.authToken,
+      },
+    })
+      .then(res => res.json())
+      .then(res => res)
+      .catch((res) => {
+        console.log(res);
+      });
+  },
   login(email, password) {
     return fetch(`${config.apiPath}/authenticate`, {
       method: 'post',

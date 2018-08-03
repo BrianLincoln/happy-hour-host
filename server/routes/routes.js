@@ -10,6 +10,7 @@ const secretConfig = require('./../secret-config');
 const app = require('../app.js');
 const cityRoutes = require('./city/city');
 const locationRoutes = require('./location/location');
+const locationSuggestionRoutes = require('./location/location-suggestion');
 
 // these should be removed
 const User = require('./../models/user.js');
@@ -25,12 +26,35 @@ const createHash = password =>
 module.exports = (passport) => {
   router.use(cityRoutes);
   router.use(locationRoutes);
+  router.use(locationSuggestionRoutes);
 
   router.get('/api/users', (req, res) => {
     User.find({}, (err, users) => {
       res.json(users);
     });
   });
+
+  router.get(
+    '/api/user-from-token', passportUtils.verifyToken, (req, res) => {
+      User.findOne({
+        email: req.decoded.email,
+      },
+      (err, user) => {
+        if (err || !user) {
+          res.json({
+            success: false,
+          });
+        } else {
+          // Don't send the password
+          res.json({
+            success: true,
+            email: user.email,
+            role: user.role,
+          });
+        }
+      });
+    }
+  );
 
   router.post(
     '/api/verfiy-token', passportUtils.verifyToken, (req, res) => {
@@ -63,7 +87,9 @@ module.exports = (passport) => {
         } else {
           // valid email & password
           const token = jwt.sign({
+            email: user.email,
             role: user.role,
+            userId: user._id,
           },
           app.get('secretCode'));
 

@@ -7,9 +7,7 @@ const cityApi = {
   getCities() {
     return fetch(`${config.apiPath}/cities`)
       .then(response => response.json())
-      .then(city =>
-        // do stuff with responseJSON here...
-        city);
+      .then(city => city);
   },
   // defaulting to mpls for now
   getCity(cityId = minneapoliscityId) {

@@ -175,6 +175,28 @@ const locationApi = {
         console.log(response);
       });
   },
+
+  getLocationSuggestions() {
+    return fetch(`${config.apiPath}/location-suggestions`).then(response =>
+      response.json());
+  },
+  postLocationSuggestion(suggestion) {
+    return fetch(`${config.apiPath}/location-suggestions`, {
+      method: 'post',
+      body: JSON.stringify({
+        token: localStorage.authToken,
+        suggestion,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .catch((res) => {
+        console.log(res);
+      });
+  },
 };
 
 export default locationApi;

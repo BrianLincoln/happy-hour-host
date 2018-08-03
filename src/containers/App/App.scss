@@ -5,12 +5,9 @@
   background-color: $color-valencia;
   box-shadow: 0px 1px 1px $color-medium;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   height: 8vh;
-  justify-content: center;
   min-height: 65px;
-  position: relative;
-  text-align: center;
   z-index: 4;
 }
 
@@ -18,6 +15,7 @@ a.logo {
   color: $color-white;
   font-family: "Neucha", sans-serif;
   text-shadow: 1px 1px 1px #302c29;
+  padding: 0 $space-md;
 }
 
 .logo-image {
@@ -114,4 +112,11 @@ a.logo {
 
   /* Corrects inability to style clickable `input` types in iOS */
   -webkit-appearance: none;
+}
+
+.hero-text {
+  margin: 0 auto;
+  max-width: $breakpoint-md;
+  padding: $space-xl;
+  text-align: center;
 }
