@@ -1,7 +1,6 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 # secrets
 /src/config.js
-/server/passport
 /server/secret-config.js
 /sslcert
 
