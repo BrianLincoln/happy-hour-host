@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../sprak-styles/sprak.css';
 import './App.scss';
-import HeaderNav from './..//HeaderNav/HeaderNav';
+import HeaderNav from './../HeaderNav/HeaderNav';
 import Homepage from './../Homepage/Homepage';
 import Location from './../Location/Location';
 import Neighborhood from './../Neighborhood';
