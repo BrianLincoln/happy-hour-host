@@ -59,7 +59,11 @@ class SuggestLocation extends Component {
     if (typeof this.state.formSuccess !== 'undefined') {
       if (this.state.formSuccess) {
         return (
-          <h1 className="hero-text">Thanks! Teamwork makes the dream work.</h1>
+          <div className="hero-text">
+            <h1>Thank you!</h1>
+            <i className="hero-icon fas fa-heart color-valencia space-top-lg space-bottom-lg" />
+            <h2>Teamwork makes the dream work.</h2>
+          </div>
         );
       }
 
