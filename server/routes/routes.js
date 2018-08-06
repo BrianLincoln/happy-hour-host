@@ -28,6 +28,12 @@ module.exports = (passport) => {
   router.use(locationRoutes);
   router.use(locationSuggestionRoutes);
 
+  router.post('/api/301', (req, res) => {
+    console.log('redirect to: ', req.body.newPath);
+
+    return res.redirect(301, req.body.newPath);
+  });
+
   router.get('/api/users', (req, res) => {
     User.find({}, (err, users) => {
       res.json(users);

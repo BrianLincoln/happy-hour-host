@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PreviewableSpecial from './../PreviewableSpecial/PreviewableSpecial';
+import pathHelpers from './../../utils/PathHelpers';
 import './LocationListItem.scss';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   name: PropTypes.string.isRequired,
   specials: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string,
@@ -23,7 +27,9 @@ function LocationListItem(props) {
     ))
     : null;
 
-  const path = encodeURI(`/locations/${props.name}`.trim().replace(' ', '+'));
+  const path = pathHelpers.locationPath(
+    props._id, props.city.name, props.name
+  );
 
   return (
     <div className="location-list-item">

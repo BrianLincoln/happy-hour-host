@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import locationApi from './../../utils/LocationApi';
 import Special from './../../components/Special/Special';
+import pathHelpers from './../../utils/PathHelpers';
 import './Location.scss';
 
 const propTypes = {
-  cityName: PropTypes.string.isRequired,
   locationName: PropTypes.string.isRequired,
   location: PropTypes.shape({
     name: PropTypes.string,
@@ -20,8 +20,10 @@ class Location extends Component {
   constructor(props) {
     super(props);
 
+    console.log('LOCATION : ', props);
     this.fetchLocation = this.fetchLocation.bind(this);
     this.setDocumentTitle = this.setDocumentTitle.bind(this);
+    this.checkUrl = this.checkUrl.bind(this);
     this.state = {};
   }
 
@@ -31,6 +33,7 @@ class Location extends Component {
         ...this.props.location,
       },
       () => {
+        this.checkUrl();
         this.setDocumentTitle();
       });
     } else {
@@ -39,24 +42,40 @@ class Location extends Component {
   }
 
   setDocumentTitle() {
-    document.title = `${this.state.name} Happy Hour - Food & Drink Specials in ${
-      this.state.cityname
-    }`;
+    document.title = `${
+      this.state.name
+    } Happy Hour - Food & Drink Specials in ${this.state.city.name}`;
   }
 
   fetchLocation() {
-    locationApi
-      .getLocationByDisplayNames(this.props.cityName, this.props.locationName)
-      .then((result) => {
-        if (result.success) {
-          this.setState({
-            ...result.location,
-          },
-          () => {
-            this.setDocumentTitle();
-          });
-        }
-      });
+    let decodedLocationName = this.props.locationName;
+    decodedLocationName = decodedLocationName.replace(/\+/g, '%20'); // '1%20%2B%201%20%3D%202'
+    decodedLocationName = decodeURIComponent(decodedLocationName); // '1 + 1 = 2'
+
+    locationApi.getLocation(decodedLocationName).then((result) => {
+      if (result.success) {
+        this.setState({
+          ...result.location,
+        },
+        () => {
+          console.log(this.state);
+          this.checkUrl();
+          this.setDocumentTitle();
+        });
+      }
+    });
+  }
+
+  checkUrl() {
+    const fullPath = pathHelpers.locationPath(
+      this.state._id,
+      this.state.city.name,
+      this.state.name
+    );
+
+    if (window.location.pathname !== fullPath) {
+      pathHelpers.redirectPage(fullPath);
+    }
   }
 
   render() {
@@ -67,7 +86,9 @@ class Location extends Component {
     }
 
     const specials = this.state.specials
-      ? this.state.specials.map(special => <Special key={special._id} {...special} />)
+      ? this.state.specials.map(special => (
+        <Special key={special._id} {...special} />
+      ))
       : null;
 
     const websiteLink = this.state.website ? (
@@ -79,7 +100,10 @@ class Location extends Component {
 
     const googleMapLink = this.state.googleMapLink ? (
       <a className="location-meta-link" href={this.state.googleMapLink}>
-        <i className="location-meta-link-icon fa fa-map-marker" aria-hidden="true" />
+        <i
+          className="location-meta-link-icon fa fa-map-marker"
+          aria-hidden="true"
+        />
         <span className="font-sm">directions</span>
       </a>
     ) : null;

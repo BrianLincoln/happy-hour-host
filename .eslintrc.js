@@ -22,7 +22,7 @@ module.exports = {
     'block-spacing': 'error',
     'no-alert': 0,
     'import/no-named-as-default': 0,
-    'linebreak-style': ['warn', 'windows'],
+    'linebreak-style': ['warn', 'unix'],
     'lines-between-class-members': ['error', 'always'],
     'no-underscore-dangle': ['off', 'allow'],
     'no-return-assign': ['off', 'allow'],

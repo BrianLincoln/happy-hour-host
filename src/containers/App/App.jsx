@@ -142,13 +142,12 @@ function App() {
             />
             <Route
               exact
-              path="/:cityName/:locationName/"
+              path="/locations/:locationId/:cityName?/:locationName?"
               render={meta => (
                 <Location
                   config={config}
                   location={meta.location.state}
-                  locationName={meta.match.params.locationName}
-                  cityName={meta.match.params.cityName}
+                  locationName={meta.match.params.locationId}
                 />
               )}
             />

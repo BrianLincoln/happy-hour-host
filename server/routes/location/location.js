@@ -11,46 +11,52 @@ router.get('/api/locations', (req, res) => {
   if (req.query.cityId) {
     Location.find({
       city: req.query.cityId,
-    },
-    (err, locations) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-      res.json({
-        success: true,
-        locations,
+    })
+      .populate('city')
+      .exec((err, locations) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+        res.json({
+          success: true,
+          locations,
+        });
       });
-    });
   } else {
-    Location.find({}, (err, locations) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-      res.json({
-        success: true,
-        locations,
+    Location.find({})
+      .populate('city')
+      .exec((err, locations) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+        res.json({
+          success: true,
+          locations,
+        });
       });
-    });
   }
 });
 
 router.get('/api/locations/:locationId', (req, res) => {
-  Location.findById(req.params.locationId, (err, location) => {
-    if (location) {
+  Location.findById(req.params.locationId)
+    .populate('city')
+    .exec((err, location) => {
       if (err) {
         res.status(500).send(err);
       }
-      res.json({
-        success: true,
-        location,
-      });
-    } else {
-      res.json({
-        success: false,
-        message: `No location found with ID : ${req.params.locationId}`,
-      });
-    }
-  });
+      if (location) {
+        console.log('REQ PARAMS: ', req.query);
+        res.json({
+          success: true,
+          location,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: `No location found with ID : ${req.params.locationId}`,
+        });
+      }
+    });
 });
 
 //= auth

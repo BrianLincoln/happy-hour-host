@@ -9,6 +9,7 @@ const Location = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   city: {
     type: mongoose.Schema.Types.ObjectId,

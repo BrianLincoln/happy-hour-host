@@ -9,6 +9,7 @@ const City = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   neighborhoods: [Neighborhood],
   locations: [

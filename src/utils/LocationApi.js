@@ -8,8 +8,8 @@ const locationApi = {
   getLocationsByCity(cityId) {
     return fetch(`${config.apiPath}/locations?cityId=${cityId}`).then(response => response.json());
   },
-  getLocation(locationId) {
-    return fetch(`${config.apiPath}/locations/${locationId}`).then(response =>
+  getLocation(name) {
+    return fetch(`${config.apiPath}/locations/${name}`).then(response =>
       response.json());
   },
 

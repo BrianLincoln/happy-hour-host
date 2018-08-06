@@ -31,7 +31,6 @@ class ManageSuggestions extends Component {
 
   fetchSuggestions() {
     locationApi.getLocationSuggestions().then((result) => {
-      console.log(result);
       if (result.success) {
         this.setState({
           fetchSuggestions: false,
