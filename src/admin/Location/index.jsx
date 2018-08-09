@@ -55,7 +55,6 @@ export class LocationDetails extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (!this.state.location) {
       return <div className="spinner" />;
     }

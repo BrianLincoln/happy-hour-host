@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import locationApi from './../../utils/LocationApi';
 import Special from './../../components/Special/Special';
-import pathHelpers from './../../utils/PathHelpers';
 import './Location.scss';
 
 const propTypes = {
-  locationName: PropTypes.string.isRequired,
+  locationId: PropTypes.string.isRequired,
   location: PropTypes.shape({
     name: PropTypes.string,
   }),
@@ -20,11 +19,8 @@ class Location extends Component {
   constructor(props) {
     super(props);
 
-    console.log('LOCATION : ', props);
     this.fetchLocation = this.fetchLocation.bind(this);
     this.setDocumentTitle = this.setDocumentTitle.bind(this);
-    this.checkUrl = this.checkUrl.bind(this);
-    this.state = {};
   }
 
   componentWillMount() {
@@ -33,10 +29,13 @@ class Location extends Component {
         ...this.props.location,
       },
       () => {
-        this.checkUrl();
         this.setDocumentTitle();
       });
     } else {
+      this.setState({
+        fetchingLocation: true,
+      });
+
       this.fetchLocation();
     }
   }
@@ -48,41 +47,22 @@ class Location extends Component {
   }
 
   fetchLocation() {
-    let decodedLocationName = this.props.locationName;
-    decodedLocationName = decodedLocationName.replace(/\+/g, '%20'); // '1%20%2B%201%20%3D%202'
-    decodedLocationName = decodeURIComponent(decodedLocationName); // '1 + 1 = 2'
-
-    locationApi.getLocation(decodedLocationName).then((result) => {
+    locationApi.getLocation(this.props.locationId).then((result) => {
       if (result.success) {
         this.setState({
           ...result.location,
+          fetchingLocation: false,
         },
         () => {
-          console.log(this.state);
-          this.checkUrl();
           this.setDocumentTitle();
         });
       }
     });
   }
 
-  checkUrl() {
-    const fullPath = pathHelpers.locationPath(
-      this.state._id,
-      this.state.city.name,
-      this.state.name
-    );
-
-    if (window.location.pathname !== fullPath) {
-      pathHelpers.redirectPage(fullPath);
-    }
-  }
-
   render() {
-    if (this.state === null) {
-      return <h1>Loading...</h1>;
-    } else if (this.state.notFound) {
-      return <h1>Huh... could not find a matching location</h1>;
+    if (this.state.fetchingLocation) {
+      return <div className="spinner" />;
     }
 
     const specials = this.state.specials
@@ -93,31 +73,40 @@ class Location extends Component {
 
     const websiteLink = this.state.website ? (
       <a className="location-meta-link" href={this.state.website}>
-        <i className="location-meta-link-icon fa fa-globe" aria-hidden="true" />
-        <span className="font-sm">website</span>
+        <div className="location-meta-link-icon">
+          <i className=" fa fa-globe-americas" aria-hidden="true" />
+        </div>
+        <span className="font-base-alt">website</span>
       </a>
     ) : null;
 
     const googleMapLink = this.state.googleMapLink ? (
       <a className="location-meta-link" href={this.state.googleMapLink}>
-        <i
-          className="location-meta-link-icon fa fa-map-marker"
-          aria-hidden="true"
-        />
-        <span className="font-sm">directions</span>
+        <div className="location-meta-link-icon">
+          <i className="fa fa-map-marker-alt" aria-hidden="true" />
+        </div>
+        <span className="font-base-alt">directions</span>
       </a>
     ) : null;
 
     return (
-      <div className="container">
-        <div className="location row">
-          <div className="col-xs-12 col-md-6 col-xl-8">
-            <h1 className="location-name">{this.state.name}</h1>
-            {websiteLink}
-            {googleMapLink}
+      <div>
+        <div className="bg-white">
+          <div className="container space-bottom-xl">
+            <h1 className="space-top-xl">{this.state.name}</h1>
+            <h3 className="space-bottom-md">in {this.state.city.name}</h3>
+            <div className="space-bottom-xl">
+              {websiteLink}
+              {googleMapLink}
+            </div>
           </div>
-          <div className="col-xs-12 col-md-6 col-xl-4">
-            <ul className="special-list">{specials}</ul>
+        </div>
+        <div>
+          <div className="container">
+            <h2 className="location-section-header space-bottom-md">
+              All Food and Drink Specials
+            </h2>
+            <div className="special-list">{specials}</div>
           </div>
         </div>
       </div>

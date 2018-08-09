@@ -45,7 +45,6 @@ router.get('/api/locations/:locationId', (req, res) => {
         res.status(500).send(err);
       }
       if (location) {
-        console.log('REQ PARAMS: ', req.query);
         res.json({
           success: true,
           location,

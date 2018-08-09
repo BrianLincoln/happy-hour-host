@@ -10,17 +10,24 @@
 }
 
 .special-types {
-  color: $color-valencia;
+  align-items: flex-start;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+}
 
-  > * {
-    margin: 0 $space-xs $space-sm $space-xs;
+.special-type {
+  background-color: $color-valencia;
+  border-radius: 15px;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 $space-xs $space-sm $space-xs;
+  padding: $space-md;
+}
 
-    &:last-child {
-      margin-bottom: 0px;
-    }
-  }
+.special-type-icon {
+  margin-right: $space-sm;
 }
 
 .special-details {

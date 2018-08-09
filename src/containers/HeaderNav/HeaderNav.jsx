@@ -33,7 +33,6 @@ class HeaderNav extends Component {
 
   fetchUser() {
     loginApi.getUserFromAuthToken().then((result) => {
-      console.log(result);
       if (result.success) {
         this.setState({
           email: result.email,

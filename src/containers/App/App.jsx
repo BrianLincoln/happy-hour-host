@@ -147,7 +147,7 @@ function App() {
                 <Location
                   config={config}
                   location={meta.location.state}
-                  locationName={meta.match.params.locationId}
+                  locationId={meta.match.params.locationId}
                 />
               )}
             />

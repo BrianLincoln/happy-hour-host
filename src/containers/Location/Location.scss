@@ -1,22 +1,28 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
 .location {
-    padding: $space-sm;
 }
 
-.location-name {
-    margin-bottom: $space-sm;
+.location-section-header {
+  text-decoration: underline;
 }
 
-a.location-meta-link, a.location-meta-link:visited {
-    align-items: center;
-    color: $color-curious;
-    display: flex;
-    margin: 0 0 $space-xs 0;
+a.location-meta-link,
+a.location-meta-link:visited {
+  align-items: center;
+  color: $color-curious;
+  display: inline-block;
+  padding: $space-xs;
+  margin-right: $space-lg;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .location-meta-link-icon {
-    margin: 0 $space-sm 0 0;
-    min-width: $space-sm;
-    text-align: center;
+  display: inline-block;
+  margin: 0 $space-sm 0 0;
+  text-align: center;
+  width: 1em;
 }

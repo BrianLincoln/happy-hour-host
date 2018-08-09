@@ -1,5 +1,9 @@
 @import "./../../sprak-styles/sprak-variables.scss";
 
+body {
+  background: $color-light;
+}
+
 .site-header {
   align-items: center;
   background-color: $color-valencia;

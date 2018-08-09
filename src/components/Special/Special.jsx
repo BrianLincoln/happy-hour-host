@@ -37,19 +37,39 @@ function Special(props) {
     );
   });
 
+  const drinkSpecial = props.hasDrinkSpecial ? (
+    <div className="special-type">
+      <i
+        className="special-type-icon fas fa-fw fa-glass-martini"
+        aria-hidden="true"
+      />
+      <div className="font-sm">Drink Specials</div>
+    </div>
+  ) : null;
+
+  const foodSpecial = props.hasFoodSpecial ? (
+    <div className="special-type">
+      <i
+        className="special-type-icon fas fa-fw fa-utensils"
+        aria-hidden="true"
+      />
+      <div className="font-sm">Food Specials</div>
+    </div>
+  ) : null;
+
   return (
-    <li className="special row" key={props._id}>
-      <div className="col-xs-10">
+    <div className="special row" key={props._id}>
+      <div className="col-xs-12 col-md-4">
         <h3 className="space-bottom-xs">{props.headline}</h3>
         {days}
         {times}
+        <div className="font-base-alt special-details">{props.details}</div>
       </div>
-      <div className="col-xs-2 special-types">
-        {props.hasDrinkSpecial ? <i className="fas fa-glass-martini" aria-hidden="true" /> : null}
-        {props.hasFoodSpecial ? <i className="fas fa-utensils" aria-hidden="true" /> : null}
+      <div className="special-types col-xs-12 col-md-4">
+        {drinkSpecial}
+        {foodSpecial}
       </div>
-      <div className="col-xs-12 font-base-alt special-details">{props.details}</div>
-    </li>
+    </div>
   );
 }
 
