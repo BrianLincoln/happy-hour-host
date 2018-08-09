@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const passportUtils = require('../utils');
 const secretConfig = require('./../secret-config');
 const app = require('../app.js');
+const Location = require('./../models/location/location');
 const cityRoutes = require('./city/city');
 const locationRoutes = require('./location/location');
 const locationSuggestionRoutes = require('./location/location-suggestion');
@@ -23,10 +24,53 @@ const createHash = password =>
     password, bCrypt.genSaltSync(10), null
   );
 
+const encode = string =>
+  encodeURIComponent(string)
+    .trim()
+    .replace(/%20/g, '-');
+
 module.exports = (passport) => {
   router.use(cityRoutes);
   router.use(locationRoutes);
   router.use(locationSuggestionRoutes);
+
+  router.get([
+    '/locations/:locationId',
+    '/locations/:locationId/:cityName',
+    '/locations/:locationId/:cityName/:locationName',
+  ],
+  (req, res) => {
+    Location.findById(req.params.locationId)
+      .populate('city')
+      .exec((err, location) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        if (!location) {
+          res.status(404).send();
+        }
+
+        const encodedCityName = encode(location.city.name);
+        const encodedLocationName = encode(location.name);
+        const encodedPath = `/locations/${
+          location._id
+        }/${encodedCityName}/${encodedLocationName}`;
+
+          // redirect to full location path if mismatched
+        if ((encodedPath, req.path !== encodedPath)) {
+          res.redirect(301,
+            `/locations/${
+              location._id
+            }/${encodedCityName}/${encodedLocationName}`);
+        }
+
+        // full and accurate location path, return file
+        res.sendFile(path.resolve(
+          __dirname, '..', '../build', 'index.html'
+        ));
+      });
+  });
 
   router.get('/api/users', (req, res) => {
     User.find({}, (err, users) => {
