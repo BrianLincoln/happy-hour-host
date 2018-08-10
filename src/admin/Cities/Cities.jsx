@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddCity from './AddCity/';
-import CityListItem from './CityListItem/';
-import cityApi from './../../utils/CityApi';
+import AddCity from './AddCity/AddCity';
+import CityListItem from './CityListItem/CityListItem';
+import cityApi from '../../utils/CityApi';
 
 class Cities extends Component {
   constructor(props) {
@@ -31,12 +31,14 @@ class Cities extends Component {
   }
 
   render() {
-    if (!this.state.cities) {
+    const { cities } = this.state;
+
+    if (!cities) {
       return <div className="spinner" />;
     }
-    const cities = !this.state.cities
+    const citiesComponent = !cities
       ? null
-      : this.state.cities.map(city => (
+      : cities.map(city => (
         <CityListItem
           key={city._id}
           deleteCity={this.deleteCity}
@@ -50,7 +52,7 @@ class Cities extends Component {
           <h1>Cities</h1>
           <AddCity fetchCities={this.fetchCities} />
         </div>
-        <ul className="list-group">{cities}</ul>
+        <ul className="list-group">{citiesComponent}</ul>
       </div>
     );
   }

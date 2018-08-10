@@ -30,32 +30,28 @@ export class LocationForm extends Component {
   constructor(props) {
     super(props);
 
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
+    const {
+      mode, location, cityId,
+    } = this.props;
 
-    if (this.props.mode === 'update') {
+    if (mode === 'update') {
       this.state = {
-        _id: this.props.location._id,
-        city: this.props.cityId,
-        name: this.props.location.name ? this.props.location.name : '',
-        positionLatitude: this.props.location.position.latitude
-          ? this.props.location.position.latitude
+        _id: location._id,
+        city: cityId,
+        name: location.name ? location.name : '',
+        positionLatitude: location.position.latitude
+          ? location.position.latitude
           : '',
-        positionLongitude: this.props.location.position.longitude
-          ? this.props.location.position.longitude
+        positionLongitude: location.position.longitude
+          ? location.position.longitude
           : '',
-        neighborhoods: this.props.location.neighborhoods
-          ? this.props.location.neighborhoods
-          : [],
-        website: this.props.location.website ? this.props.location.website : '',
-        googleMapLink: this.props.location.googleMapLink
-          ? this.props.location.googleMapLink
-          : '',
+        neighborhoods: location.neighborhoods ? location.neighborhoods : [],
+        website: location.website ? location.website : '',
+        googleMapLink: location.googleMapLink ? location.googleMapLink : '',
       };
     } else {
       this.state = {
-        city: this.props.cityId,
+        city: cityId,
         name: '',
         positionLatitude: '',
         positionLongitude: '',
@@ -65,6 +61,10 @@ export class LocationForm extends Component {
         googleMapLink: '',
       };
     }
+
+    this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
   }
 
   handleFieldChange(event) {
@@ -101,19 +101,37 @@ export class LocationForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.props.mode === 'new') {
-      this.props.handleSubmitNewLocation(this.state);
-    } else if (this.props.mode === 'update') {
-      this.props.handleSubmitUpdateLocation(this.state);
+
+    const {
+      mode,
+      handleSubmitNewLocation,
+      handleSubmitUpdateLocation,
+    } = this.props;
+
+    if (mode === 'new') {
+      handleSubmitNewLocation(this.state);
+    } else if (mode === 'update') {
+      handleSubmitUpdateLocation(this.state);
     }
   }
 
   handleCancelButtonClick(event) {
     event.preventDefault();
-    this.props.handleCancel();
+
+    const { handleCancel } = this.props;
+
+    handleCancel();
   }
 
   render() {
+    const {
+      name,
+      positionLatitude,
+      positionLongitude,
+      website,
+      googleMapLink,
+    } = this.state;
+
     return (
       <form
         className="form-group space-top-sm space-bottom-sm"
@@ -126,7 +144,7 @@ export class LocationForm extends Component {
               required
               type="text"
               id="location-name"
-              value={this.state.name}
+              value={name}
               onChange={this.handleFieldChange}
             />
           </label>
@@ -138,7 +156,7 @@ export class LocationForm extends Component {
               required
               type="text"
               id="latitude"
-              value={this.state.positionLatitude}
+              value={positionLatitude}
               onChange={this.handleFieldChange}
             />
           </label>
@@ -150,7 +168,7 @@ export class LocationForm extends Component {
               required
               type="text"
               id="longitude"
-              value={this.state.positionLongitude}
+              value={positionLongitude}
               onChange={this.handleFieldChange}
             />
           </label>
@@ -161,7 +179,7 @@ export class LocationForm extends Component {
             <input
               type="text"
               id="website"
-              value={this.state.website}
+              value={website}
               onChange={this.handleFieldChange}
             />
           </label>
@@ -172,7 +190,7 @@ export class LocationForm extends Component {
             <input
               type="text"
               id="googleMapLink"
-              value={this.state.googleMapLink}
+              value={googleMapLink}
               onChange={this.handleFieldChange}
             />
           </label>
@@ -184,6 +202,7 @@ export class LocationForm extends Component {
             value="Submit"
           />
           <button
+            type="button"
             className="button_sm button_medium"
             onClick={this.handleCancelButtonClick}
           >

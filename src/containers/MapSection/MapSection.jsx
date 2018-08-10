@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Filter from './../../components/Filter/';
-import Map from './../../components/Map/';
-import LocationsList from './../../components/Locations/LocationsList';
+import Filter from '../../components/Filter/Filter';
+import Map from '../../components/Map/MapContainer';
+import LocationsList from '../../components/Locations/LocationsList';
 import locationApi from '../../utils/LocationApi';
-import timeValues from './../../utils/TimeValues';
-import locationFilter from './../../utils/LocationFilter';
+import timeValues from '../../utils/TimeValues';
+import locationFilter from '../../utils/LocationFilter';
 import './MapSection.scss';
 
 const defaultProps = {
@@ -37,6 +37,7 @@ export class MapSection extends Component {
     this.updateActiveDays = this.updateActiveDays.bind(this);
     this.updateActiveTime = this.updateActiveTime.bind(this);
 
+    const { initialCenter } = this.props;
     const now = new Date();
     const today = now.getDay();
     let hours = now.getHours();
@@ -62,8 +63,8 @@ export class MapSection extends Component {
       },
       bounds: [],
       initialCenter: {
-        lat: this.props.initialCenter.latitude,
-        lng: this.props.initialCenter.longitude,
+        lat: initialCenter.latitude,
+        lng: initialCenter.longitude,
       },
     };
   }
@@ -94,11 +95,14 @@ export class MapSection extends Component {
   }
 
   filterLocations() {
-    if (!this.state.fetchingData && this.state.locations.length > 0) {
+    const {
+      fetchingData, locations, bounds, filters,
+    } = this.state;
+    if (!fetchingData && locations.length > 0) {
       const filteredLocations = locationFilter.filter(
-        this.state.locations,
-        this.state.bounds,
-        this.state.filters
+        locations,
+        bounds,
+        filters
       );
       this.setState({
         filteredLocations,
@@ -108,8 +112,9 @@ export class MapSection extends Component {
 
   handlePopState(event) {
     event.preventDefault();
+    const { selectedLocation } = this.state;
 
-    if (this.state.selectedLocation) {
+    if (selectedLocation) {
       this.handleLocationDeselect();
     }
   }
@@ -144,12 +149,14 @@ export class MapSection extends Component {
   }
 
   updateActiveDays(activeDays) {
-    const filters = {
+    const { filters } = this.state;
+
+    const newFilters = {
       days: activeDays || [],
-      time: this.state.filters.time,
+      time: filters.time,
     };
     this.setState({
-      filters,
+      filters: newFilters,
     },
     () => {
       this.filterLocations();
@@ -157,15 +164,16 @@ export class MapSection extends Component {
   }
 
   updateActiveTime(timeValue) {
+    const { filters } = this.state;
     const time = _.find(timeValues, {
       value: timeValue,
     });
-    const filters = {
-      days: this.state.filters.days,
+    const newFilters = {
+      days: filters.days,
       time,
     };
     this.setState({
-      filters,
+      filters: newFilters,
     },
     () => {
       this.filterLocations();
@@ -173,22 +181,32 @@ export class MapSection extends Component {
   }
 
   render() {
+    const {
+      filteredLocations,
+      initialCenter,
+      selectedLocation,
+      filters,
+      fetchingData,
+    } = this.state;
+    const { initialZoom } = this.props;
+
     return (
       <div className="map-search-container">
         <Map
           centerAroundCurrentLocation
-          locations={this.state.filteredLocations}
+          locations={filteredLocations}
           onMapUpdate={this.onMapUpdate}
-          initialMapCenter={this.state.initialCenter}
-          initialZoom={this.props.initialZoom}
+          initialMapCenter={initialCenter}
+          initialZoom={initialZoom}
           handleLocationSelect={this.handleLocationSelect}
           handleLocationDeselect={this.handleLocationDeselect}
-          selectedLocation={this.state.selectedLocation}
+          selectedLocation={selectedLocation}
         />
 
         <div className="map-results-wrapper">
-          {this.state.selectedLocation ? (
+          {selectedLocation ? (
             <button
+              type="button"
               onClick={this.handleLocationDeselect}
               className="map-results-back font-sm"
             >
@@ -197,22 +215,22 @@ export class MapSection extends Component {
           ) : (
             <Filter
               updateActiveDays={this.updateActiveDays}
-              activeDays={this.state.filters.days}
+              activeDays={filters.days}
               timeValues={timeValues}
               updateActiveTime={this.updateActiveTime}
-              activeTime={this.state.filters.time}
+              activeTime={filters.time}
             />
           )}
           <LocationsList
-            activeDays={this.state.filters.days}
-            activeTime={this.state.filters.time}
+            activeDays={filters.days}
+            activeTime={filters.time}
             timeValues={timeValues}
             updateActiveDays={this.updateActiveDays}
             updateActiveTime={this.updateActiveTime}
-            locations={this.state.filteredLocations}
-            fetchingData={this.state.fetchingData}
+            locations={filteredLocations}
+            fetchingData={fetchingData}
             handleLocationDeselect={this.handleLocationDeselect}
-            selectedLocation={this.state.selectedLocation}
+            selectedLocation={selectedLocation}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cityApi from './../../utils/CityApi';
+import cityApi from '../../utils/CityApi';
 
 const propTypes = {
   cityId: PropTypes.string.isRequired,
@@ -21,23 +21,24 @@ export class Neighborhoods extends Component {
   }
 
   fetchNeighborhood(showUpdateSuccess) {
-    cityApi
-      .getNeighborhood(this.props.cityId, this.props.neighborhoodId)
-      .then((result) => {
-        if (result.success) {
-          this.setState({
-            neighborhood: result.neighborhood,
-            showUpdateSuccess,
-            nameField: result.neighborhood.name || '',
-            mapCenterLatitudeField:
-              result.neighborhood.mapCenter.latitude || '',
-            mapCenterLongitudeField:
-              result.neighborhood.mapCenter.longitude || '',
-            mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
-            polyField: JSON.stringify(result.neighborhood.mapPoly) || '',
-          });
-        }
-      });
+    const {
+      cityId, neighborhoodId,
+    } = this.props;
+
+    cityApi.getNeighborhood(cityId, neighborhoodId).then((result) => {
+      if (result.success) {
+        this.setState({
+          neighborhood: result.neighborhood,
+          showUpdateSuccess,
+          nameField: result.neighborhood.name || '',
+          mapCenterLatitudeField: result.neighborhood.mapCenter.latitude || '',
+          mapCenterLongitudeField:
+            result.neighborhood.mapCenter.longitude || '',
+          mapZoomLevelField: result.neighborhood.mapZoomLevel || 0,
+          polyField: JSON.stringify(result.neighborhood.mapPoly) || '',
+        });
+      }
+    });
   }
 
   handleFieldChange(event) {
@@ -75,33 +76,54 @@ export class Neighborhoods extends Component {
   handleSubmitForm(event) {
     event.preventDefault();
 
+    const {
+      nameField,
+      mapCenterLatitudeField,
+      mapCenterLongitudeField,
+      mapZoomLevelField,
+      polyField,
+    } = this.state;
+
+    const {
+      cityId, neighborhoodId,
+    } = this.props;
+
     const updatedNeighborhood = {
-      name: this.state.nameField,
+      name: nameField,
       mapCenter: {
-        latitude: this.state.mapCenterLatitudeField,
-        longitude: this.state.mapCenterLongitudeField,
+        latitude: mapCenterLatitudeField,
+        longitude: mapCenterLongitudeField,
       },
-      mapZoomLevel: this.state.mapZoomLevelField,
-      mapPoly: JSON.parse(this.state.polyField),
+      mapZoomLevel: mapZoomLevelField,
+      mapPoly: JSON.parse(polyField),
     };
 
     cityApi
       .updateNeighborhood(
-        updatedNeighborhood,
-        this.props.cityId,
-        this.props.neighborhoodId
+        updatedNeighborhood, cityId, neighborhoodId
       )
       .then(() => {
-        window.location.href = `/admin/city/${this.props.cityId}`;
+        window.location.href = `/admin/city/${cityId}`;
       });
   }
 
   render() {
-    if (!this.state.neighborhood) {
+    const {
+      neighborhood,
+      showUpdateSuccess,
+      nameField,
+      mapCenterLatitudeField,
+      mapCenterLongitudeField,
+      mapZoomLevelField,
+      polyField,
+    } = this.state;
+    const { cityId } = this.props;
+
+    if (!neighborhood) {
       return <div className="spinner" />;
     }
 
-    const updateSuccessMessage = this.state.showUpdateSuccess ? (
+    const updateSuccessMessage = showUpdateSuccess ? (
       <h3 className="color-curious">
         <i className="fas fa-check-circle" /> updated
       </h3>
@@ -112,11 +134,11 @@ export class Neighborhoods extends Component {
         <div className="admin-neighborhood">
           <a
             className="button_sm .button_transparent"
-            href={`/admin/city/${this.props.cityId}`}
+            href={`/admin/city/${cityId}`}
           >
             <i className="fas fa-arrow-left" /> back
           </a>
-          <h1>{this.state.neighborhood.name}</h1>
+          <h1>{neighborhood.name}</h1>
           <form
             className=" form-group space-top-sm space-bottom-sm"
             onSubmit={this.handleSubmitForm}
@@ -129,7 +151,7 @@ export class Neighborhoods extends Component {
                   required
                   id="name"
                   type="text"
-                  value={this.state.nameField}
+                  value={nameField}
                 />
               </label>
             </div>
@@ -141,7 +163,7 @@ export class Neighborhoods extends Component {
                   required
                   id="mapCenterLatitudeField"
                   type="text"
-                  value={this.state.mapCenterLatitudeField}
+                  value={mapCenterLatitudeField}
                 />
               </label>
             </div>
@@ -153,7 +175,7 @@ export class Neighborhoods extends Component {
                   required
                   id="mapCenterLongitudeField"
                   type="text"
-                  value={this.state.mapCenterLongitudeField}
+                  value={mapCenterLongitudeField}
                 />
               </label>
             </div>
@@ -165,7 +187,7 @@ export class Neighborhoods extends Component {
                   required
                   id="mapZoomLevel"
                   type="number"
-                  value={this.state.mapZoomLevelField}
+                  value={mapZoomLevelField}
                 />
               </label>
             </div>
@@ -177,7 +199,7 @@ export class Neighborhoods extends Component {
                   required
                   id="poly"
                   type="text"
-                  value={this.state.polyField}
+                  value={polyField}
                 />
               </label>
               <div className="color-medium">
@@ -201,7 +223,7 @@ export class Neighborhoods extends Component {
 
               <a
                 className="button_sm button_valencia"
-                href={`/admin/city/${this.props.cityId}`}
+                href={`/admin/city/${cityId}`}
               >
                 cancel
               </a>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminHomepage.scss';
-import Cities from './Cities';
-import loginApi from './../utils/LoginApi';
+import Cities from './Cities/Cities';
+import loginApi from '../utils/LoginApi';
 
 export class Admin extends Component {
   constructor() {
@@ -25,7 +25,9 @@ export class Admin extends Component {
   }
 
   render() {
-    if (!this.state.verifiedToken) {
+    const { verifiedToken } = this.state;
+
+    if (!verifiedToken) {
       return <div className="spinner" />;
     }
 

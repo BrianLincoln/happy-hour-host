@@ -28,13 +28,16 @@ export class ForgotPassword extends Component {
   }
 
   render() {
-    if (this.state.statusText) {
+    const {
+      statusText, statusIconClasses,
+    } = this.state;
+    if (statusText) {
       return (
         <div className="forgot-password-status space-top-xl">
           <h1>
-            <i className={this.state.statusIconClasses} aria-hidden="true" />
+            <i className={statusIconClasses} aria-hidden="true" />
           </h1>
-          <h2>{this.state.statusText}</h2>
+          <h2>{statusText}</h2>
         </div>
       );
     }

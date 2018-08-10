@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Day from './Day';
 import TimeFilter from './TimeFilter';
-import dayLabels from './../../utils/DayLabels';
+import dayLabels from '../../utils/DayLabels';
 import './Filter.scss';
 
 const propTypes = {
@@ -26,24 +26,32 @@ class Filter extends Component {
   }
 
   handleDayClick(day) {
-    const isActive = this.props.activeDays.indexOf(day) > -1;
+    const {
+      activeDays, updateActiveDays,
+    } = this.props;
+    const isActive = activeDays.indexOf(day) > -1;
 
     if (isActive) {
-      this.props.activeDays.splice(this.props.activeDays.indexOf(day), 1);
+      activeDays.splice(activeDays.indexOf(day), 1);
     } else {
-      this.props.activeDays.push(day);
+      activeDays.push(day);
     }
 
-    this.props.updateActiveDays(this.props.activeDays);
+    updateActiveDays(activeDays);
   }
 
   handleTimeChange(time) {
-    this.props.updateActiveTime(time);
+    const { updateActiveTime } = this.props;
+
+    updateActiveTime(time);
   }
 
   render() {
+    const {
+      activeDays, activeTime, timeValues,
+    } = this.props;
     const dayFilters = dayLabels.map((day, index) => {
-      const isActive = this.props.activeDays.indexOf(index) > -1;
+      const isActive = activeDays.indexOf(index) > -1;
 
       return (
         <Day
@@ -60,8 +68,8 @@ class Filter extends Component {
       <nav className="filters-wrapper">
         <div className="day-filter-wrapper">{dayFilters}</div>
         <TimeFilter
-          activeTime={this.props.activeTime}
-          timeValues={this.props.timeValues}
+          activeTime={activeTime}
+          timeValues={timeValues}
           handleTimeChange={this.handleTimeChange}
         />
       </nav>

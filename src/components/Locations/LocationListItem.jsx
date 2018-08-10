@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import PreviewableSpecial from './../PreviewableSpecial/PreviewableSpecial';
-import pathHelpers from './../../utils/PathHelpers';
+import PreviewableSpecial from '../PreviewableSpecial/PreviewableSpecial';
+import pathHelpers from '../../utils/PathHelpers';
 import './LocationListItem.scss';
 
 const propTypes = {
@@ -17,18 +17,18 @@ const propTypes = {
 };
 
 function LocationListItem(props) {
-  const specials = props.specials
-    ? props.specials.map(special => (
-      <PreviewableSpecial
-        key={special._id}
-        locationId={props._id}
-        {...special}
-      />
+  const {
+    specials, _id, city, name,
+  } = props;
+
+  const specialsComponent = specials
+    ? specials.map(special => (
+      <PreviewableSpecial key={special._id} locationId={_id} {...special} />
     ))
     : null;
 
   const path = pathHelpers.locationPath(
-    props._id, props.city.name, props.name
+    _id, city.name, name
   );
 
   return (
@@ -41,9 +41,9 @@ function LocationListItem(props) {
           },
         }}
       >
-        <h3 className="location-list-item-name">{props.name}</h3>
+        <h3 className="location-list-item-name">{name}</h3>
       </Link>
-      <ul className="location-list-item-specials">{specials}</ul>
+      <ul className="location-list-item-specials">{specialsComponent}</ul>
     </div>
   );
 }

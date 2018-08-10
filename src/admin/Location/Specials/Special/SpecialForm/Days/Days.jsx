@@ -15,7 +15,9 @@ export class Days extends Component {
 
   handleDayChange(event) {
     let dayNumber = null;
-    const newDays = this.props.days;
+    const {
+      days, handleDayChange,
+    } = this.props;
 
     switch (event.target.id) {
       case 'day-sunday':
@@ -42,17 +44,19 @@ export class Days extends Component {
 
       // no default
     }
-    const index = this.props.days.indexOf(dayNumber);
+    const index = days.indexOf(dayNumber);
 
     if (index > -1) {
-      newDays.splice(index, 1);
+      days.splice(index, 1);
     } else {
-      newDays.push(dayNumber);
+      days.push(dayNumber);
     }
-    this.props.handleDayChange(newDays);
+    handleDayChange(days);
   }
 
   render() {
+    const { days } = this.props;
+
     return (
       <div className="form-element">
         <table>
@@ -86,7 +90,7 @@ export class Days extends Component {
                   id="day-sunday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(0) > -1}
+                  checked={days.indexOf(0) > -1}
                 />
               </td>
               <td>
@@ -94,7 +98,7 @@ export class Days extends Component {
                   id="day-monday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(1) > -1}
+                  checked={days.indexOf(1) > -1}
                 />
               </td>
               <td>
@@ -102,7 +106,7 @@ export class Days extends Component {
                   id="day-tuesday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(2) > -1}
+                  checked={days.indexOf(2) > -1}
                 />
               </td>
               <td>
@@ -110,7 +114,7 @@ export class Days extends Component {
                   id="day-wednesday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(3) > -1}
+                  checked={days.indexOf(3) > -1}
                 />
               </td>
               <td>
@@ -118,7 +122,7 @@ export class Days extends Component {
                   id="day-thursday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(4) > -1}
+                  checked={days.indexOf(4) > -1}
                 />
               </td>
               <td>
@@ -126,7 +130,7 @@ export class Days extends Component {
                   id="day-friday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(5) > -1}
+                  checked={days.indexOf(5) > -1}
                 />
               </td>
               <td>
@@ -134,7 +138,7 @@ export class Days extends Component {
                   id="day-saturday"
                   onChange={this.handleDayChange}
                   type="checkbox"
-                  checked={this.props.days.indexOf(6) > -1}
+                  checked={days.indexOf(6) > -1}
                 />
               </td>
             </tr>

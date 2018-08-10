@@ -17,12 +17,14 @@ export class ResetPassword extends Component {
   }
 
   handleSubmit(event) {
+    const { token } = this.props;
+
     event.preventDefault();
 
     if (this.password.value === this.confirmPassword.value) {
       loginApi
         .resetPassword(
-          this.email, this.password, this.props.token
+          this.email, this.password, token
         )
         .then((response) => {
           if (response.success) {
@@ -41,7 +43,11 @@ export class ResetPassword extends Component {
   }
 
   render() {
-    if (this.state.invalidToken) {
+    const {
+      invalidToken, passwordMismatch,
+    } = this.state;
+
+    if (invalidToken) {
       const link = (
         <Link
           to={{
@@ -60,7 +66,7 @@ export class ResetPassword extends Component {
       );
     }
 
-    const passwordMismatch = this.state.passwordMismatch ? (
+    const passwordMismatchComponent = passwordMismatch ? (
       <div className="color-valencia font-sm space-top-xs">
         Passwords are different
       </div>
@@ -105,13 +111,12 @@ export class ResetPassword extends Component {
                 required
                 id="confirm-password"
                 type="password"
-                ref={confirmPassword =>
-                  (this.confirmPassword = confirmPassword)
+                ref={confirmPassword => (this.confirmPassword = confirmPassword)
                 }
               />
             </label>
           </div>
-          {passwordMismatch}
+          {passwordMismatchComponent}
           <input
             className="button_sm button_curious"
             type="submit"

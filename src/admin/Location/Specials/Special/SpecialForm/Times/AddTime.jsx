@@ -20,7 +20,9 @@ export class AddTime extends Component {
   }
 
   handleTimeChange(event) {
-    const newTime = this.state.time ? this.state.time : {};
+    const { time } = this.state;
+
+    const newTime = time || {};
 
     switch (event.target.id) {
       case 'start-time':
@@ -39,6 +41,9 @@ export class AddTime extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { handleSubmitNewTime } = this.props;
+    const { time } = this.state;
+
     const validationText = this.validateForm();
 
     if (validationText.length > 0) {
@@ -46,14 +51,15 @@ export class AddTime extends Component {
         validationText,
       });
     } else {
-      this.props.handleSubmitNewTime(this.state.time.start, this.state.time.end);
+      handleSubmitNewTime(time.start, time.end);
     }
   }
 
   validateForm() {
+    const { time } = this.state;
     let result = '';
 
-    if (!this.state.time.start || !this.state.time.end) {
+    if (!time.start || !time.end) {
       result = 'Missing Time';
     }
 
@@ -61,28 +67,49 @@ export class AddTime extends Component {
   }
 
   render() {
+    const { validationText } = this.state;
+    const { handleCancelTimeForm } = this.props;
+
     return (
       <div>
         <h2>Add Time</h2>
         <div className="form-element">
           <label className="form-label" htmlFor="start-time">
             start time
-            <input onChange={this.handleTimeChange} required id="start-time" type="time" />
+            <input
+              onChange={this.handleTimeChange}
+              required
+              id="start-time"
+              type="time"
+            />
           </label>
         </div>
         <div className="form-element">
           <label className="form-label" htmlFor="end-time">
             end time
-            <input onChange={this.handleTimeChange} required id="end-time" type="time" />
+            <input
+              onChange={this.handleTimeChange}
+              required
+              id="end-time"
+              type="time"
+            />
           </label>
         </div>
-        {this.state.validationText ? (
-          <div className="validation-text">{this.state.validationText}</div>
+        {validationText ? (
+          <div className="validation-text">{validationText}</div>
         ) : null}
-        <button onClick={this.handleSubmit} className="button_sm button_curious">
+        <button
+          type="submit"
+          onClick={this.handleSubmit}
+          className="button_sm button_curious"
+        >
           save
         </button>
-        <button onClick={this.props.handleCancelTimeForm} className="button_sm button_medium">
+        <button
+          type="button"
+          onClick={handleCancelTimeForm}
+          className="button_sm button_medium"
+        >
           cancel
         </button>
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Days from './Days';
-import Times from './Times';
+import Days from './Days/Days';
+import Times from './Times/Times';
 import AddTime from './Times/AddTime';
 import './SpecialForm.scss';
 
@@ -26,6 +26,8 @@ export class SpecialForm extends Component {
   constructor(props) {
     super(props);
 
+    const { special } = this.props;
+
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
 
@@ -39,18 +41,16 @@ export class SpecialForm extends Component {
     this.handleSubmitSpecialForm = this.handleSubmitSpecialForm.bind(this);
     this.validateForm = this.validateForm.bind(this);
 
-    if (this.props.special) {
+    if (special) {
       this.state = {
-        headline: this.props.special.headline ? this.props.special.headline : '',
-        days: this.props.special.days ? this.props.special.days : [],
-        times: this.props.special.times ? this.props.special.times : [],
-        details: this.props.special.details ? this.props.special.details : '',
-        hasDrinkSpecial: this.props.special.hasDrinkSpecial
-          ? this.props.special.hasDrinkSpecial
+        headline: special.headline ? special.headline : '',
+        days: special.days ? special.days : [],
+        times: special.times ? special.times : [],
+        details: special.details ? special.details : '',
+        hasDrinkSpecial: special.hasDrinkSpecial
+          ? special.hasDrinkSpecial
           : false,
-        hasFoodSpecial: this.props.special.hasFoodSpecial
-          ? this.props.special.hasFoodSpecial
-          : false,
+        hasFoodSpecial: special.hasFoodSpecial ? special.hasFoodSpecial : false,
       };
     } else {
       this.state = {
@@ -65,6 +65,10 @@ export class SpecialForm extends Component {
   }
 
   handleFieldChange(event) {
+    const {
+      hasDrinkSpecial, hasFoodSpecial,
+    } = this.state;
+
     switch (event.target.id) {
       case 'headline':
         this.setState({
@@ -78,12 +82,12 @@ export class SpecialForm extends Component {
         break;
       case 'hasDrinkSpecial':
         this.setState({
-          hasDrinkSpecial: !this.state.hasDrinkSpecial,
+          hasDrinkSpecial: !hasDrinkSpecial,
         });
         break;
       case 'hasFoodSpecial':
         this.setState({
-          hasFoodSpecial: !this.state.hasFoodSpecial,
+          hasFoodSpecial: !hasFoodSpecial,
         });
         break;
 
@@ -106,13 +110,15 @@ export class SpecialForm extends Component {
   }
 
   handleSubmitNewTime(start, end) {
+    const { times } = this.state;
+
     const newTime = {
       start,
       end,
       pending: true,
       tempId: `tempID_${Date.now()}`, // for the unique key in map function -- not stored in db
     };
-    const newTimes = this.state.times.slice();
+    const newTimes = times.slice();
     newTimes.push(newTime);
     this.setState({
       times: newTimes,
@@ -128,35 +134,40 @@ export class SpecialForm extends Component {
   }
 
   deleteTime(index) {
-    const newTimes = this.state.times;
-    newTimes.splice(index, 1);
+    const { times } = this.state;
+
+    times.splice(index, 1);
     this.setState({
-      times: newTimes,
+      times,
     });
   }
 
   handleCancelSpecialFormButtonClick(event) {
     event.preventDefault();
-    this.props.handleCancelSpecialForm();
+    const { handleCancelSpecialForm } = this.props;
+
+    handleCancelSpecialForm();
   }
 
   handleSubmitSpecialForm(event) {
     event.preventDefault();
     const validationText = this.validateForm();
+    const { handleSubmitSpecialForm } = this.props;
 
     if (validationText.length > 0) {
       this.setState({
         validationText,
       });
     } else {
-      this.props.handleSubmitSpecialForm(this.state);
+      handleSubmitSpecialForm(this.state);
     }
   }
 
   validateForm() {
+    const { days } = this.state;
     let result = '';
 
-    if (this.state.days.length < 1) {
+    if (days.length < 1) {
       result = 'No Days Seleted';
     }
 
@@ -165,8 +176,18 @@ export class SpecialForm extends Component {
 
   render() {
     let formView = null;
+    const {
+      showAddTimeForm,
+      headline,
+      details,
+      hasDrinkSpecial,
+      hasFoodSpecial,
+      days,
+      times,
+      validationText,
+    } = this.state;
 
-    if (this.state.showAddTimeForm) {
+    if (showAddTimeForm) {
       formView = (
         <AddTime
           handleSubmitNewTime={this.handleSubmitNewTime}
@@ -183,7 +204,7 @@ export class SpecialForm extends Component {
                 required
                 type="text"
                 id="headline"
-                value={this.state.headline}
+                value={headline}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -194,7 +215,7 @@ export class SpecialForm extends Component {
               <textarea
                 required
                 id="details"
-                value={this.state.details}
+                value={details}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -205,7 +226,7 @@ export class SpecialForm extends Component {
               <input
                 type="checkbox"
                 id="hasDrinkSpecial"
-                checked={this.state.hasDrinkSpecial}
+                checked={hasDrinkSpecial}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -216,23 +237,28 @@ export class SpecialForm extends Component {
               <input
                 type="checkbox"
                 id="hasFoodSpecial"
-                checked={this.state.hasFoodSpecial}
+                checked={hasFoodSpecial}
                 onChange={this.handleFieldChange}
               />
             </label>
           </div>
-          <Days handleDayChange={this.handleDayChange} days={this.state.days} />
+          <Days handleDayChange={this.handleDayChange} days={days} />
           <Times
             handleShowTimeFormClick={this.handleShowTimeFormClick}
             deleteTime={this.deleteTime}
-            times={this.state.times}
+            times={times}
           />
-          {this.state.validationText ? (
-            <div className="validation-text">{this.state.validationText}</div>
+          {validationText ? (
+            <div className="validation-text">{validationText}</div>
           ) : null}
           <div className="button-group button-group_left">
-            <input className="button_sm button_curious" type="submit" value="Submit" />
+            <input
+              className="button_sm button_curious"
+              type="submit"
+              value="Submit"
+            />
             <button
+              type="button"
               className="button_sm button_medium"
               onClick={this.handleCancelSpecialFormButtonClick}
             >

@@ -19,18 +19,30 @@ export class LocationListItem extends Component {
   }
 
   handleDeleteButtonClick() {
-    if (window.confirm(`◔_◔ Super sure you want to delete ${this.props.location.name}?`)) {
-      this.props.deleteLocation(this.props.location._id);
+    const {
+      location, deleteLocation,
+    } = this.props;
+
+    if (window.confirm(`◔_◔ Super sure you want to delete ${location.name}?`)) {
+      deleteLocation(location._id);
     }
   }
 
   render() {
+    const {
+      cityId, location,
+    } = this.props;
+
     return (
       <div className="admin-location-listitem">
-        <a href={`/admin/city/${this.props.cityId}/location/${this.props.location._id}`}>
-          <h3 key={this.props.location._id}>{this.props.location.name}</h3>
+        <a href={`/admin/city/${cityId}/location/${location._id}`}>
+          <h3 key={location._id}>{location.name}</h3>
         </a>
-        <button className="button_sm button_valencia" onClick={this.handleDeleteButtonClick}>
+        <button
+          type="button"
+          className="button_sm button_valencia"
+          onClick={this.handleDeleteButtonClick}
+        >
           <i className="fas fa-trash" />
         </button>
       </div>

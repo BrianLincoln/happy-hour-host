@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './RateSpecial.scss';
-import locationApi from './../../utils/LocationApi';
+import locationApi from '../../utils/LocationApi';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
@@ -26,8 +26,10 @@ export class RateSpecial extends Component {
     event.preventDefault();
     event.stopPropagation();
 
+    const { showRateForm } = this.state;
+
     this.setState({
-      showRateForm: !this.state.showRateForm,
+      showRateForm: !showRateForm,
     });
   }
 
@@ -44,30 +46,37 @@ export class RateSpecial extends Component {
   }
 
   submitSpecialForm(isAccurate) {
-    locationApi
-      .rateSpecial(
-        this.props.locationId, this.props._id, isAccurate
-      )
-      .then(() => {
-        this.setState({
-          showSpinner: true,
-        },
-        () => {
-          setTimeout(() => {
-            this.setState({
-              submittedRateForm: true,
-            });
-          }, 1000);
-        });
+    const {
+      locationId, _id,
+    } = this.props;
+
+    locationApi.rateSpecial(
+      locationId, _id, isAccurate
+    ).then((result) => {
+      this.setState({
+        showSpinner: true,
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            formSuccess: result.success,
+          });
+        }, 1000);
       });
+    });
   }
 
   render() {
+    const { _id } = this.props;
+    const {
+      formSuccess, showSpinner, showRateForm,
+    } = this.state;
     const toggleShowForm = (
       <button
+        type="button"
         className="reset-button rate-special"
         onClick={this.handleShowRateSpecialForm}
-        id={this.props._id}
+        id={_id}
       >
         Is this accurate?
       </button>
@@ -76,12 +85,14 @@ export class RateSpecial extends Component {
     let formContent = (
       <div className="rate-special-form">
         <button
+          type="button"
           className="button_sm button_curious"
           onClick={this.handleYesButtonClick}
         >
           Yep, looks good!
         </button>
         <button
+          type="button"
           className="button_sm button_valencia"
           onClick={this.handleNoButtonClick}
         >
@@ -90,13 +101,19 @@ export class RateSpecial extends Component {
       </div>
     );
 
-    if (this.state.submittedRateForm) {
+    if (formSuccess) {
       formContent = (
         <div className="rate-special-form">
           <h3>Thanks!</h3>
         </div>
       );
-    } else if (this.state.showSpinner) {
+    } else if (formSuccess === false) {
+      formContent = (
+        <div className="rate-special-form">
+          <h3>Error Submitting</h3>
+        </div>
+      );
+    } else if (showSpinner) {
       formContent = (
         <div className="rate-special-form">
           <div className="spinner-sm" />
@@ -107,7 +124,7 @@ export class RateSpecial extends Component {
     return (
       <div>
         {toggleShowForm}
-        {this.state.showRateForm ? formContent : null}
+        {showRateForm ? formContent : null}
       </div>
     );
   }

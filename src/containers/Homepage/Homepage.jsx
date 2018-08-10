@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Homepage.scss';
-import MapSection from './../MapSection/MapSection';
+import MapSection from '../MapSection/MapSection';
 
 const propTypes = {
   config: PropTypes.shape({
@@ -10,9 +10,13 @@ const propTypes = {
 };
 
 function Homepage(props) {
+  const {
+    config: { googleMapsApiKey },
+  } = props;
+
   return (
     <div>
-      <MapSection googleMapsApiKey={props.config.googleMapsApiKey} />
+      <MapSection googleMapsApiKey={googleMapsApiKey} />
     </div>
   );
 }

@@ -21,20 +21,34 @@ export class SpecialListItem extends Component {
   }
 
   handleClick() {
-    this.props.selectSpecial(this.props.special);
+    const {
+      special, selectSpecial,
+    } = this.props;
+
+    selectSpecial(special);
   }
 
   handleDeleteButtonClick() {
-    this.props.deleteSpecial(this.props.special._id);
+    const {
+      special, deleteSpecial,
+    } = this.props;
+
+    deleteSpecial(special._id);
   }
 
   render() {
+    const { special } = this.props;
+
     return (
       <div className="admin-location-listitem">
-        <button onClick={this.handleClick}>
-          <h3 key={this.props.special._id}>{this.props.special.headline}</h3>
+        <button onClick={this.handleClick} type="button">
+          <h3 key={special._id}>{special.headline}</h3>
         </button>
-        <button className="button_sm button_valencia" onClick={this.handleDeleteButtonClick}>
+        <button
+          type="button"
+          className="button_sm button_valencia"
+          onClick={this.handleDeleteButtonClick}
+        >
           <i className="fas fa-trash" />
         </button>
       </div>

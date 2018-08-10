@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LocationForm from './../../Location/LocationForm';
+import LocationForm from '../../Location/LocationForm/LocationForm';
 
 const propTypes = {
   cityId: PropTypes.string.isRequired,
@@ -20,28 +20,35 @@ export class AddLocation extends Component {
   }
 
   toggleAddLocationForm() {
+    const { showAddLocationForm } = this.state;
+
     this.setState({
-      showAddLocationForm: !this.state.showAddLocationForm,
+      showAddLocationForm: !showAddLocationForm,
     });
   }
 
   handleSubmit(location) {
-    this.props.postLocation(location);
+    const { postLocation } = this.props;
+
+    postLocation(location);
     this.toggleAddLocationForm();
   }
 
   render() {
-    if (this.state.showAddLocationForm) {
+    const { showAddLocationForm } = this.state;
+    const { cityId } = this.props;
+    if (showAddLocationForm) {
       return (
         <div>
           <button
+            type="button"
             onClick={this.toggleAddLocationForm}
             className="button_sm button_dark"
           >
             x hide
           </button>
           <LocationForm
-            cityId={this.props.cityId}
+            cityId={cityId}
             mode="new"
             handleCancel={this.toggleAddLocationForm}
             handleSubmitNewLocation={this.handleSubmit}
@@ -52,6 +59,7 @@ export class AddLocation extends Component {
 
     return (
       <button
+        type="button"
         onClick={this.toggleAddLocationForm}
         className="button_sm button_dark"
       >

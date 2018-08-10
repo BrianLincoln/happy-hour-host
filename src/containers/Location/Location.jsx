@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import locationApi from './../../utils/LocationApi';
-import Special from './../../components/Special/Special';
+import locationApi from '../../utils/LocationApi';
+import Special from '../../components/Special/Special';
 import './Location.scss';
 
 const propTypes = {
@@ -24,9 +24,11 @@ class Location extends Component {
   }
 
   componentWillMount() {
-    if (this.props.location) {
+    const { location } = this.props;
+
+    if (location) {
       this.setState({
-        ...this.props.location,
+        ...location,
       },
       () => {
         this.setDocumentTitle();
@@ -41,13 +43,18 @@ class Location extends Component {
   }
 
   setDocumentTitle() {
-    document.title = `${
-      this.state.name
-    } Happy Hour - Food & Drink Specials in ${this.state.city.name}`;
+    const { name } = this.state;
+    const {
+      city: { cityName },
+    } = this.state;
+
+    document.title = `${name} Happy Hour - Food & Drink Specials in ${cityName}`;
   }
 
   fetchLocation() {
-    locationApi.getLocation(this.props.locationId).then((result) => {
+    const { locationId } = this.props;
+
+    locationApi.getLocation(locationId).then((result) => {
       if (result.success) {
         this.setState({
           ...result.location,
@@ -61,18 +68,24 @@ class Location extends Component {
   }
 
   render() {
-    if (this.state.fetchingLocation) {
+    const {
+      fetchingLocation,
+      specials,
+      website,
+      googleMapLink,
+      name,
+    } = this.state;
+
+    if (fetchingLocation) {
       return <div className="spinner" />;
     }
 
-    const specials = this.state.specials
-      ? this.state.specials.map(special => (
-        <Special key={special._id} {...special} />
-      ))
+    const specialComponents = specials
+      ? specials.map(special => <Special key={special._id} {...special} />)
       : null;
 
-    const websiteLink = this.state.website ? (
-      <a className="location-meta-link" href={this.state.website}>
+    const websiteLinkComponent = website ? (
+      <a className="location-meta-link" href={website}>
         <div className="location-meta-link-icon">
           <i className=" fa fa-globe-americas" aria-hidden="true" />
         </div>
@@ -80,8 +93,8 @@ class Location extends Component {
       </a>
     ) : null;
 
-    const googleMapLink = this.state.googleMapLink ? (
-      <a className="location-meta-link" href={this.state.googleMapLink}>
+    const googleMapLinkComponent = googleMapLink ? (
+      <a className="location-meta-link" href={googleMapLink}>
         <div className="location-meta-link-icon">
           <i className="fa fa-map-marker-alt" aria-hidden="true" />
         </div>
@@ -93,11 +106,14 @@ class Location extends Component {
       <div>
         <div className="bg-white">
           <div className="container space-bottom-xl">
-            <h1 className="space-top-xl">{this.state.name}</h1>
-            <h3 className="space-bottom-md">in {this.state.city.name}</h3>
+            <h1 className="space-top-xl">{name}</h1>
+            <h3 className="space-bottom-md">
+              in
+              {name}
+            </h3>
             <div className="space-bottom-xl">
-              {websiteLink}
-              {googleMapLink}
+              {websiteLinkComponent}
+              {googleMapLinkComponent}
             </div>
           </div>
         </div>
@@ -106,7 +122,7 @@ class Location extends Component {
             <h2 className="location-section-header space-bottom-md">
               All Food and Drink Specials
             </h2>
-            <div className="special-list">{specials}</div>
+            <div className="special-list">{specialComponents}</div>
           </div>
         </div>
       </div>

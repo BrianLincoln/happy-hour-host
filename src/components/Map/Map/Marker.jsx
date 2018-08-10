@@ -43,17 +43,21 @@ export class Marker extends Component {
   }
 
   handleClick() {
-    this.props.handleMarkerClick(this.props.location, this.marker);
+    const {
+      handleMarkerClick, location,
+    } = this.props;
+
+    handleMarkerClick(location, this.marker);
   }
 
   renderMarker() {
     const {
-      google, map,
+      google, map, location, isActive,
     } = this.props;
 
     const pos = {
-      lat: this.props.location.position.latitude,
-      lng: this.props.location.position.longitude,
+      lat: location.position.latitude,
+      lng: location.position.longitude,
     };
 
     const position = new google.maps.LatLng(pos.lat, pos.lng);
@@ -62,7 +66,7 @@ export class Marker extends Component {
       path:
         'M32.333,0C14.462,0,0,14.519,0,32.39c0,20.343,14.711,27.647,20.052,35.519S31.39,84.438,32.333,100 c0.944-15.518,6.19-23.074,11.995-32.092c5.806-9.018,20.395-17.648,20.395-35.519S50.203,0,32.333,0z M32.361,26.114 c3.201,0,5.797,2.595,5.797,5.796s-2.596,5.796-5.797,5.796s-5.796-2.595-5.796-5.796S29.16,26.114,32.361,26.114z',
 
-      fillColor: this.props.isActive ? '#218ACC' : '#d73838',
+      fillColor: isActive ? '#218ACC' : '#d73838',
       fillOpacity: 1,
       anchor: new google.maps.Point(50, 70),
       strokeWeight: 1,

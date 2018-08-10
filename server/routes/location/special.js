@@ -89,7 +89,9 @@ router.delete(
 
 // UNTESTED
 // NEEDS A CHECK TO SEE IF IP HAS ALREADY RATED
-router.post('/api/locations/:locationId/specials/:specialId/rating',
+router.post(
+  '/api/locations/:locationId/specials/:specialId/ratings',
+  passportUtils.verifyToken,
   (req, res) => {
     const rating = {
       isAccurate: req.body.isAccurate,
@@ -114,6 +116,7 @@ router.post('/api/locations/:locationId/specials/:specialId/rating',
         success: true,
       });
     });
-  });
+  }
+);
 
 module.exports = router;

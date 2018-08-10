@@ -17,12 +17,14 @@ class TokenFailed extends Component {
   }
 
   countdown() {
-    if (this.state.countdown === 0) {
+    const { countdown } = this.state;
+
+    if (countdown === 0) {
       window.location = '/login';
     } else {
       setTimeout(() => {
         this.setState({
-          countdown: this.state.countdown - 1,
+          countdown: countdown - 1,
         },
         () => {
           this.countdown();
@@ -32,11 +34,13 @@ class TokenFailed extends Component {
   }
 
   render() {
+    const { countdown } = this.state;
+
     return (
       <div className="token-failed">
         <div className="container">
           <h1>You need to log in</h1>
-          <h2>redirecting in {this.state.countdown}</h2>
+          <h2>redirecting in {countdown}</h2>
         </div>
       </div>
     );

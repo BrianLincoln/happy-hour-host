@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Special.scss';
-import dayLabels from './../../utils/DayLabels';
-import timeConverter from './../../utils/TimeConverter';
+import dayLabels from '../../utils/DayLabels';
+import timeConverter from '../../utils/TimeConverter';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
@@ -15,8 +15,18 @@ const propTypes = {
 };
 
 function Special(props) {
-  const days = props.days.map((day, index) => {
-    const isLast = index + 1 === props.days.length;
+  const {
+    days,
+    times,
+    hasDrinkSpecial,
+    hasFoodSpecial,
+    _id,
+    headline,
+    details,
+  } = props;
+
+  const daysComponent = days.map((day, index) => {
+    const isLast = index + 1 === days.length;
     const labelText = isLast ? dayLabels[day] : `${dayLabels[day]}, `;
 
     return (
@@ -26,7 +36,7 @@ function Special(props) {
     );
   });
 
-  const times = props.times.map((time) => {
+  const timesComponent = times.map((time) => {
     const startTime = timeConverter(time.start);
     const endTime = timeConverter(time.end);
 
@@ -37,7 +47,7 @@ function Special(props) {
     );
   });
 
-  const drinkSpecial = props.hasDrinkSpecial ? (
+  const drinkSpecialComponent = hasDrinkSpecial ? (
     <div className="special-type">
       <i
         className="special-type-icon fas fa-fw fa-glass-martini"
@@ -47,7 +57,7 @@ function Special(props) {
     </div>
   ) : null;
 
-  const foodSpecial = props.hasFoodSpecial ? (
+  const foodSpecialComponent = hasFoodSpecial ? (
     <div className="special-type">
       <i
         className="special-type-icon fas fa-fw fa-utensils"
@@ -58,16 +68,16 @@ function Special(props) {
   ) : null;
 
   return (
-    <div className="special row" key={props._id}>
+    <div className="special row" key={_id}>
       <div className="col-xs-12 col-md-4">
-        <h3 className="space-bottom-xs">{props.headline}</h3>
-        {days}
-        {times}
-        <div className="font-base-alt special-details">{props.details}</div>
+        <h3 className="space-bottom-xs">{headline}</h3>
+        {daysComponent}
+        {timesComponent}
+        <div className="font-base-alt special-details">{details}</div>
       </div>
       <div className="special-types col-xs-12 col-md-4">
-        {drinkSpecial}
-        {foodSpecial}
+        {drinkSpecialComponent}
+        {foodSpecialComponent}
       </div>
     </div>
   );

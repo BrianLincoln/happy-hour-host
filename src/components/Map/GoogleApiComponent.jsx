@@ -13,9 +13,7 @@ const propTypes = {
 
 const defaultMapConfig = {};
 export const wrapper = options => (WrappedComponent) => {
-  const {
-    apiKey,
-  } = options;
+  const { apiKey } = options;
   const libraries = options.libraries || ['places'];
 
   class Wrapper extends React.Component {
@@ -39,17 +37,19 @@ export const wrapper = options => (WrappedComponent) => {
     }
 
     componentDidMount() {
+      const {
+        initialMapCenter, initialZoom,
+      } = this.props;
+
       this.scriptCache.google.onLoad(() => {
-        const {
-          maps,
-        } = window.google;
-        const center = new maps.LatLng(this.props.initialMapCenter.lat,
-          this.props.initialMapCenter.lng);
+        const { maps } = window.google;
+        const center = new maps.LatLng(initialMapCenter.lat,
+          initialMapCenter.lng);
         const mapConfig = Object.assign(
           {}, defaultMapConfig, {
             center,
-            zoom: this.props.initialZoom,
-          },
+            zoom: initialZoom,
+          }
         );
 
         this.map = new maps.Map(this.mapRef, mapConfig);
@@ -63,13 +63,16 @@ export const wrapper = options => (WrappedComponent) => {
     }
 
     render() {
+      const {
+        loaded, map, google,
+      } = this.state;
       const props = Object.assign(
         {}, this.props, {
-          loaded: this.state.loaded,
-          map: this.state.map,
-          google: this.state.google,
+          loaded,
+          map,
+          google,
           mapComponent: this.mapRef,
-        },
+        }
       );
 
       return (

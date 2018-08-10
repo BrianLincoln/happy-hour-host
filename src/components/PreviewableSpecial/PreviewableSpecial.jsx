@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './PreviewableSpecial.scss';
-import RateSpecial from './../RateSpecial/RateSpecial';
-import dayLabels from './../../utils/DayLabels';
-import timeConverter from './../../utils/TimeConverter';
+import RateSpecial from '../RateSpecial/RateSpecial';
+import dayLabels from '../../utils/DayLabels';
+import timeConverter from '../../utils/TimeConverter';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
@@ -30,24 +30,40 @@ export class PreviewableSpecial extends Component {
 
   handleToggleDetailsClick(event) {
     event.preventDefault();
+    const { showDetails } = this.state;
+
     this.setState({
-      showDetails: !this.state.showDetails,
+      showDetails: !showDetails,
     });
   }
 
   handleToggleDetailsKeyUp(event) {
     event.preventDefault();
+    const { showDetails } = this.state;
 
     if (event.keyCode === 32) {
       this.setState({
-        showDetails: !this.state.showDetails,
+        showDetails: !showDetails,
       });
     }
   }
 
   render() {
-    const days = this.props.days.map((day, index) => {
-      const isLast = index + 1 === this.props.days.length;
+    const {
+      days,
+      times,
+      details,
+      _id,
+      locationId,
+      headline,
+      hasDrinkSpecial,
+      hasFoodSpecial,
+    } = this.props;
+
+    const { showDetails } = this.state;
+
+    const daysCompenent = days.map((day, index) => {
+      const isLast = index + 1 === days.length;
       const labelText = isLast ? dayLabels[day] : `${dayLabels[day]}, `;
 
       return (
@@ -57,7 +73,7 @@ export class PreviewableSpecial extends Component {
       );
     });
 
-    const times = this.props.times.map((time) => {
+    const timesComponent = times.map((time) => {
       const startTime = timeConverter(time.start);
       const endTime = timeConverter(time.end);
 
@@ -68,8 +84,9 @@ export class PreviewableSpecial extends Component {
       );
     });
 
-    const showDetails = !this.state.showDetails ? (
+    const showDetailsComponent = !showDetails ? (
       <button
+        type="button"
         className="previewable-special-toggle reset-button"
         onClick={this.handleToggleDetailsClick}
         onKeyUp={this.handleToggleDetailsKeyUp}
@@ -81,8 +98,9 @@ export class PreviewableSpecial extends Component {
       </button>
     ) : null;
 
-    const hideDetails = this.state.showDetails ? (
+    const hideDetailsComponent = showDetails ? (
       <button
+        type="button"
         className="previewable-special-toggle reset-button"
         onClick={this.handleToggleDetailsClick}
         onKeyUp={this.handleToggleDetailsKeyUp}
@@ -94,40 +112,38 @@ export class PreviewableSpecial extends Component {
       </button>
     ) : null;
 
-    const details = this.state.showDetails ? (
+    const detailsComponent = showDetails ? (
       <div className="previewable-special-details">
-        {this.props.details}
-        <RateSpecial _id={this.props._id} locationId={this.props.locationId} />
+        {details}
+        <RateSpecial _id={_id} locationId={locationId} />
       </div>
     ) : null;
 
     return (
-      <div className="previewable-special" key={this.props._id}>
+      <div className="previewable-special" key={_id}>
         <div className="row">
           <div className="col-xs-10">
-            <div className="font-base-alt space-bottom-xs">
-              {this.props.headline}
-            </div>
-            {days}
-            {times}
+            <div className="font-base-alt space-bottom-xs">{headline}</div>
+            {daysCompenent}
+            {timesComponent}
           </div>
           <div className="col-xs-2 previewable-special-types">
-            {this.props.hasDrinkSpecial ? (
+            {hasDrinkSpecial ? (
               <i
                 className="special-type-icon fas fa-glass-martini"
                 aria-hidden="true"
               />
             ) : null}
-            {this.props.hasFoodSpecial ? (
+            {hasFoodSpecial ? (
               <i
                 className="special-type-icon fas fa-utensils"
                 aria-hidden="true"
               />
             ) : null}
           </div>
-          {showDetails}
-          {hideDetails}
-          {details}
+          {showDetailsComponent}
+          {hideDetailsComponent}
+          {detailsComponent}
         </div>
       </div>
     );

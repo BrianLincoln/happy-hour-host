@@ -20,13 +20,19 @@ class TimeFilter extends Component {
   }
 
   handleChange(event) {
-    this.props.handleTimeChange(event.target.value);
+    const { handleTimeChange } = this.props;
+
+    handleTimeChange(event.target.value);
   }
 
   render() {
+    const {
+      timeValues, activeTime,
+    } = this.props;
     let selectedTimeValue = '';
-    const times = this.props.timeValues.map((time) => {
-      if (this.props.activeTime.value === time.value) {
+
+    const times = timeValues.map((time) => {
+      if (activeTime.value === time.value) {
         selectedTimeValue = time.value;
       }
 

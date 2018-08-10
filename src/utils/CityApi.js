@@ -1,4 +1,4 @@
-import config from './../config';
+import config from '../config';
 
 // TEMP -- this should get dynamic once there are multiple cities
 const minneapoliscityId = '5b490c5b7781014240dd2ffa';
@@ -13,9 +13,7 @@ const cityApi = {
   getCity(cityId = minneapoliscityId) {
     return fetch(`${config.apiPath}/cities/${cityId}`)
       .then(response => response.json())
-      .then(city =>
-        // do stuff with responseJSON here...
-        city);
+      .then(city => city);
   },
   postCity(name) {
     return fetch(`${config.apiPath}/cities`, {
@@ -60,16 +58,12 @@ const cityApi = {
   getNeighborhoods(cityId) {
     return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods`)
       .then(response => response.json())
-      .then(neighborhoods =>
-        // do stuff with responseJSON here...
-        neighborhoods);
+      .then(neighborhoods => neighborhoods);
   },
   getNeighborhood(cityId, neighborhoodId) {
     return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods/${neighborhoodId}`)
       .then(response => response.json())
-      .then(neighborhood =>
-        // do stuff with responseJSON here...
-        neighborhood);
+      .then(neighborhood => neighborhood);
   },
   postNeighborhood(cityId, neighborhood) {
     return fetch(`${config.apiPath}/cities/${cityId}/neighborhoods`, {

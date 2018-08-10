@@ -36,12 +36,16 @@ class Map extends Component {
   }
 
   componentWillMount() {
+    const {
+      initialCenter, centerAroundCurrentLocation,
+    } = this.props;
+
     let currentLocation = {
-      lat: this.props.initialCenter.lat,
-      lng: this.props.initialCenter.lng,
+      lat: initialCenter.lat,
+      lng: initialCenter.lng,
     };
 
-    if (this.props.centerAroundCurrentLocation && navigator && navigator.geolocation) {
+    if (centerAroundCurrentLocation && navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         currentLocation = {
           lat: pos.coords.latitude,
@@ -59,21 +63,26 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.google !== this.props.google) {
+    const { google } = this.props;
+    const { currentLocation } = this.state;
+
+    if (prevProps.google !== google) {
       this.loadMap();
     }
-    if (this.state && (prevState && prevState.currentLocation) !== this.state.currentLocation) {
+    if (
+      this.state
+      && (prevState && prevState.currentLocation) !== currentLocation
+    ) {
       this.recenterMap();
     }
   }
 
   loadMap() {
-    if (this.props && this.props.google) {
-      // google is available
-      const {
-        google,
-      } = this.props;
+    const {
+      google, onBoundsChange, handleMapClick,
+    } = this.props;
 
+    if (this.props && google) {
       const node = this.mapRef;
 
       const {
@@ -103,36 +112,35 @@ class Map extends Component {
 
       this.map.addListener('bounds_changed',
         _.debounce(() => {
-          this.props.onBoundsChange(this.map);
+          onBoundsChange(this.map);
         }, 500));
-      this.map.addListener('click', this.props.handleMapClick);
+      this.map.addListener('click', handleMapClick);
     }
   }
 
   recenterMap() {
-    const curr = this.state.currentLocation;
+    const { currentLocation } = this.state;
     const {
-      maps,
-    } = this.props.google.maps;
+      google: { maps },
+    } = this.props;
 
     if (this.map) {
-      const center = new maps.LatLng(curr.lat, curr.lng);
+      const center = new maps.LatLng(currentLocation.lat, currentLocation.lng);
       this.map.panTo(center);
     }
   }
 
   renderChildren() {
     const {
-      children,
+      children, google,
     } = this.props;
 
     if (!children) return null;
 
-    return React.Children.map(children, c =>
-      React.cloneElement(c, {
-        map: this.map,
-        google: this.props.google,
-      }));
+    return React.Children.map(children, c => React.cloneElement(c, {
+      map: this.map,
+      google,
+    }));
   }
 
   render() {

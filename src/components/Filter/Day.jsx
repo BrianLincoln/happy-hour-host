@@ -16,16 +16,24 @@ class Day extends Component {
   }
 
   handleClick() {
-    this.props.handleDayClick(this.props.dayNumber);
+    const {
+      handleDayClick, dayNumber,
+    } = this.props;
+
+    handleDayClick(dayNumber);
   }
 
   render() {
-    let classes = this.props.isActive ? 'button_valencia' : 'button_light';
+    const {
+      isActive, text,
+    } = this.props;
+
+    let classes = isActive ? 'button_valencia' : 'button_light';
     classes += ' button_sm day-filter';
 
     return (
-      <button onClick={this.handleClick} className={classes}>
-        {this.props.text}
+      <button onClick={this.handleClick} className={classes} type="button">
+        {text}
       </button>
     );
   }

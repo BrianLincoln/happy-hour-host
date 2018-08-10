@@ -20,22 +20,32 @@ export class Time extends Component {
   }
 
   handleDeleteTimeClick(event) {
+    const {
+      deleteTime, index,
+    } = this.props;
+
     event.preventDefault();
 
-    this.props.deleteTime(this.props.index);
+    deleteTime(index);
   }
 
   render() {
+    const { time } = this.props;
+
     return (
       <div className="row admin-time">
         <div className="col-xs-6">
-          {this.props.time.start} - {this.props.time.end}
+          {time.start} - {time.end}
         </div>
         <div className="col-xs-3">
-          {this.props.time.pending ? <div className="font-sm">*pending save</div> : null}
+          {time.pending ? <div className="font-sm">*pending save</div> : null}
         </div>
         <div className="col-xs-3">
-          <button className="button_sm button_valencia" onClick={this.handleDeleteTimeClick}>
+          <button
+            type="button"
+            className="button_sm button_valencia"
+            onClick={this.handleDeleteTimeClick}
+          >
             x
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cityApi from './../../../utils/CityApi';
+import cityApi from '../../../utils/CityApi';
 
 const propTypes = {
   fetchCities: PropTypes.func.isRequired,
@@ -21,8 +21,10 @@ export class AddCity extends Component {
   }
 
   toggleAddCityForm() {
+    const { showAddCityForm } = this.state;
+
     this.setState({
-      showAddCityForm: !this.state.showAddCityForm,
+      showAddCityForm: !showAddCityForm,
     });
   }
 
@@ -33,32 +35,50 @@ export class AddCity extends Component {
   }
 
   handleSubmit(event) {
+    const { cityName } = this.state;
+    const { fetchCities } = this.props;
+
     event.preventDefault();
-    cityApi.postCity(this.state.cityName).then(() => this.props.fetchCities());
+    cityApi.postCity(cityName).then(() => fetchCities());
     this.setState({
       showAddCityForm: false,
     });
   }
 
   render() {
-    if (this.state.showAddCityForm) {
+    const {
+      showAddCityForm, cityName,
+    } = this.state;
+
+    if (showAddCityForm) {
       return (
         <div>
-          <button onClick={this.toggleAddCityForm} className="button_sm button_dark">
+          <button
+            type="button"
+            onClick={this.toggleAddCityForm}
+            className="button_sm button_dark"
+          >
             x hide
           </button>
-          <form className="space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>
+          <form
+            className="space-top-sm space-bottom-sm"
+            onSubmit={this.handleSubmit}
+          >
             <label className="font-title-sm" htmlFor="city-name">
               name:{' '}
               <input
                 required
                 type="text"
                 id="city-name"
-                value={this.state.cityName}
+                value={cityName}
                 onChange={this.handleCityNameChange}
               />
             </label>
-            <input className="button_sm button_curious" type="submit" value="Submit" />
+            <input
+              className="button_sm button_curious"
+              type="submit"
+              value="Submit"
+            />
           </form>
         </div>
       );
@@ -66,6 +86,7 @@ export class AddCity extends Component {
 
     return (
       <button
+        type="button"
         onClick={this.toggleAddCityForm}
         className="button_sm button_dark admin-add-city-action"
       >

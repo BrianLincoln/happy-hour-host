@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GoogleApiComponent from './GoogleApiComponent';
-import Map from './Map';
+import Map from './Map/Map';
 import Marker from './Map/Marker';
 
 const defaultProps = {
@@ -42,6 +42,7 @@ export class MapContainer extends Component {
   }
 
   onBoundsChange(map) {
+    const { onMapUpdate } = this.props;
     const mapBounds = map.getBounds();
     const ne = mapBounds.getNorthEast();
     const sw = mapBounds.getSouthWest();
@@ -51,28 +52,40 @@ export class MapContainer extends Component {
         sw,
       };
 
-      this.props.onMapUpdate(formattedBounds);
+      onMapUpdate(formattedBounds);
     }
   }
 
   handleMapClick() {
-    this.props.handleLocationDeselect();
+    const { handleLocationDeselect } = this.props;
+
+    handleLocationDeselect();
   }
 
   render() {
-    if (!this.props.loaded) {
+    const {
+      loaded,
+      locations,
+      selectedLocation,
+      handleLocationSelect,
+      google,
+      initialZoom,
+      centerAroundCurrentLocation,
+      initialMapCenter,
+    } = this.props;
+
+    if (!loaded) {
       return <div className="spinner" />;
     }
 
-    const markers = this.props.locations.map((location) => {
-      const isActive =
-        this.props.selectedLocation !== null && this.props.selectedLocation._id === location._id;
+    const markers = locations.map((location) => {
+      const isActive = selectedLocation !== null && selectedLocation._id === location._id;
 
       return (
         <Marker
           key={location._id}
           isActive={isActive}
-          handleMarkerClick={this.props.handleLocationSelect}
+          handleMarkerClick={handleLocationSelect}
           location={location}
         />
       );
@@ -81,11 +94,11 @@ export class MapContainer extends Component {
     return (
       <div className="map-container">
         <Map
-          google={this.props.google}
+          google={google}
           className="map"
-          zoom={this.props.initialZoom}
-          centerAroundCurrentLocation={this.props.centerAroundCurrentLocation}
-          initialCenter={this.props.initialMapCenter}
+          zoom={initialZoom}
+          centerAroundCurrentLocation={centerAroundCurrentLocation}
+          initialCenter={initialMapCenter}
           onBoundsChange={this.onBoundsChange}
           handleMapClick={this.handleMapClick}
         >

@@ -59,13 +59,20 @@ export class SuggestLocationForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.handleSubmit(this.state);
+    const { handleSubmit } = this.props;
+
+    handleSubmit(this.state);
   }
 
   render() {
-    const cities = this.props.cities.map(city => (
-      <option key={city._id} value={city._id}>
-        {city.name}
+    const { cities } = this.props;
+    const {
+      city, name, website, googleMapLink, source,
+    } = this.state;
+
+    const citiesComponent = cities.map(c => (
+      <option key={c._id} value={c._id}>
+        {c.name}
       </option>
     ));
 
@@ -80,14 +87,14 @@ export class SuggestLocationForm extends Component {
             <label className="font-title-sm form-label" htmlFor="city">
               City:
               <select
-                required
-                value={this.state.city || ''}
                 id="city"
+                required
+                value={city || ''}
                 onChange={this.handleFieldChange}
               >
                 <option value="" disabled />
 
-                {cities}
+                {citiesComponent}
               </select>
             </label>
           </div>
@@ -99,7 +106,7 @@ export class SuggestLocationForm extends Component {
                 required
                 type="text"
                 id="location-name"
-                value={this.state.name}
+                value={name}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -111,7 +118,7 @@ export class SuggestLocationForm extends Component {
                 placeholder="http://www.tracyssaloon.com"
                 type="text"
                 id="website"
-                value={this.state.website}
+                value={website}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -123,7 +130,7 @@ export class SuggestLocationForm extends Component {
                 placeholder="https://goo.gl/maps/xFjjXArpZR82"
                 type="text"
                 id="googleMapLink"
-                value={this.state.googleMapLink}
+                value={googleMapLink}
                 onChange={this.handleFieldChange}
               />
             </label>
@@ -136,12 +143,13 @@ export class SuggestLocationForm extends Component {
                   placeholder="http://www.tracyssaloon.com/specials.html"
                   type="text"
                   id="source"
-                  value={this.state.source}
+                  value={source}
                   onChange={this.handleFieldChange}
                 />
                 <p className="space-top-md">
                   {' '}
-                  This could come from anywhere. <br />Some examples:
+                  This could come from anywhere. <br />
+                  Some examples:
                 </p>
                 <ul>
                   <li>
@@ -152,7 +160,8 @@ export class SuggestLocationForm extends Component {
                       href="http://www.tracyssaloon.com/specials.html"
                     >
                       example
-                    </a>)
+                    </a>
+                    )
                   </li>
                   <li>
                     A picture of a physical menu, uploaded to{' '}
@@ -163,7 +172,8 @@ export class SuggestLocationForm extends Component {
                       href="https://imgur.com/a5P4Uji"
                     >
                       example
-                    </a>)
+                    </a>
+                    )
                   </li>
                 </ul>
               </div>

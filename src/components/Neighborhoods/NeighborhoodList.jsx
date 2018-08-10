@@ -19,13 +19,16 @@ const propTypes = {
 };
 
 function NeighborhoodList(props) {
+  const {
+    fetchingData, city, locations,
+  } = props;
   let neighborhoods = null;
 
-  if (props.fetchingData) {
+  if (fetchingData) {
     neighborhoods = <div className="spinner" />;
   } else {
     neighborhoods = props.city.neighborhoods.map((neighborhood) => {
-      let path = `/${props.city.name}/neighborhood/${neighborhood.name}`;
+      let path = `/${city.name}/neighborhood/${neighborhood.name}`;
       path = path.replace(' ', '+');
 
       return (
@@ -35,8 +38,8 @@ function NeighborhoodList(props) {
           to={{
             pathname: path,
             state: {
-              cityName: props.city.name,
-              locations: props.locations,
+              cityName: city.name,
+              locations,
               neighborhood,
             },
           }}

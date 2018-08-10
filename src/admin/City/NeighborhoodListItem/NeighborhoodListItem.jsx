@@ -19,18 +19,32 @@ export class NeighborhoodListItem extends Component {
   }
 
   handleDeleteButtonClick() {
-    if (window.confirm(`◔_◔ Super sure you want to delete ${this.props.neighborhood.name}?`)) {
-      this.props.deleteNeighborhood(this.props.neighborhood._id);
+    const {
+      neighborhood, deleteNeighborhood,
+    } = this.props;
+
+    if (
+      window.confirm(`◔_◔ Super sure you want to delete ${neighborhood.name}?`)
+    ) {
+      deleteNeighborhood(neighborhood._id);
     }
   }
 
   render() {
+    const {
+      cityId, neighborhood,
+    } = this.props;
+
     return (
       <div className="admin-neighborhood-listitem">
-        <a href={`/admin/city/${this.props.cityId}/neighborhood/${this.props.neighborhood._id}`}>
-          <h3 key={this.props.neighborhood._id}>{this.props.neighborhood.name}</h3>
+        <a href={`/admin/city/${cityId}/neighborhood/${neighborhood._id}`}>
+          <h3 key={neighborhood._id}>{neighborhood.name}</h3>
         </a>
-        <button className="button_sm button_valencia" onClick={this.handleDeleteButtonClick}>
+        <button
+          type="button"
+          className="button_sm button_valencia"
+          onClick={this.handleDeleteButtonClick}
+        >
           <i className="fas fa-trash" />
         </button>
       </div>

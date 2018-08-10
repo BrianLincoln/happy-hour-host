@@ -1,8 +1,8 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["setDocumentTitle"] }] */
 import React, { Component } from 'react';
-import locationApi from './../../utils/LocationApi';
-import cityApi from './../../utils/CityApi';
-import SuggestLocationForm from './../../components/SuggestLocationForm/SuggestLocationForm';
+import locationApi from '../../utils/LocationApi';
+import cityApi from '../../utils/CityApi';
+import SuggestLocationForm from '../../components/SuggestLocationForm/SuggestLocationForm';
 import './SuggestLocation.scss';
 
 class SuggestLocation extends Component {
@@ -52,12 +52,16 @@ class SuggestLocation extends Component {
   }
 
   render() {
-    if (this.state.fetchingCities || this.state.submittingForm) {
+    const {
+      fetchingCities, submittingForm, formSuccess, cities,
+    } = this.state;
+
+    if (fetchingCities || submittingForm) {
       return <div className="spinner" />;
     }
 
-    if (typeof this.state.formSuccess !== 'undefined') {
-      if (this.state.formSuccess) {
+    if (typeof formSuccess !== 'undefined') {
+      if (formSuccess) {
         return (
           <div className="hero-text">
             <h1>Thank you!</h1>
@@ -73,7 +77,7 @@ class SuggestLocation extends Component {
     return (
       <SuggestLocationForm
         handleSubmit={this.handleFormSubmit}
-        cities={this.state.cities}
+        cities={cities}
       />
     );
   }

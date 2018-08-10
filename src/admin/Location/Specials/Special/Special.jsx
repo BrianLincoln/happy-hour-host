@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SpecialForm from './SpecialForm';
-import dayLabels from './../../../../utils/DayLabels';
-import timeConverter from './../../../../utils/TimeConverter';
+import SpecialForm from './SpecialForm/SpecialForm';
+import dayLabels from '../../../../utils/DayLabels';
+import timeConverter from '../../../../utils/TimeConverter';
 
 const propTypes = {
   special: PropTypes.shape({
@@ -19,7 +19,7 @@ const propTypes = {
   handleSubmitEditSpecialForm: PropTypes.func.isRequired,
 };
 
-export class SpecialDetails extends Component {
+export class Special extends Component {
   constructor(props) {
     super(props);
 
@@ -34,35 +34,48 @@ export class SpecialDetails extends Component {
   }
 
   toggleEditSpecial() {
+    const { showEditSpecialForm } = this.state;
+
     this.setState({
-      showEditSpecialForm: !this.state.showEditSpecialForm,
+      showEditSpecialForm: !showEditSpecialForm,
     });
   }
 
   deselectSpecial(event) {
     event.preventDefault();
-    this.props.deselectSpecial();
+
+    const { deselectSpecial } = this.props;
+
+    deselectSpecial();
   }
 
-  handleSubmitEditSpecialForm(special) {
+  handleSubmitEditSpecialForm(updatedSpecial) {
+    const {
+      handleSubmitEditSpecialForm, special,
+    } = this.props;
+
     this.toggleEditSpecial();
-    this.props.handleSubmitEditSpecialForm(special, this.props.special._id);
+    handleSubmitEditSpecialForm(updatedSpecial, special._id);
   }
 
   handleCancelSpecialForm() {
+    const { cancelEditSpecial } = this.props;
     this.setState({
       showEditSpecialForm: false,
     },
-    this.props.cancelEditSpecial());
+    cancelEditSpecial());
   }
 
   render() {
-    if (this.state.showEditSpecialForm) {
+    const { showEditSpecialForm } = this.state;
+    const { special } = this.props;
+
+    if (showEditSpecialForm) {
       return (
         <SpecialForm
           handleSubmitSpecialForm={this.handleSubmitEditSpecialForm}
           handleCancelSpecialForm={this.handleCancelSpecialForm}
-          special={this.props.special}
+          special={special}
         />
       );
     }
@@ -70,26 +83,18 @@ export class SpecialDetails extends Component {
       <div>
         <div>
           drink specials:{' '}
-          <input
-            type="checkbox"
-            checked={this.props.special.hasDrinkSpecial}
-            disabled
-          />
+          <input type="checkbox" checked={special.hasDrinkSpecial} disabled />
         </div>
         <div>
           food specials:{' '}
-          <input
-            type="checkbox"
-            checked={this.props.special.hasFoodSpecial}
-            disabled
-          />
+          <input type="checkbox" checked={special.hasFoodSpecial} disabled />
         </div>
       </div>
     );
 
-    const days = this.props.special.days
-      ? this.props.special.days.map((day, index) => {
-        const isLast = index + 1 === this.props.special.days.length;
+    const days = special.days
+      ? special.days.map((day, index) => {
+        const isLast = index + 1 === special.days.length;
         const labelText = isLast ? dayLabels[day] : `${dayLabels[day]}, `;
 
         return (
@@ -100,29 +105,28 @@ export class SpecialDetails extends Component {
       })
       : "none (won't show on site)";
 
-    const times =
-      this.props.special.times && this.props.special.times.length > 0
-        ? this.props.special.times.map((time) => {
-          const startTime = timeConverter(time.start);
-          const endTime = timeConverter(time.end);
+    const times = special.times && special.times.length > 0
+      ? special.times.map((time) => {
+        const startTime = timeConverter(time.start);
+        const endTime = timeConverter(time.end);
 
-          return (
-            <div className="font-base-alt" key={time._id}>
-              {startTime} - {endTime}
-            </div>
-          );
-        })
-        : 'Never';
+        return (
+          <div className="font-base-alt" key={time._id}>
+            {startTime} - {endTime}
+          </div>
+        );
+      })
+      : 'Never';
 
     return (
       <div className="card">
         <div className="list-group">
           <div className="list-item">
-            <span className="font-title-sm">{this.props.special.headline}</span>
+            <span className="font-title-sm">{special.headline}</span>
           </div>
 
           <div className="list-item admin-special-details">
-            {this.props.special.details}
+            {special.details}
           </div>
           <div className="list-item">{specialTypes}</div>
           <div className="list-item">{days}</div>
@@ -130,12 +134,14 @@ export class SpecialDetails extends Component {
 
           <div className="space-top-md button-group button-group_left">
             <button
+              type="button"
               onClick={this.toggleEditSpecial}
               className="button_sm button_curious"
             >
               + edit
             </button>
             <button
+              type="button"
               onClick={this.deselectSpecial}
               className="button_sm button_dark"
             >
@@ -148,6 +154,6 @@ export class SpecialDetails extends Component {
   }
 }
 
-SpecialDetails.propTypes = propTypes;
+Special.propTypes = propTypes;
 
-export default SpecialDetails;
+export default Special;

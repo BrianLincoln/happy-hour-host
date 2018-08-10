@@ -20,8 +20,10 @@ export class AddNeighborhood extends Component {
   }
 
   toggleAddNeighborhoodForm() {
+    const { showAddNeighborhoodForm } = this.state;
+
     this.setState({
-      showAddNeighborhoodForm: !this.state.showAddNeighborhoodForm,
+      showAddNeighborhoodForm: !showAddNeighborhoodForm,
     });
   }
 
@@ -34,8 +36,11 @@ export class AddNeighborhood extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const { name } = this.state;
+    const { postNeighborhood } = this.props;
+
     const neighborhood = {
-      name: this.state.name,
+      name,
       mapCenter: {
         latitude: 0,
         longitude: 0,
@@ -44,38 +49,57 @@ export class AddNeighborhood extends Component {
       mapPoly: [],
     };
 
-    this.props.postNeighborhood(neighborhood);
+    postNeighborhood(neighborhood);
     this.setState({
       showAddNeighborhoodForm: false,
     });
   }
 
   render() {
-    if (this.state.showAddNeighborhoodForm) {
+    const {
+      showAddNeighborhoodForm, name,
+    } = this.state;
+
+    if (showAddNeighborhoodForm) {
       return (
         <div>
-          <button onClick={this.toggleAddNeighborhoodForm} className="button_sm button_dark">
+          <button
+            type="button"
+            onClick={this.toggleAddNeighborhoodForm}
+            className="button_sm button_dark"
+          >
             x hide
           </button>
-          <form className="space-top-sm space-bottom-sm" onSubmit={this.handleSubmit}>
+          <form
+            className="space-top-sm space-bottom-sm"
+            onSubmit={this.handleSubmit}
+          >
             <label className="font-title-sm" htmlFor="neighborhood-name">
               name:{' '}
               <input
                 required
                 type="text"
                 id="neighborhood-name"
-                value={this.state.name}
+                value={name}
                 onChange={this.handleNameChange}
               />
             </label>
-            <input className="button_sm button_curious" type="submit" value="Submit" />
+            <input
+              className="button_sm button_curious"
+              type="submit"
+              value="Submit"
+            />
           </form>
         </div>
       );
     }
 
     return (
-      <button onClick={this.toggleAddNeighborhoodForm} className="button_sm button_dark">
+      <button
+        type="button"
+        onClick={this.toggleAddNeighborhoodForm}
+        className="button_sm button_dark"
+      >
         + add neighborhood
       </button>
     );

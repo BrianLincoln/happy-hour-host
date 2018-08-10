@@ -9,10 +9,14 @@ const propTypes = {
 };
 
 function Times(props) {
-  const times = props.times.map((time, index) => {
+  const {
+    times, deleteTime, handleShowTimeFormClick,
+  } = props;
+
+  const timesComponent = times.map((time, index) => {
     const key = time.tempId !== undefined ? time.tempId : time._id;
 
-    return <Time key={key} index={index} time={time} deleteTime={props.deleteTime} />;
+    return <Time key={key} index={index} time={time} deleteTime={deleteTime} />;
   });
 
   return (
@@ -22,12 +26,17 @@ function Times(props) {
           <span className="font-title-sm">Times:</span>
         </div>
         <div className="col-xs-12 col-sm-6">
-          <button onClick={props.handleShowTimeFormClick} className="button_sm button_dark">
+          <button
+            type="button"
+            onClick={handleShowTimeFormClick}
+            className="button_sm button_dark"
+          >
             + add time
           </button>
         </div>
       </div>
-      {times.length > 0 ? times : 'All Day'}
+
+      {timesComponent}
     </div>
   );
 }

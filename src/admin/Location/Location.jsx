@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Specials from './Specials';
-import LocationForm from './LocationForm';
-import locationApi from './../../utils/LocationApi';
+import Specials from './Specials/Specials';
+import LocationForm from './LocationForm/LocationForm';
+import locationApi from '../../utils/LocationApi';
 
 const propTypes = {
   cityId: PropTypes.string.isRequired,
@@ -24,7 +24,9 @@ export class LocationDetails extends Component {
   }
 
   fetchLocation() {
-    locationApi.getLocation(this.props.locationId).then((result) => {
+    const { locationId } = this.props;
+
+    locationApi.getLocation(locationId).then((result) => {
       if (result.success) {
         this.setState({
           location: result.location,
@@ -55,17 +57,24 @@ export class LocationDetails extends Component {
   }
 
   render() {
-    if (!this.state.location) {
+    const {
+      location, showEditLocationForm,
+    } = this.state;
+    const {
+      cityId, locationId,
+    } = this.props;
+
+    if (!location) {
       return <div className="spinner" />;
     }
 
-    if (this.state.showEditLocationForm) {
+    if (showEditLocationForm) {
       return (
         <div className="container space-top-xl space-bottom-xl">
           <div className="row">
             <div className="col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
               <LocationForm
-                cityId={this.props.cityId}
+                cityId={cityId}
                 mode="update"
                 {...this.state}
                 handleCancel={this.handleCancelEditLocation}
@@ -84,29 +93,27 @@ export class LocationDetails extends Component {
             <div className="card col-xs-12">
               <a
                 className="button_sm .button_transparent"
-                href={`/admin/city/${this.props.cityId}`}
+                href={`/admin/city/${cityId}`}
               >
                 <i className="fas fa-arrow-left" /> back
               </a>
-              <h1>{this.state.location.name}</h1>
+              <h1>{location.name}</h1>
               <div>
-                {this.state.location.position.latitude},{' '}
-                {this.state.location.position.longitude}
+                {location.position.latitude}, {location.position.longitude}
               </div>
-              {this.state.location.website ? (
+              {location.website ? (
                 <div>
-                  <a href={this.state.location.website}>
-                    {this.state.location.website}
-                  </a>
+                  <a href={location.website}>{location.website}</a>
                 </div>
               ) : null}
-              {this.state.location.googleMapLink ? (
+              {location.googleMapLink ? (
                 <div>
-                  <a href={this.state.location.googleMapLink}>google map</a>
+                  <a href={location.googleMapLink}>google map</a>
                 </div>
               ) : null}
               <div className="button-group button-group_left">
                 <button
+                  type="button"
                   onClick={this.handleEditButtonClick}
                   className="button_sm button_curious"
                 >
@@ -119,8 +126,8 @@ export class LocationDetails extends Component {
             <div className="card col-xs-12">
               <h3 className="card-heading">Specials</h3>
               <Specials
-                locationId={this.props.locationId}
-                specials={this.state.location.specials}
+                locationId={locationId}
+                specials={location.specials}
                 fetchLocation={this.fetchLocation}
               />
             </div>

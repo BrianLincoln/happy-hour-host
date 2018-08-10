@@ -1,16 +1,14 @@
-import config from './../config';
+import config from '../config';
 
 const locationApi = {
   getLocations() {
-    return fetch(`${config.apiPath}/locations`).then(response =>
-      response.json());
+    return fetch(`${config.apiPath}/locations`).then(response => response.json());
   },
   getLocationsByCity(cityId) {
     return fetch(`${config.apiPath}/locations?cityId=${cityId}`).then(response => response.json());
   },
   getLocation(name) {
-    return fetch(`${config.apiPath}/locations/${name}`).then(response =>
-      response.json());
+    return fetch(`${config.apiPath}/locations/${name}`).then(response => response.json());
   },
 
   postLocation(location) {
@@ -154,21 +152,19 @@ const locationApi = {
       });
   },
   rateSpecial(
-    cityId, locationId, specialId, isAccurate
+    locationId, specialId, isAccurate
   ) {
-    return fetch(`${
-      config.apiPath
-    }/city/${cityId}/location/${locationId}/special/${specialId}/rating`,
-    {
-      method: 'post',
-      body: JSON.stringify({
-        isAccurate,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
+    return fetch(`${config.apiPath}/locations/${locationId}/specials/${specialId}/ratings`,
+      {
+        method: 'post',
+        body: JSON.stringify({
+          isAccurate,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then(response => response.json())
       .then(response => response)
       .catch((response) => {
@@ -177,8 +173,7 @@ const locationApi = {
   },
 
   getLocationSuggestions() {
-    return fetch(`${config.apiPath}/location-suggestions`).then(response =>
-      response.json());
+    return fetch(`${config.apiPath}/location-suggestions`).then(response => response.json());
   },
   postLocationSuggestion(suggestion) {
     return fetch(`${config.apiPath}/location-suggestions`, {

@@ -23,8 +23,10 @@ export class Signup extends Component {
   }
 
   render() {
-    if (this.state.failureText) {
-      return <h2>{this.state.failureText}</h2>;
+    const { failureText } = this.state;
+
+    if (failureText) {
+      return <h2>{failureText}</h2>;
     }
 
     return (

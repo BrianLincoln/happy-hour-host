@@ -18,33 +18,37 @@ const propTypes = {
 };
 
 function LocationsList(props) {
-  let locations = (
+  const {
+    fetchingData, selectedLocation, locations,
+  } = props;
+
+  let locationsComponent = (
     <div className="card">
       <h2>No Results</h2>
       <p>Try zooming out or removing filters</p>
     </div>
   );
 
-  if (props.fetchingData) {
-    locations = <div className="spinner" />;
+  if (fetchingData) {
+    locationsComponent = <div className="spinner" />;
   }
 
-  if (props.selectedLocation) {
-    locations = (
+  if (selectedLocation) {
+    locationsComponent = (
       <LocationListItem
-        key={props.selectedLocation._id}
+        key={selectedLocation._id}
         {...props.selectedLocation}
       />
     );
-  } else if (props.locations.length > 0) {
-    locations = props.locations.map(location => (
+  } else if (locations.length > 0) {
+    locationsComponent = locations.map(location => (
       <LocationListItem key={location._id} {...location} />
     ));
   }
 
   return (
     <div className="location-list-wrapper">
-      <ul className="location-list">{locations}</ul>
+      <ul className="location-list">{locationsComponent}</ul>
     </div>
   );
 }

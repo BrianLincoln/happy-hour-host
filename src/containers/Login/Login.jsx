@@ -21,7 +21,9 @@ export class Login extends Component {
   }
 
   render() {
-    const invalideLogin = this.state.invalidLogin ? (
+    const { invalidLogin } = this.state;
+
+    const invalidLoginComponent = invalidLogin ? (
       <div className="validation-text">Invalid email or password</div>
     ) : null;
 
@@ -52,7 +54,7 @@ export class Login extends Component {
               />
             </label>
           </div>
-          {invalideLogin}
+          {invalidLoginComponent}
           <button
             type="submit"
             className="button_sm button_curious space-bottom-md"
