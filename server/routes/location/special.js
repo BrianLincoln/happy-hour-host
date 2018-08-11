@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const passportUtils = require('../../utils');
 const Location = require('./../../models/location/location');
 
@@ -88,25 +89,24 @@ router.delete(
 );
 
 // UNTESTED
-// NEEDS A CHECK TO SEE IF IP HAS ALREADY RATED
+// NEEDS A CHECK TO SEE IF USER HAS ALREADY RATED
 router.post(
   '/api/locations/:locationId/specials/:specialId/ratings',
   passportUtils.verifyToken,
   (req, res) => {
     const rating = {
       isAccurate: req.body.isAccurate,
-      userIP: req.ip,
+      user: req.decoded.userId,
       dateAdded: Date.now(),
     };
 
     const query = {
-      _id: req.params.locationId,
       'specials._id': req.params.specialId,
     };
 
     Location.update(query, {
       $push: {
-        ratings: rating,
+        'specials.$.ratings': rating,
       },
     }).then((err) => {
       if (err) {

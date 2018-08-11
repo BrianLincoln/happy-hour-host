@@ -19,11 +19,21 @@
 .rate-special-form {
   text-align: center;
   min-height: $space-lg;
-  padding: 0 $space-lg;
+  padding: $space-md $space-lg;
   position: relative;
 
   & > * {
     margin-bottom: $space-md;
     width: 100%;
   }
+
+  p {
+    text-align: left;
+  }
+}
+
+.rate-special-link,
+.rate-special-link:visited {
+  color: $color-white;
+  text-decoration: underline;
 }

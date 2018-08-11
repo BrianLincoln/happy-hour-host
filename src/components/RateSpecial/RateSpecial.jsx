@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import RateSpecialForm from './RateSpecialForm';
+import { UserConsumer } from '../../utils/UserContext';
 import './RateSpecial.scss';
 import locationApi from '../../utils/LocationApi';
 
@@ -17,9 +20,7 @@ export class RateSpecial extends Component {
     };
 
     this.handleShowRateSpecialForm = this.handleShowRateSpecialForm.bind(this);
-    this.handleYesButtonClick = this.handleYesButtonClick.bind(this);
-    this.handleNoButtonClick = this.handleNoButtonClick.bind(this);
-    this.submitSpecialForm = this.submitSpecialForm.bind(this);
+    this.submitRatingForm = this.submitRatingForm.bind(this);
   }
 
   handleShowRateSpecialForm(event) {
@@ -33,19 +34,7 @@ export class RateSpecial extends Component {
     });
   }
 
-  handleYesButtonClick(event) {
-    event.preventDefault();
-
-    this.submitSpecialForm(true);
-  }
-
-  handleNoButtonClick(event) {
-    event.preventDefault();
-
-    this.submitSpecialForm(false);
-  }
-
-  submitSpecialForm(isAccurate) {
+  submitRatingForm(isAccurate) {
     const {
       locationId, _id,
     } = this.props;
@@ -60,6 +49,7 @@ export class RateSpecial extends Component {
         setTimeout(() => {
           this.setState({
             formSuccess: result.success,
+            showSpinner: false,
           });
         }, 1000);
       });
@@ -71,7 +61,8 @@ export class RateSpecial extends Component {
     const {
       formSuccess, showSpinner, showRateForm,
     } = this.state;
-    const toggleShowForm = (
+
+    const toggleShowFormComponent = (
       <button
         type="button"
         className="reset-button rate-special"
@@ -82,50 +73,63 @@ export class RateSpecial extends Component {
       </button>
     );
 
-    let formContent = (
+    const formSuccessComponent = formSuccess ? (
       <div className="rate-special-form">
-        <button
-          type="button"
-          className="button_sm button_curious"
-          onClick={this.handleYesButtonClick}
-        >
-          Yep, looks good!
-        </button>
-        <button
-          type="button"
-          className="button_sm button_valencia"
-          onClick={this.handleNoButtonClick}
-        >
-          Nope
-        </button>
+        <h3>Thanks!</h3>
       </div>
-    );
+    ) : null;
 
-    if (formSuccess) {
-      formContent = (
-        <div className="rate-special-form">
-          <h3>Thanks!</h3>
-        </div>
-      );
-    } else if (formSuccess === false) {
-      formContent = (
-        <div className="rate-special-form">
-          <h3>Error Submitting</h3>
-        </div>
-      );
-    } else if (showSpinner) {
-      formContent = (
-        <div className="rate-special-form">
-          <div className="spinner-sm" />
-        </div>
-      );
-    }
+    const formErrorComponent = formSuccess === false ? (
+      <div className="rate-special-form">
+        <h3>Error Submitting</h3>
+      </div>
+    ) : null;
+
+    const spinnerComponent = showSpinner ? (
+      <div className="rate-special-form">
+        <div className="spinner-sm" />
+      </div>
+    ) : null;
 
     return (
-      <div>
-        {toggleShowForm}
-        {showRateForm ? formContent : null}
-      </div>
+      <UserConsumer>
+        {context => (
+          <div>
+            {toggleShowFormComponent}
+            {showRateForm && context.isLoggedIn ? (
+              <RateSpecialForm submitRatingForm={this.submitRatingForm} />
+            ) : null}
+
+            {showRateForm && !context.isLoggedIn ? (
+              <div className="rate-special-form">
+                <p className="space-bottom-lg">
+                  <Link
+                    className="rate-special-link"
+                    to={{
+                      pathname: '/login',
+                    }}
+                  >
+                    Log in
+                  </Link>{' '}
+                  or{' '}
+                  <Link
+                    className="rate-special-link"
+                    to={{
+                      pathname: '/signup',
+                    }}
+                  >
+                    sign up
+                  </Link>{' '}
+                  to report inaccurate specials.
+                </p>
+              </div>
+            ) : null}
+            {formSuccessComponent}
+            {formErrorComponent}
+            {spinnerComponent}
+          </div>
+        )}
+      </UserConsumer>
     );
   }
 }

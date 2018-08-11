@@ -67,147 +67,149 @@ class App extends Component {
     const { user } = this.state;
 
     return (
-      <div className="App">
-        <header className="site-header">
-          <a className="logo" href="/">
-            <img className="logo-image" src={logo} alt="logo" />
-          </a>
-          <UserProvider value={user}>
+      <UserProvider value={user}>
+        <div className="App">
+          <header className="site-header">
+            <a className="logo" href="/">
+              <img className="logo-image" src={logo} alt="logo" />
+            </a>
             <Header />
-          </UserProvider>
-        </header>
+          </header>
 
-        <Router>
-          <div>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => <Homepage config={config} {...this.state} />}
-              />
-              <Route
-                exact
-                path="/admin"
-                render={() => <Admin config={config} />}
-              />
-              <Route
-                exact
-                path="/token-failed"
-                render={() => <TokenFailed config={config} />}
-              />
-              <Route
-                exact
-                path="/admin/city/:cityId"
-                render={meta => (
-                  <AdminCity
-                    config={config}
-                    cityId={meta.match.params.cityId}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/signup"
-                render={() => <SignUp config={config} />}
-              />
-              <Route
-                exact
-                path="/login"
-                render={() => <Login config={config} />}
-              />
-              <Route
-                exact
-                path="/signout"
-                render={() => <SignOut config={config} />}
-              />
-              <Route
-                exact
-                path="/forgot-password"
-                render={() => <ForgotPassword config={config} />}
-              />
+          <Router>
+            <div>
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Homepage config={config} {...this.state} />}
+                />
+                <Route
+                  exact
+                  path="/admin"
+                  render={() => <Admin config={config} />}
+                />
+                <Route
+                  exact
+                  path="/token-failed"
+                  render={() => <TokenFailed config={config} />}
+                />
+                <Route
+                  exact
+                  path="/admin/city/:cityId"
+                  render={meta => (
+                    <AdminCity
+                      config={config}
+                      cityId={meta.match.params.cityId}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/signup"
+                  render={() => <SignUp config={config} />}
+                />
+                <Route
+                  exact
+                  path="/login"
+                  render={() => <Login config={config} />}
+                />
+                <Route
+                  exact
+                  path="/signout"
+                  render={() => <SignOut config={config} />}
+                />
+                <Route
+                  exact
+                  path="/forgot-password"
+                  render={() => <ForgotPassword config={config} />}
+                />
 
-              <Route
-                exact
-                path="/reset-password/:token"
-                render={meta => (
-                  <ResetPassword
-                    config={config}
-                    token={meta.match.params.token}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/suggest-location"
-                render={() => <SuggestLocation config={config} />}
-              />
-              <Route
-                exact
-                path="/manage-suggestions"
-                render={() => <ManageSuggestions config={config} />}
-              />
-              <Route
-                exact
-                path="/admin/city/:cityId/neighborhood/:neighborhoodId"
-                render={meta => (
-                  <AdminNeighborhood
-                    config={config}
-                    cityId={meta.match.params.cityId}
-                    neighborhoodId={meta.match.params.neighborhoodId}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/admin/city/:cityId/location/:locationId"
-                render={meta => (
-                  <AdminLocation
-                    config={config}
-                    cityId={meta.match.params.cityId}
-                    locationId={meta.match.params.locationId}
-                  />
-                )}
-              />
+                <Route
+                  exact
+                  path="/reset-password/:token"
+                  render={meta => (
+                    <ResetPassword
+                      config={config}
+                      token={meta.match.params.token}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/suggest-location"
+                  render={() => <SuggestLocation config={config} />}
+                />
+                <Route
+                  exact
+                  path="/manage-suggestions"
+                  render={() => <ManageSuggestions config={config} />}
+                />
+                <Route
+                  exact
+                  path="/admin/city/:cityId/neighborhood/:neighborhoodId"
+                  render={meta => (
+                    <AdminNeighborhood
+                      config={config}
+                      cityId={meta.match.params.cityId}
+                      neighborhoodId={meta.match.params.neighborhoodId}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/admin/city/:cityId/location/:locationId"
+                  render={meta => (
+                    <AdminLocation
+                      config={config}
+                      cityId={meta.match.params.cityId}
+                      locationId={meta.match.params.locationId}
+                    />
+                  )}
+                />
 
-              <Route
-                exact
-                path="/:cityName/neighborhood/:neighborhoodName/"
-                render={meta => (
-                  <Neighborhood
-                    config={config}
-                    cityName={meta.match.params.cityName}
-                    neighborhoodName={meta.match.params.neighborhoodName}
-                    neighborhood={
-                      meta.location.state
-                        ? meta.location.state.neighborhood
-                        : null
-                    }
-                    locations={
-                      meta.location.state ? meta.location.state.locations : null
-                    }
-                    fetchingLocations={
-                      meta.location.state
-                        ? meta.location.state.fetchingLocations
-                        : null
-                    }
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/locations/:locationId/:cityName?/:locationName?"
-                render={meta => (
-                  <Location
-                    config={config}
-                    location={meta.location.state}
-                    locationId={meta.match.params.locationId}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
-        </Router>
-      </div>
+                <Route
+                  exact
+                  path="/:cityName/neighborhood/:neighborhoodName/"
+                  render={meta => (
+                    <Neighborhood
+                      config={config}
+                      cityName={meta.match.params.cityName}
+                      neighborhoodName={meta.match.params.neighborhoodName}
+                      neighborhood={
+                        meta.location.state
+                          ? meta.location.state.neighborhood
+                          : null
+                      }
+                      locations={
+                        meta.location.state
+                          ? meta.location.state.locations
+                          : null
+                      }
+                      fetchingLocations={
+                        meta.location.state
+                          ? meta.location.state.fetchingLocations
+                          : null
+                      }
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/locations/:locationId/:cityName?/:locationName?"
+                  render={meta => (
+                    <Location
+                      config={config}
+                      location={meta.location.state}
+                      locationId={meta.match.params.locationId}
+                    />
+                  )}
+                />
+              </Switch>
+            </div>
+          </Router>
+        </div>
+      </UserProvider>
     );
   }
 }

@@ -159,6 +159,7 @@ const locationApi = {
         method: 'post',
         body: JSON.stringify({
           isAccurate,
+          token: localStorage.authToken,
         }),
         headers: {
           Accept: 'application/json',

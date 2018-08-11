@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 
-const {
-  Schema,
-} = mongoose;
+const { Schema } = mongoose;
 
 const Rating = new Schema({
   isAccurate: {
     type: Boolean,
     required: true,
   },
-  userIP: {
-    type: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   dateAdded: {
