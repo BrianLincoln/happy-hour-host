@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import RateSpecialForm from './RateSpecialForm';
 import { UserConsumer } from '../../utils/UserContext';
 import './RateSpecial.scss';
-import locationApi from '../../utils/LocationApi';
+import ratingApi from '../../utils/RatingApi';
 
 const propTypes = {
   _id: PropTypes.string.isRequired,
-  locationId: PropTypes.string.isRequired,
 };
 
 export class RateSpecial extends Component {
@@ -35,13 +34,9 @@ export class RateSpecial extends Component {
   }
 
   submitRatingForm(isAccurate) {
-    const {
-      locationId, _id,
-    } = this.props;
+    const { _id } = this.props;
 
-    locationApi.rateSpecial(
-      locationId, _id, isAccurate
-    ).then((result) => {
+    ratingApi.rateSpecial(_id, isAccurate).then((result) => {
       this.setState({
         showSpinner: true,
       },

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-const Rating = require('./rating');
+const Rating = require('../rating/rating');
 
-const {
-  Schema,
-} = mongoose;
+const { Schema } = mongoose;
 
 const TimeWindow = new Schema({
   start: {
@@ -31,9 +29,8 @@ const Special = new Schema({
   times: {
     type: [TimeWindow],
   },
-  ratings: {
-    type: [Rating],
-  },
+  rateCount: Number,
+  rateValue: Number,
   hasDrinkSpecial: Boolean,
   hasFoodSpecial: Boolean,
 });

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Special = require('./special');
 
-const {
-  Schema,
-} = mongoose;
+const { Schema } = mongoose;
 
 const Location = new Schema({
   name: {

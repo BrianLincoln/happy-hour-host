@@ -12,27 +12,27 @@ const Location = require('./../models/location/location');
 const cityRoutes = require('./city/city');
 const locationRoutes = require('./location/location');
 const locationSuggestionRoutes = require('./location/location-suggestion');
+const ratingRoutes = require('./rating/rating');
 
 // these should be removed
 const User = require('./../models/user.js');
 
-const isValidPassword = (user, password) =>
-  bCrypt.compareSync(password, user.password);
+const isValidPassword = (user, password) => bCrypt.compareSync(password, user.password);
 
-const createHash = password =>
-  bCrypt.hashSync(
-    password, bCrypt.genSaltSync(10), null
-  );
+const createHash = password => bCrypt.hashSync(
+  password, bCrypt.genSaltSync(10), null
+);
 
-const encode = string =>
-  encodeURIComponent(string)
-    .trim()
-    .replace(/%20/g, '-');
+const encode = string => encodeURIComponent(string)
+  .trim()
+  .replace(/%20/g, '-');
 
 module.exports = (passport) => {
   router.use(cityRoutes);
   router.use(locationRoutes);
   router.use(locationSuggestionRoutes);
+  router.use(locationSuggestionRoutes);
+  router.use(ratingRoutes);
 
   router.get([
     '/locations/:locationId',
@@ -162,8 +162,8 @@ module.exports = (passport) => {
     return (
       Math.random()
         .toString(36)
-        .substring(2, 10) +
-      Math.random()
+        .substring(2, 10)
+      + Math.random()
         .toString(36)
         .substring(2, 10)
     );

@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const passportUtils = require('../../utils');
 const Location = require('./../../models/location/location');
 
@@ -85,37 +84,6 @@ router.delete(
       .catch((err) => {
         res.status(500).send(err);
       });
-  }
-);
-
-// UNTESTED
-// NEEDS A CHECK TO SEE IF USER HAS ALREADY RATED
-router.post(
-  '/api/locations/:locationId/specials/:specialId/ratings',
-  passportUtils.verifyToken,
-  (req, res) => {
-    const rating = {
-      isAccurate: req.body.isAccurate,
-      user: req.decoded.userId,
-      dateAdded: Date.now(),
-    };
-
-    const query = {
-      'specials._id': req.params.specialId,
-    };
-
-    Location.update(query, {
-      $push: {
-        'specials.$.ratings': rating,
-      },
-    }).then((err) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-      res.json({
-        success: true,
-      });
-    });
   }
 );
 

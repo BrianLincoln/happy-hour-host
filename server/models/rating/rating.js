@@ -12,10 +12,19 @@ const Rating = new Schema({
     ref: 'User',
     required: true,
   },
-  dateAdded: {
+  special: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Special',
+  },
+  type: {
+    type: String,
+    enum: ['special', 'location'],
+    required: true,
+  },
+  date: {
     type: Date,
     required: true,
   },
 });
 
-module.exports = Rating;
+module.exports = mongoose.model('Rating', Rating);
