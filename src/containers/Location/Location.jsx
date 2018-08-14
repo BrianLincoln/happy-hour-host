@@ -43,12 +43,13 @@ class Location extends Component {
   }
 
   setDocumentTitle() {
-    const { name } = this.state;
     const {
-      city: { cityName },
+      name, city,
     } = this.state;
 
-    document.title = `${name} Happy Hour - Food & Drink Specials in ${cityName}`;
+    document.title = `${name} Happy Hour - Food & Drink Specials in ${
+      city.name
+    }`;
   }
 
   fetchLocation() {
@@ -74,6 +75,7 @@ class Location extends Component {
       website,
       googleMapLink,
       name,
+      city,
     } = this.state;
 
     if (fetchingLocation) {
@@ -107,10 +109,7 @@ class Location extends Component {
         <div className="bg-white">
           <div className="container space-bottom-xl">
             <h1 className="space-top-xl">{name}</h1>
-            <h3 className="space-bottom-md">
-              in
-              {name}
-            </h3>
+            <h3 className="space-bottom-md">in {city.name}</h3>
             <div className="space-bottom-xl">
               {websiteLinkComponent}
               {googleMapLinkComponent}
