@@ -5,8 +5,10 @@ const ratingApi = {
     return fetch(`${config.apiPath}/ratings`, {
       method: 'post',
       body: JSON.stringify({
-        isAccurate,
-        specialId,
+        rating: {
+          isAccurate,
+          specialId,
+        },
         token: localStorage.authToken,
       }),
       headers: {
