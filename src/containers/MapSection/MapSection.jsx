@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import config from '../../config';
 import Filter from '../../components/Filter/Filter';
 import Map from '../../components/Map/MapContainer';
 import LocationsList from '../../components/Locations/LocationsList';
@@ -104,8 +106,10 @@ export class MapSection extends Component {
         bounds,
         filters
       );
+
       this.setState({
         filteredLocations,
+        resultsCapped: Boolean(filteredLocations.length === config.mapResultsCap),
       });
     }
   }
@@ -187,6 +191,7 @@ export class MapSection extends Component {
       selectedLocation,
       filters,
       fetchingData,
+      resultsCapped,
     } = this.state;
     const { initialZoom } = this.props;
 
@@ -221,6 +226,18 @@ export class MapSection extends Component {
               activeTime={filters.time}
             />
           )}
+
+          <CSSTransition
+            in={resultsCapped}
+            timeout={300}
+            classNames="results-cap-dislaimer"
+            unmountOnExit
+          >
+            <div className="results-cap-dislaimer">
+              Too many results, zoom in to see more
+            </div>
+          </CSSTransition>
+
           <LocationsList
             activeDays={filters.days}
             activeTime={filters.time}
@@ -231,6 +248,7 @@ export class MapSection extends Component {
             fetchingData={fetchingData}
             handleLocationDeselect={this.handleLocationDeselect}
             selectedLocation={selectedLocation}
+            resultsCapped={resultsCapped}
           />
         </div>
       </div>

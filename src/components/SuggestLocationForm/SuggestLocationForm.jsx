@@ -82,7 +82,7 @@ export class SuggestLocationForm extends Component {
         onSubmit={this.handleSubmit}
       >
         <div className="card col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-          <div className="card-heading">Suggest Location</div>
+          <div className="card-heading">Suggest a location</div>
           <div className="form-element">
             <label className="font-title-sm form-label" htmlFor="city">
               City:

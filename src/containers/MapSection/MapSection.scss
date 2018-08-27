@@ -16,6 +16,32 @@
   }
 }
 
+.results-cap-dislaimer {
+  @extend %font-base-alt;
+  background: $color-curious;
+  color: $color-white;
+  padding: $space-md;
+}
+
+.results-cap-dislaimer-enter {
+  opacity: 0.01;
+  transform: scale(0.9) translateX(-99%);
+}
+.results-cap-dislaimer-enter-active {
+  opacity: 1;
+  transform: scale(1) translateX(0%);
+  transition: all 300ms ease-out;
+}
+.results-cap-dislaimer-exit {
+  opacity: 1;
+  transform: scale(1) translateX(0%);
+}
+.results-cap-dislaimer-exit-active {
+  opacity: 0.01;
+  transform: scale(0.9) translateX(-99%);
+  transition: all 300ms ease-out;
+}
+
 @media (min-width: $breakpoint-sm) {
   .map-search-container {
     display: flex;

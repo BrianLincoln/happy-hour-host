@@ -2,6 +2,13 @@
 // TODO: enable linting, fix issues
 
 import _ from 'lodash';
+import config from '../config';
+
+const { mapResultsCap } = config;
+
+function limitResults(results, cap) {
+  return results.length > cap ? results.slice(0, cap) : results;
+}
 
 const locationFilter = {
   filter: (locations, mapBounds, filters) => {
@@ -31,7 +38,7 @@ const locationFilter = {
       }
     });
 
-    return result;
+    return limitResults(result, mapResultsCap);
   },
 
   filterByMapPoly: (locations, mapPoly) => {
@@ -43,7 +50,8 @@ const locationFilter = {
 
       return positionIsInPoly(point, mapPoly);
     });
-    return result;
+
+    return limitResults(result, resultCap);
   },
 };
 
