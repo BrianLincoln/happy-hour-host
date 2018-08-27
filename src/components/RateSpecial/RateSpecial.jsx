@@ -45,6 +45,7 @@ export class RateSpecial extends Component {
           this.setState({
             formSuccess: result.success,
             showSpinner: false,
+            showRateForm: false,
           });
         }, 1000);
       });
@@ -77,6 +78,7 @@ export class RateSpecial extends Component {
     const formErrorComponent = formSuccess === false ? (
       <div className="rate-special-form">
         <h3>Error Submitting</h3>
+        <p>We are looking into it. Please try again later.</p>
       </div>
     ) : null;
 

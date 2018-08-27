@@ -18,17 +18,14 @@
 
 .rate-special-form {
   text-align: center;
-  min-height: $space-lg;
-  padding: $space-md $space-lg;
-  position: relative;
+  padding: 0 0 $space-md 0;
 
-  & > * {
-    margin-bottom: $space-md;
-    width: 100%;
+  button {
+    margin: 0 $space-sm;
   }
 
   p {
-    text-align: left;
+    margin: 0;
   }
 }
 

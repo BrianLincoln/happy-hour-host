@@ -23,17 +23,17 @@ function RateSpecialForm(props) {
     <div className="rate-special-form">
       <button
         type="button"
-        className="button_sm button_curious"
+        className="button_sm button_light"
         onClick={handleYesButtonClick}
       >
-        Yep, looks good!
+        <i className="fas fa-thumbs-up" /> Yep
       </button>
       <button
         type="button"
-        className="button_sm button_valencia"
+        className="button_sm button_light"
         onClick={handleNoButtonClick}
       >
-        Nope
+        <i className="fas fa-thumbs-down" /> No
       </button>
     </div>
   );
