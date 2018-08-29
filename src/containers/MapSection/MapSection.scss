@@ -44,9 +44,10 @@
 
 @media (min-width: $breakpoint-sm) {
   .map-search-container {
+    box-shadow: 1px 0px 3px $color-medium;
     display: flex;
     flex-direction: row-reverse;
-    height: 92vh;
+    height: 70vh;
     overflow: hidden;
   }
   .map-results-wrapper {

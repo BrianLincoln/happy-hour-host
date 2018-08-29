@@ -5,6 +5,7 @@ import { UserProvider } from '../../utils/UserContext';
 import '../../sprak-styles/sprak.css';
 import './App.scss';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import Homepage from '../Homepage/Homepage';
 import Location from '../Location/Location';
 import Neighborhood from '../Neighborhood/Neighborhood';
@@ -208,6 +209,7 @@ class App extends Component {
               </Switch>
             </div>
           </Router>
+          <Footer />
         </div>
       </UserProvider>
     );
