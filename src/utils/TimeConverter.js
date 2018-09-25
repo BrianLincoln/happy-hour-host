@@ -9,10 +9,10 @@ function formatHours(hours) {
 }
 
 export default function timeConverter(time) {
-  const hours = time.substring(0, 2);
+  const hours = time.substring(0, time.indexOf(':'));
   const formattedHours = formatHours(hours);
-  const minutes = time.substring(3, 5);
+  const minutes = time.substring(time.indexOf(':') + 1, time.length);
   const suffix = hours < 12 ? 'am' : 'pm';
 
-  return `${formattedHours}:${minutes} ${suffix}`;
+  return `${formattedHours}:${minutes}${suffix}`;
 }
